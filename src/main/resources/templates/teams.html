@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title> All Teams </title>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>Team Id</th>
+			<th>Manager Id</th>
+			<th>Name</th>
+			<th>Sport</th>
+			<th>Minimum Age</th>
+			<th>Maximum Age</th>
+		</tr>
+		<tr th:each="team:${teams}">
+			<td th:text="${team.id}">Id</td>
+			<td th:text="${team.managerId}">Manager Id</td>
+			<td th:text="${team.name}">Name</td>
+			<td th:text="${team.sport}">Sport</td>
+			<td th:text="${team.minAge}">Minimum Age</td>
+			<td th:text="${team.maxAge}">Maximum Age</td>
+		</tr>
+	</table>
+</body>
+</html>
