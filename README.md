@@ -10,3 +10,5 @@ Near future:
 Later:
 
 - Login
+- Header
+- Footer

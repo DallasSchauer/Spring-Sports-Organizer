@@ -2,9 +2,11 @@
 <html lang="en" xlmns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
+	<link href = "css/tables.css" rel = "stylesheet"/>
 	<title> All Teams </title>
 </head>
 <body>
+	<div th:replace="header :: myheader"></div>
 	<table>
 		<tr>
 			<th>Team Id</th>
@@ -23,5 +25,6 @@
 			<td th:text="${team.maxAge}">Maximum Age</td>
 		</tr>
 	</table>
+	<div th:replace="footer :: myfooter"></div>
 </body>
 </html>
