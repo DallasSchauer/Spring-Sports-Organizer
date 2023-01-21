@@ -7,7 +7,32 @@
    </head>
    <body>
    <div th:fragment="myheader">
-   	<h1>HEADER</h1>
+   <style>
+   	h1 {
+		   display: inline-block;
+		   background-color: #045d5d;
+		   color: white;
+		   font-style: Helvetica;
+	   }
+	   
+	headerbox {
+			position:absolute;
+			left:0;
+			right:0;
+			width:100vw;
+			overflow: hidden;
+	}
+	
+	logo {
+			display: inline-block;
+	}
+   </style>
+   		<div class="headerbox">
+   			<p>
+   				<img src="css/images/sportsOrganizerLogo.png" alt="Logo" class="logo">
+   				<h1> CLYNCHED: Tournament Organizer</h1>
+   			</p>
+   		</div>
    </div>
    </body>
 </html>
