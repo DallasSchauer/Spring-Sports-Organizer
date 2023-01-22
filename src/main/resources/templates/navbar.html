@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<div th:fragment="mynavbar">
+	<head>
+	<style>
+	.navbarwrapper ul {
+	  list-style-type: none;
+	  margin: 0;
+	  padding: 0;
+	  overflow: hidden;
+	  background-color: #333;
+	}
+	
+	.navbarwrapper li {
+	  float: left;
+	}
+	
+	.navbarwrapper li a {
+	  display: block;
+	  color: white;
+	  text-align: center;
+	  padding: 14px 16px;
+	  text-decoration: none;
+	}
+	
+	.navbarwrapper li a:hover:not(.active) {
+	  background-color: #111;
+	}
+	
+	</style>
+	</head>
+	<body>
+	<div class="navbarwrapper">
+		<ul>
+			<li><a href="#home">HOME</a></li>
+			<li><a href="#profile">PROFILE</a></li>
+			<li><a href="#myteams">MY TEAMS</a></li>
+			<li><a href="#browseleagues">LEAGUES</a></li>
+		</ul>
+	</div>
+	
+	</body>
+</div>
+</html>
+
+

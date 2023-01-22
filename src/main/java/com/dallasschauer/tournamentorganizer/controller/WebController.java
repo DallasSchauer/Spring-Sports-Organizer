@@ -42,4 +42,9 @@ public class WebController {
 			model.addAttribute("teams", ts.findAll());
 			return "teams";
 		}
+	   
+	   @GetMapping(value = "/navbar")
+	   public String webNavBar(Model model) {
+		   return "navbar";
+	   }
 }	
