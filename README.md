@@ -9,8 +9,6 @@ Near future:
 
 Later:
 
-- Login
-- Header
 - Footer
 
 Desktop path : pictures/studywork/springbootcourse/tournament-organizer

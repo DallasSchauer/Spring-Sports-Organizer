@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dallasschauer.tournamentorganizer.utils.Utils;
 import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
+import com.dallasschauer.tournamentorganizer.entity.Team;
 import com.dallasschauer.tournamentorganizer.exception.BusinessException;
 import com.dallasschauer.tournamentorganizer.exception.EntryNotFoundException;
 import com.dallasschauer.tournamentorganizer.repository.PlayerParticipatesRepository;
@@ -52,6 +53,4 @@ public class PlayerParticipatesService {
 		ppr.deleteById(id);
 		return ret;
 	}
-	
-	
 }

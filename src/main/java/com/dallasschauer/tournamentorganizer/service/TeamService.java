@@ -59,4 +59,12 @@ public class TeamService {
 		}
 		return ret;
 	}
+	
+	public List<Team> findTeamsByPlayer (int playerId) {
+		return tr.findTeamsByPlayer(playerId);
+	}
+	
+	public List<Team> findTeamsByManager (int managerId) {
+		return tr.findTeamsByManager(managerId);
+	}
 }

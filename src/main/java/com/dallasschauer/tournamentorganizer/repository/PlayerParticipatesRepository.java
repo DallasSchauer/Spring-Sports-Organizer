@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
+import com.dallasschauer.tournamentorganizer.entity.Team;
+
 
 public interface PlayerParticipatesRepository extends JpaRepository<PlayerParticipates, Integer> {
 	@Query(value="select dob from player where id=?", nativeQuery=true)
@@ -25,4 +27,6 @@ public interface PlayerParticipatesRepository extends JpaRepository<PlayerPartic
 	@Query(value="select * from team_participates where team_id=? and player_id=?",
 			nativeQuery=true)
 	int findIdByTeamAndPlayer (int teamId, int playerId);
+	
+	
 }

@@ -1,0 +1,34 @@
+package com.dallasschauer.tournamentorganizer.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.dallasschauer.tournamentorganizer.entity.Team;
+
+import com.dallasschauer.tournamentorganizer.service.PlayerParticipatesService;
+import com.dallasschauer.tournamentorganizer.service.TeamParticipatesService;
+import com.dallasschauer.tournamentorganizer.service.TeamService;
+
+@Controller
+public class WebManagerController {
+	private final TeamService ts;
+	private final TeamParticipatesService tps;
+	
+	@Autowired
+	public WebManagerController (TeamService ts,
+			TeamParticipatesService tps) {
+		this.ts = ts;
+		this.tps = tps;
+	}
+	
+	@GetMapping(value = "/manager/teams/{id}")
+	public String managerFindTeams(@PathVariable("id") int id,
+			Model model) {
+		model.addAttribute("teams", ts.findTeamsByManager(id));
+		return "teams";
+	}
+}
