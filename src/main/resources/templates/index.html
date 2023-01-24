@@ -1,14 +1,90 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <meta charset = "ISO-8859-1" />
-      <link href = "css/styles.css" rel = "stylesheet"/>
-      <title>Spring Boot Application</title>
-   </head>
-   <body>
-      <h4>Welcome to Dallas's Sports Organizer Application</h4>
-      <br>
-      <p> Use this page to create leagues or events to organize any sporting/competitive event.
-      </p>
-   </body>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/tables.css" rel = "stylesheet"/>
+	<title> Clinched: Tournament Organizer </title>
+</head>
+
+<style>
+	.photo {
+		display: block;
+ 	 	margin-left: auto;
+  		margin-right: auto;
+		width:80vw;
+		height:1000px;
+		object-fit:cover;
+	}
+	
+	.caption {
+		text-align:center;
+		color:black;
+		font-family:Georgia, 'Times New Roman', Times, serif;
+	}
+	
+	.caption a {
+		text-align:center;
+		color:blue;
+		font-family:Georgia, 'Times New Roman', Times, serif;
+	}
+	
+	.container {
+	  position: relative;
+	  text-align: center;
+	  color: white;
+	}
+	
+	.centered {
+	  position: absolute;
+	  top: 10%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  font-size:42px;
+	}
+	
+	.button {
+	  background-color: #4CAF50;
+	  font-family:Georgia, 'Times New Roman', Times, serif;
+	  border:aliceblue;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 36px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	  top:20%; 
+	  left:50%;
+	  position: absolute;
+	  transform: translate(-50%, -50%);
+	}
+	
+	.button:hover{
+		color:black;
+	}
+</style>
+
+<body>
+	<div th:replace="header :: myheader"></div>
+	<div th:replace="navbar :: mynavbar"></div>
+	
+	<div class="container">
+		<img class="photo" src="/css/images/competition.JPG" alt="photo">
+		<div class="centered">Organize leagues. Become a manager. Join teams.</div>
+		<a class="button" href="#" >Log-In</a>
+		<div class="centered" style="top:30%"> ---OR--- </div>
+		<a class="button" style="top:40%; background-color:navy;"
+		href="#">Create an Account</a>
+	</div>
+	
+	<p class="caption"> 
+	Photo by 
+	<a href="https://unsplash.com/@mparente?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+	Micaela Parente</a> on 
+	<a href="https://unsplash.com/photos/YGgKE6aHaUw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+	Unsplash</a>
+  </p>
+  <div th:replace="footer :: myfooter"></div>
+</body>
 </html>

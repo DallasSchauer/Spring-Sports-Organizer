@@ -1,9 +1,8 @@
 
 * {
-  font-family: Tahoma, Verdana, sans-serif;
-  border-collapse: collapse; 
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  border-collapse: collapse;
 }
-
 
 
 th, tr {
@@ -12,9 +11,9 @@ th, tr {
 }
 
 
-tr:nth-child(even){background-color: #f2f2f2;}
-tr:nth-child(even){background-color: lightgrey;}
-tr:hover {color: white; background-color: darkgrey;}
+tr:nth-child(odd){color:black; background-color: #f2f2f2;}
+tr:nth-child(even){color: black;background-color: lightgrey;}
+tr:hover {color: white; background-color:black;}
 
 
 th {
