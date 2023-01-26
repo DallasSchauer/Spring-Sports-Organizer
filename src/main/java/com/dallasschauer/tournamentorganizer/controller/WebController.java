@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.dallasschauer.tournamentorganizer.entity.Account;
 import com.dallasschauer.tournamentorganizer.service.TeamParticipatesService;
 import com.dallasschauer.tournamentorganizer.service.TeamService;
 
@@ -46,5 +49,18 @@ public class WebController {
 	   @GetMapping(value = "/navbar")
 	   public String webNavBar(Model model) {
 		   return "navbar";
+	   }
+	   
+	   @GetMapping(value = "/createAccount") 
+	   public String createAccount(Model model) {
+		   model.addAttribute("account", new Account());
+		   return "createAccount";
+	   }
+	   
+	   @PostMapping(value = "/createAccount")
+	   public String createAccountSubmit
+	   (@ModelAttribute Account account, Model model) {
+		   model.addAttribute("account", account);
+		   return "teams";
 	   }
 }	
