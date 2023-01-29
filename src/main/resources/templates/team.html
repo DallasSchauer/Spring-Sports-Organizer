@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/events.css" rel = "stylesheet"/>
+	<title> Teams </title>
+</head>
+<body>
+	<div th:replace="header :: myheader"></div>
+	<div th:replace="navbar :: mynavbar"></div>
+	
+	<div class="container">
+		<div style="display:inline;" th:switch="${team.sport}">
+			<img class="avatar" th:case="0" src="/css/images/tennisAvatar.PNG" alt="pfp">
+			<img class="avatar" th:case="1" src="/css/images/baseballAvatar.PNG" alt="pfp">
+			<img class="avatar" th:case="2" src="/css/images/basketballAvatar.PNG" alt="pfp">
+			<img class="avatar" th:case="3" src="/css/images/footballAvatar.PNG" alt="pfp">
+			<img class="avatar" th:case="4" src="/css/images/hockeyAvatar.PNG" alt="pfp">
+			<img class="avatar" th:case="5" src="/css/images/soccerAvatar.PNG" alt="pfp">
+		</div>
+		<h6 style="margin-right:auto; display:inline;
+		 text-align:right;" th:text="${team.name}" />
+	</div>
+	
+	
+	
+	<!-- Manager !-->
+	<h1> Manager </h1>
+	
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Date of Birth</th>
+		<tr>
+		<tr>
+			<td th:text="${manager.id}">Id</td>
+			<td th:text="${manager.name}">Name</td>
+			<td th:text="${manager.dob}">Dob</td>
+		</tr>
+	</table>
+	
+	<!-- Players !-->
+	<h1> Players </h1>
+	
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Date of Birth</th>
+		<tr>
+		<tr th:each="player:${players}">
+			<td th:text="${player.id}">Id</td>
+			<td th:text="${player.name}">Name</td>
+			<td th:text="${player.dob}">Dob</td>
+		</tr>
+	</table>	
+	
+	<!-- Events Participated In !-->
+	<h1> Events Participated In </h1>
+	
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Max Age</th>
+			<th>Event Type</th>
+		</tr>
+		<tr th:each="event:${events}">
+			<td th:text="${event.id}" />
+			<td th:text="${event.name}" />
+			<td th:text="${event.maxAge}" />
+			<td th:switch="${event.type}">
+				<span th:case="0" th:text="League" />
+				<span th:case="1" th:text="Tournament" />	
+			</td>
+	</table>
+	
+	<div th:replace="footer :: myfooter"></div>
+</body>
+</html>

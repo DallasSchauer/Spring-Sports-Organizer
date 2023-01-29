@@ -16,4 +16,8 @@ public interface EventRepository extends JpaRepository<Event, Integer>{
 	
 	@Query(value="select * from event where sport=?", nativeQuery=true)
 	List<Event> findEventBySport(int i);
+	
+	@Query(value="select * from event where id in (select event_id from team_participates"
+			+ " where team_id=?)", nativeQuery=true)
+	List<Event> findEventsByTeamId(int id);
 }

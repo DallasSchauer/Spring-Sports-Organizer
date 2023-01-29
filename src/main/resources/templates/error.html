@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/tables.css" rel = "stylesheet"/>
+	<title> Clinched: Tournament Organizer </title>
+</head>
+
+<style>
+	.photo {
+		display: block;
+ 	 	margin-left: auto;
+  		margin-right: auto;
+		width:80vw;
+		height:1000px;
+		object-fit:cover;
+	}
+	
+	.caption {
+		text-align:center;
+		color:black;
+		font-family:Georgia, 'Times New Roman', Times, serif;
+	}
+	
+	.caption a {
+		text-align:center;
+		color:blue;
+		font-family:Georgia, 'Times New Roman', Times, serif;
+	}
+	
+	.container {
+	  position: relative;
+	  text-align: center;
+	  color: white;
+	}
+	
+	.centered {
+	  position: absolute;
+	  top: 10%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  font-size:42px;
+	}
+	
+	.button {
+	  background-color: #4CAF50;
+	  font-family:Georgia, 'Times New Roman', Times, serif;
+	  border:aliceblue;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 36px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	  top:20%; 
+	  left:50%;
+	  position: absolute;
+	  transform: translate(-50%, -50%);
+	}
+	
+	.button:hover{
+		color:black;
+	}
+</style>
+
+<body>
+	<div th:replace="header :: myheader"></div>
+	
+	<div class="container">
+		<img class="photo" src="/css/images/error.JPG" alt="photo">
+		<div class="centered">There was an error.</div>
+	</div>
+	
+	<p class="caption"> 
+	Photo by <a href="https://unsplash.com/@quinoal?utm_source=unsplash&utm
+	_medium=referral&utm_content=creditCopyText"> Quino Al</a> on <a href=
+	"https://unsplash.com/photos/P05VBPvNr3s?utm_source=unsplash&utm_medium
+	=referral&utm_content=creditCopyText">Unsplash</a>
+  </p>
+  <div th:replace="footer :: myfooter"></div>
+</body>
+</html>
+
+
+
+  

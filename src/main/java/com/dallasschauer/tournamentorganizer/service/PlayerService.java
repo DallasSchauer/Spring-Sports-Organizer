@@ -43,4 +43,8 @@ public class PlayerService {
 		pr.deleteById(id);
 		return ret;
 	}
+	
+	public List<Player> findPlayersByTeam(int id) {
+		return pr.findPlayersByTeam(id);
+	}
 }

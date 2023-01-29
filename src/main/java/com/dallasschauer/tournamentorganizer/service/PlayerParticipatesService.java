@@ -58,4 +58,8 @@ public class PlayerParticipatesService {
 	public List<PlayerParticipates> findTeamByPlayer (int id) {
 		return ppr.findByPlayerId(id);
 	}
+	
+	public List<PlayerParticipates> findByTeam (int id) {
+		return ppr.findByTeamId(id);
+	}
 }

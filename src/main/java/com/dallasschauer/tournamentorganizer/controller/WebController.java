@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
 import com.dallasschauer.tournamentorganizer.entity.Team;
 import com.dallasschauer.tournamentorganizer.service.EventService;
 import com.dallasschauer.tournamentorganizer.service.PlayerParticipatesService;
+import com.dallasschauer.tournamentorganizer.service.PlayerService;
 import com.dallasschauer.tournamentorganizer.service.TeamParticipatesService;
 import com.dallasschauer.tournamentorganizer.service.TeamService;
 
@@ -26,19 +28,22 @@ public class WebController {
 		private final TeamParticipatesService tps;
 		private final EventService es;
 		private final PlayerParticipatesService pps;
+		private final PlayerService ps;
 		
 		@Autowired
 		public WebController (TeamService ts,
 				TeamParticipatesService tps,
 				EventService es,
-				PlayerParticipatesService pps) {
+				PlayerParticipatesService pps,
+				PlayerService ps) {
 			this.ts = ts;
 			this.tps = tps;
 			this.es = es;
 			this.pps = pps;
+			this.ps = ps;
 		}
-	
-	
+		
+		
 	   @RequestMapping(value = "/index")
 	   public String index() {
 	      return "index";
@@ -54,11 +59,33 @@ public class WebController {
 		   return "events";
 	   }
 	   
+	   
+	   
 	   @GetMapping(value = "/teams") 
 		public String webTeams(Model model) {
 			model.addAttribute("teams", ts.findAllTeamsWithoutBye());
 			return "teams";
 		}
+	   
+	   @GetMapping(value ="/teams/{id}")
+	   public String teamPage 
+	   (@PathVariable("id") int id, Model model) {
+		   Team team = ts.findById(id);
+		   model.addAttribute("team", team);
+		   model.addAttribute("manager", ps.findById(team.getManagerId()));
+		   model.addAttribute("players", ps.findPlayersByTeam(id));
+		   model.addAttribute("events", es.findEventsByTeam(id));
+		   
+		   return "team";
+	   }
+	   
+	   @GetMapping(value = "/teams/players/{id}")
+	   public String personalTeams
+	   (@PathVariable("id") int id, Model model) {
+		   model.addAttribute("managedTeams", ts.findTeamsByManager(id));
+		   model.addAttribute("playerTeams", ts.findTeamsByPlayer(id));
+		   return "personalTeams";
+	   }
 	   
 	   @GetMapping(value = "/navbar")
 	   public String webNavBar(Model model) {
@@ -90,11 +117,5 @@ public class WebController {
 		   return "browseEvents";
 	   }
 	   
-	   @GetMapping(value = "/teams/{id}")
-	   public String personalTeams
-	   (@PathVariable("id") int id, Model model) {
-		   model.addAttribute("managedTeams", ts.findTeamsByManager(id));
-		   model.addAttribute("playerTeams", ts.findTeamsByPlayer(id));
-		   return "personalTeams";
-	   }
+	   
 }	
