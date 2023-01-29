@@ -52,4 +52,8 @@ public class EventService {
 	public List<Event> findAllTournaments() {
 		return er.findAllTournaments();
 	}
+	
+	public List<Event> findEventBySport(int i) {
+		return er.findEventBySport(i);
+	}
 }

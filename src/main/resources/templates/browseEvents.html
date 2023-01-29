@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/events.css" rel = "stylesheet"/>
+	<title> Browse Events </title>
+</head>
+<body>
+	<div th:replace="header :: myheader"></div>
+	<div th:replace="navbar :: mynavbar"></div>
+	
+	<h1>Browse Leagues</h1>
+	
+	<br>
+	
+	<h2>Sports interested in: 	</h2>
+	
+	<div class="sport_options">
+		<p>Tennis <input type="checkbox" id="tennis" onClick="checkTennis()"></p>
+		<p>Baseball <input type="checkbox" id="baseball" onClick="checkBaseball()"></p>
+		<p>Basketball <input type="checkbox" id="basketball" onClick="checkBasketball()"></p>
+		<p>Football <input type="checkbox" id="football" onClick="checkFootball()"/></p>
+		<p>Hockey <input type="checkbox" id="hockey" onClick="checkHockey()"/></p>
+		<p>Soccer <input type="checkbox" id="soccer" onClick="checkSoccer()"/></p>
+	</div>
+	
+	<br>
+	
+	<div id="tennisList" style="display:none">
+		<h1> Tennis Events </h1>
+		<table>
+			<tr th:each="tennisEvent:${tennisEvents}">
+				<td> 🎾 </td>
+				<td th:text="${tennisEvent.name}">Name</td>
+				<td th:text="${tennisEvent.maxAge}">Max Age</td>
+				<td th:switch="${tennisEvent.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	
+	<div id="baseballList" style="display:none">
+		<br>
+		<h1> Baseball Events </h1>
+		<table>
+			<tr th:each="baseballEvent:${baseballEvents}">
+				<td> ⚾ </td>
+				<td th:text="${baseballEvent.name}">Name</td>
+				<td th:text="${baseballEvent.maxAge}">Max Age</td>
+				<td th:switch="${baseballEvent.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	
+	<div id="basketballList" style="display:none">
+		<br>
+		<h1> Basketball Events </h1>
+		<table>
+			<tr th:each="basketballEvent:${basketballEvents}">
+				<td> 🏀 </td>
+				<td th:text="${basketballEvent.name}">Name</td>
+				<td th:text="${basketballEvent.maxAge}">Max Age</td>
+				<td th:switch="${basketballEvent.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	
+	<div id="footballList" style="display:none">
+		<br>
+		<h1> Football Events </h1>
+		<table>
+			<tr th:each="footballEvent:${footballEvents}">
+				<td> 🏈 </td>
+				<td th:text="${footballEvent.name}">Name</td>
+				<td th:text="${footballEvent.maxAge}">Max Age</td>
+				<td th:switch="${footballEvent.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	
+	<div id="hockeyList" style="display:none">
+		<br>
+		<h1> Hockey Events </h1>
+		<table>
+			<tr th:each="hockeyEvent:${hockeyEvents}">
+				<td> 🏒 </td>
+				<td th:text="${hockeyEvent.name}">Name</td>
+				<td th:text="${hockeyEvent.maxAge}">Max Age</td>
+				<td th:switch="${hockeyEvent.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	
+	<div id="soccerList" style="display:none">
+		<br>
+		<h1> Soccer Events </h1>
+		<table>
+			<tr th:each="soccerEvent:${soccerEvents}">
+				<td> ⚽ </td>
+				<td th:text="${soccerEvent.name}">Name</td>
+				<td th:text="${soccerEvent.maxAge}">Max Age</td>
+				<td th:switch="${soccerEvent.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	
+	<script>
+		function checkTennis() {
+			var checkBox = document.getElementById("tennis");
+			var text = document.getElementById("tennisList");
+			
+			if (checkBox.checked == true) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none";
+			}
+		}
+		
+		function checkBaseball() {
+			var checkBox = document.getElementById("baseball");
+			var text = document.getElementById("baseballList");
+			
+			if (checkBox.checked == true) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none";
+			}
+		}
+		
+		function checkBasketball() {
+			var checkBox = document.getElementById("basketball");
+			var text = document.getElementById("basketballList");
+			
+			if (checkBox.checked == true) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none";
+			}
+		}
+		
+		function checkFootball() {
+			var checkBox = document.getElementById("football");
+			var text = document.getElementById("footballList");
+			
+			if (checkBox.checked == true) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none";
+			}
+		}
+		
+		function checkHockey() {
+			var checkBox = document.getElementById("hockey");
+			var text = document.getElementById("hockeyList");
+			
+			if (checkBox.checked == true) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none";
+			}
+		}
+		
+		function checkSoccer() {
+			var checkBox = document.getElementById("soccer");
+			var text = document.getElementById("soccerList");
+			
+			if (checkBox.checked == true) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none";
+			}
+		}
+	</script>
+	
+	<div th:replace="footer :: myfooter"></div>
+</body>
+</html>

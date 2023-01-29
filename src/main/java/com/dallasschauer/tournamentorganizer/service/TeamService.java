@@ -67,4 +67,8 @@ public class TeamService {
 	public List<Team> findTeamsByManager (int managerId) {
 		return tr.findTeamsByManager(managerId);
 	}
+	
+	public List<Team> findAllTeamsWithoutBye() {
+		return tr.findAllTeamsWithoutBye();
+	}
 }

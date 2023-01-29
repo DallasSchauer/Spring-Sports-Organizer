@@ -1,5 +1,6 @@
 package com.dallasschauer.tournamentorganizer.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,9 @@ public class PlayerParticipatesService {
 		PlayerParticipates ret = findById(id);
 		ppr.deleteById(id);
 		return ret;
+	}
+	
+	public List<PlayerParticipates> findTeamByPlayer (int id) {
+		return ppr.findByPlayerId(id);
 	}
 }

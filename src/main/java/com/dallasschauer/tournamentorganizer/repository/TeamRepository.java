@@ -19,4 +19,7 @@ public interface TeamRepository extends JpaRepository<Team, Integer>{
 	@Query(value="select * from team where manager_id=?",
 			nativeQuery=true)
 	List<Team> findTeamsByManager(int managerId);
+	
+	@Query(value="select * from team where id != 0", nativeQuery=true)
+	List<Team> findAllTeamsWithoutBye();
 }
