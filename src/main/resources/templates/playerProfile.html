@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/events.css" rel = "stylesheet"/>
+	<title> Teams </title>
+</head>
+<body>
+	
+	<div th:replace="header :: myheader"></div>
+	<div th:replace="navbar :: mynavbar"></div>
+	
+	<h6 th:text="${player.name}" />
+	
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>Date of Birth</th>
+		</tr>
+		<tr>
+			<td th:text="${player.id}"/>
+			<td th:text="${player.dob}"/>
+		</tr>
+	</table>
+	
+	<style>
+		.button {
+	  background-color: #4CAF50;
+	  font-family:Georgia, 'Times New Roman', Times, serif;
+	  border:aliceblue;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  margin-left: auto;
+	  margin-right: auto;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 36px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	  position: relative;
+	}
+	</style>
+	
+	
+	<a class="button" th:href="@{/teams/players/{id}(id=${player.id})}">View All Teams</a>
+</body>
+</html>

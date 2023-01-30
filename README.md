@@ -2,8 +2,6 @@ TO DO
 ============
 
 Near future:
-
-- Team page
 - Make more events, teams, and managers
 - Figure out necessary pages for whole app
 - Make CSS files for two types of pages: lists and forms
@@ -24,5 +22,7 @@ Later:
 Done:
 
 - Error page
+- Team page
+- Player profile
 
 Desktop path : pictures/studywork/springbootcourse/tournament-organizer

@@ -87,6 +87,14 @@ public class WebController {
 		   return "personalTeams";
 	   }
 	   
+	   @GetMapping(value = "/players/{id}")
+	   public String playerProfile
+	   (@PathVariable("id") int id, Model model) {
+		   model.addAttribute("player", ps.findById(id));
+		   
+		   return "playerProfile";
+	   }
+	   
 	   @GetMapping(value = "/navbar")
 	   public String webNavBar(Model model) {
 		   return "navbar";

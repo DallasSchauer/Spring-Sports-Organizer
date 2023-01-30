@@ -6,6 +6,12 @@
 	<title> Teams </title>
 </head>
 <body>
+	<script>
+		function teamClicked(value) {
+        	location.href = "/teams/" + value;
+    	}
+	</script>
+
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
 	
@@ -19,7 +25,8 @@
 			<th>Name</th>
 			<th>Maximum Age</th>
 		</tr>
-		<tr th:each="team:${playerTeams}">
+		<tr th:each="team:${playerTeams}" style="cursor: pointer"
+		 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
 			<td th:switch="${team.sport}">
 				<span th:case="0"><p>🎾</p></span>
 				<span th:case="1"><p>⚾</p></span>
@@ -45,7 +52,8 @@
 			<th>Name</th>
 			<th>Maximum Age</th>
 		</tr>
-		<tr th:each="team:${managedTeams}">
+		<tr th:each="team:${managedTeams}" style="cursor: pointer"
+		 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
 			<td th:switch="${team.sport}">
 				<span th:case="0"><p>🎾</p></span>
 				<span th:case="1"><p>⚾</p></span>

@@ -6,6 +6,12 @@
 	<title> Teams </title>
 </head>
 <body>
+	<script>
+		function teamClicked(value) {
+        	location.href = "/teams/" + value;
+    	}
+	</script>
+	
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
 	
@@ -18,7 +24,8 @@
 			<th>Minimum Age</th>
 			<th>Maximum Age</th>
 		</tr>
-		<tr th:each="team:${teams}">
+		<tr th:each="team:${teams}" style="cursor: pointer"
+		th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
 			<td th:text="${team.id}">Id</td>
 			<td th:text="${team.managerId}">Manager Id</td>
 			<td th:text="${team.name}">Name</td>
