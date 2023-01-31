@@ -6,9 +6,16 @@ create table account(
 	constraint account_type_check check (0 <= account_type and account_type <= 2)
 );
 
+create table player(
+	id int auto_increment primary key,
+	name varchar(20) not null,
+	dob Date not null,
+	preferred_position varchar(20) default 'Any'
+);
+
 create table team(
 	id int auto_increment primary key,
-	manager_id int references account(id) on delete cascade,
+	manager_id int references player(id) on delete cascade,
 	name varchar(30) not null,
 	sport int default 0,
 	min_age int default 0,
@@ -19,16 +26,11 @@ create table team(
 	constraint team_sport_check check (0 <= sport and sport <= 5)
 );
 
-create table player(
-	id int auto_increment primary key,
-	name varchar(20) not null,
-	dob Date not null,
-	preferred_position varchar(20) default 'Any'
-);
+
 
 create table event(
 	id int auto_increment primary key,
-	name varchar(20) not null,
+	name varchar(40) not null,
 	max_age int default 150,
 	max_teams int not null,
 	sport int not null,

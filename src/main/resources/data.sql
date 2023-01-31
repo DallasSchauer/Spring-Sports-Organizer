@@ -20,20 +20,20 @@ insert into player (name, dob) values ('Zack', '2000-05-19');
 
 insert into team (id, manager_id, name) values (0, 1, 'BYE');
 insert into team (manager_id, name, sport) values (2, 'Freddies Freakers', 0);
-insert into team (manager_id, name, sport) values (2, 'Hip Cats', 0);
-insert into team (manager_id, name, sport) values (2, 'El Philippinos', 0);
-insert into team (manager_id, name, sport) values (2, 'The Crows', 0);
-insert into team (manager_id, name, sport) values (2, 'F AND F', 0);
-insert into team (manager_id, name, sport) values (2, 'Tubby Hunters', 0);
+insert into team (manager_id, name, sport) values (12, 'Hip Cats', 0);
+insert into team (manager_id, name, sport) values (3, 'El Philippinos', 0);
+insert into team (manager_id, name, sport) values (5, 'The Crows', 0);
+insert into team (manager_id, name, sport) values (4, 'F AND F', 0);
+insert into team (manager_id, name, sport) values (7, 'Tubby Hunters', 0);
 
 insert into player_participates (team_id, player_id) values (1, 2);
 insert into player_participates (team_id, player_id) values (1, 8);
-insert into player_participates (team_id, player_id) values (2, 11);
-insert into player_participates (team_id, player_id) values (2, 14);
+insert into player_participates (team_id, player_id) values (2, 12);
+insert into player_participates (team_id, player_id) values (2, 15);
 insert into player_participates (team_id, player_id) values (3, 3);
-insert into player_participates (team_id, player_id) values (3, 13);
+insert into player_participates (team_id, player_id) values (3, 14);
 insert into player_participates (team_id, player_id) values (4, 5);
-insert into player_participates (team_id, player_id) values (4, 9);
+insert into player_participates (team_id, player_id) values (4, 10);
 insert into player_participates (team_id, player_id) values (5, 1);
 insert into player_participates (team_id, player_id) values (5, 4);
 insert into player_participates (team_id, player_id) values (6, 6);
@@ -53,8 +53,8 @@ insert into team_participates (event_id, team_id) values (1, 6);
 
 
 insert into team (manager_id, name, sport) values (2, 'GFuel Boys', 0);
-insert into team (manager_id, name, sport) values (2, 'HBEMTLP', 0);
-insert into team (manager_id, name, sport) values (2, 'League of Legends', 0);
+insert into team (manager_id, name, sport) values (8, 'HBEMTLP', 0);
+insert into team (manager_id, name, sport) values (9, 'League of Legends', 0);
 
 insert into player_participates (team_id, player_id) values (7, 2);
 insert into player_participates (team_id, player_id) values (7, 11);
@@ -132,19 +132,21 @@ insert into team_participates (event_id, team_id) values (4, 17);
 insert into team_participates (event_id, team_id) values (4, 18);
 insert into team_participates (event_id, team_id) values (4, 19);
 
-insert into team (manager_id, name, sport) values (2, 'Yankees', 1);
-insert into team (manager_id, name, sport) values (2, 'Mets', 1);
-insert into team (manager_id, name, sport) values (2, 'Red Sox', 1);
-insert into team (manager_id, name, sport) values (2, 'Cubs', 1);
-insert into team (manager_id, name, sport) values (2, 'Astros', 1);
-insert into team (manager_id, name, sport) values (2, 'Cardinals', 1);
-insert into team (manager_id, name, sport) values (2, 'Dodgers', 1);
-insert into team (manager_id, name, sport) values (2, 'Giants', 1);
-insert into team (manager_id, name, sport) values (2, 'Braves', 1);
-insert into team (manager_id, name, sport) values (2, 'Twins', 1);
+insert into player (name, dob) values ('Rob Manfred', '1950-02-03');
+
+insert into team (manager_id, name, sport) values (16, 'New York Yankees', 1);
+insert into team (manager_id, name, sport) values (16, 'New York Mets', 1);
+insert into team (manager_id, name, sport) values (16, 'Boston Red Sox', 1);
+insert into team (manager_id, name, sport) values (16, 'Chicago Cubs', 1);
+insert into team (manager_id, name, sport) values (16, 'Houston Astros', 1);
+insert into team (manager_id, name, sport) values (16, 'St Louis Cardinals', 1);
+insert into team (manager_id, name, sport) values (16, 'Los Angeles Dodgers', 1);
+insert into team (manager_id, name, sport) values (16, 'San Francisco Giants', 1);
+insert into team (manager_id, name, sport) values (16, 'Atlanta Braves', 1);
+insert into team (manager_id, name, sport) values (16, 'Minnesota Twins', 1);
 
 insert into event (name, max_teams, sport, event_type, avg_hours) values
-('2022 MLB', 10, 1, 0, 3.0);
+('2023 MLB', 10, 1, 0, 3.0);
 insert into league_details (event_id, start_date, end_date, num_games)
 values (5, '2022-04-01', '2022-09-30', 20);
 
@@ -158,3 +160,14 @@ insert into team_participates (event_id, team_id) values (5, 26);
 insert into team_participates (event_id, team_id) values (5, 27);
 insert into team_participates (event_id, team_id) values (5, 28);
 insert into team_participates (event_id, team_id) values (5, 29);
+
+insert into player (name, dob) values ('Adam Silver', '1962-07-21');
+
+insert into team (manager_id, name, sport) values (17, 'Harlem Globetrotters', 2);
+insert into team (manager_id, name, sport) values (17, 'Washington Generals', 2);
+
+insert into event (name, max_teams, sport, event_type, avg_hours) values
+('2023 Harlem Globetrotters Tour', 2, 2, 0, 2.5);
+
+insert into team_participates (event_id, team_id) values (6, 30);
+insert into team_participates (event_id, team_id) values (6, 31);
