@@ -2,6 +2,7 @@ TO DO
 ============
 
 Near future:
+- Add new logo and link on footer
 - Make more events, teams, and managers
 - Merge accounts and players
 - Make some players for multiple sports
@@ -29,3 +30,6 @@ Done:
 - Player profile
 
 Desktop path : pictures/studywork/springbootcourse/tournament-organizer
+
+Their website: 
+- https://fiverr.com/share/0z2QAE (Aurora Design)
