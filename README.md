@@ -3,6 +3,7 @@ TO DO
 
 Near future:
 - Add new logo and link on footer
+- Copy DB changes from work laptop
 - Make more events, teams, and managers
 - Merge accounts and players
 - Make some players for multiple sports
