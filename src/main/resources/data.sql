@@ -1,22 +1,35 @@
-insert into account (username, password, account_type) values ('admin', 'admin123', 0);
-insert into account (username, password, account_type) values ('manager', 'manager123', 1);
-insert into account (username, password, account_type) values ('player', 'player123', 2);
-
-insert into player (name, dob) values ('Alyssa', '1999-12-26');
-insert into player (name, dob) values ('Brody', '1999-09-26');
-insert into player (name, dob) values ('Casey', '2000-05-02');
-insert into player (name, dob) values ('Dallas', '1999-10-29');
-insert into player (name, dob) values ('Dylan', '2000-02-01');
-insert into player (name, dob) values ('Hunter L', '2000-01-01');
-insert into player (name, dob) values ('Hunter S', '2000-01-17');
-insert into player (name, dob) values ('Justin', '2000-05-19');
-insert into player (name, dob) values ('Ryan', '2000-01-01');
-insert into player (name, dob) values ('Savion', '2000-01-16');
-insert into player (name, dob) values ('Shawn', '2000-01-29');
-insert into player (name, dob) values ('Thomas', '2000-02-04');
-insert into player (name, dob) values ('Tyler', '2000-01-07');
-insert into player (name, dob) values ('Yuriy', '2000-06-03');
-insert into player (name, dob) values ('Zack', '2000-05-19');
+insert into player (id, username, password, name, dob) values 
+ (0, 'SUPER_USER', 'Admin123!', 'Super User', '2000-01-01');
+insert into player (username, password, name, dob) values 
+ ('PhoenixFireE3', 'User1!', 'Alyssa', '1999-12-26');
+insert into player (username, password, name, dob) values 
+ ('Ori', 'User1!', 'Brody', '1999-09-26');
+insert into player (username, password, name, dob) values 
+ ('CSpokesperson', 'User1!', 'Casey', '2000-05-02');
+insert into player (username, password, name, dob) values 
+ ('djschauer', 'User1!', 'Dallas', '1999-10-29');
+insert into player (username, password, name, dob) values
+ ('xDemonChip', 'User1!', 'Dylan', '2000-02-01');
+insert into player (username, password, name, dob) values 
+ ('HunterL', 'User1!', 'Hunter L', '2000-01-01');
+insert into player (username, password, name, dob) values
+ ('Scarbruh', 'User1!', 'Hunter S', '2000-01-17');
+insert into player (username, password, name, dob) values 
+ ('LC', 'User1!', 'Justin', '2000-05-19');
+insert into player (username, password, name, dob) values 
+ ('Shiver', 'User1!', 'Ryan', '2000-01-01');
+insert into player (username, password, name, dob) values 
+ ('SpookyJohnson', 'User1!', 'Savion', '2000-01-16');
+insert into player (username, password, name, dob) values 
+ ('ShawnMan', 'User1!', 'Shawn', '2000-01-29');
+insert into player (username, password, name, dob) values 
+ ('Randall', 'User1!', 'Thomas', '2000-02-04');
+insert into player (username, password, name, dob) values 
+ ('Rexriptor', 'User1!', 'Tyler', '2000-01-07');
+insert into player (username, password, name, dob) values 
+ ('Yurster', 'User1!', 'Yuriy', '2000-06-03');
+insert into player (username, password, name, dob) values 
+ ('Froggery', 'User1!', 'Zack', '2000-05-19');
 
 insert into team (id, manager_id, name) values (0, 1, 'BYE');
 insert into team (manager_id, name, sport) values (2, 'Freddies Freakers', 0);
@@ -132,7 +145,8 @@ insert into team_participates (event_id, team_id) values (4, 17);
 insert into team_participates (event_id, team_id) values (4, 18);
 insert into team_participates (event_id, team_id) values (4, 19);
 
-insert into player (name, dob) values ('Rob Manfred', '1950-02-03');
+insert into player (username, password, name, dob) values 
+ ('IH8BASEBALL', 'User1!', 'Rob Manfred', '1950-02-03');
 
 insert into team (manager_id, name, sport) values (16, 'New York Yankees', 1);
 insert into team (manager_id, name, sport) values (16, 'New York Mets', 1);
@@ -161,13 +175,29 @@ insert into team_participates (event_id, team_id) values (5, 27);
 insert into team_participates (event_id, team_id) values (5, 28);
 insert into team_participates (event_id, team_id) values (5, 29);
 
-insert into player (name, dob) values ('Adam Silver', '1962-07-21');
+insert into player (username, password, name, dob) values 
+ ('NBApres', 'User1!', 'Adam Silver', '1962-07-21');
 
-insert into team (manager_id, name, sport) values (17, 'Harlem Globetrotters', 2);
-insert into team (manager_id, name, sport) values (17, 'Washington Generals', 2);
+insert into team (manager_id, name, sport) values (17, 'Shirts', 2);
+insert into team (manager_id, name, sport) values (17, 'Skins', 2);
 
 insert into event (name, max_teams, sport, event_type, avg_hours) values
-('2023 Harlem Globetrotters Tour', 2, 2, 0, 2.5);
+('2019 Summer Basketball Games', 2, 2, 0, 1);
 
 insert into team_participates (event_id, team_id) values (6, 30);
 insert into team_participates (event_id, team_id) values (6, 31);
+
+insert into player_participates (team_id, player_id) values (30, 1);
+insert into player_participates (team_id, player_id) values (31, 2);
+insert into player_participates (team_id, player_id) values (30, 3);
+insert into player_participates (team_id, player_id) values (31, 4);
+insert into player_participates (team_id, player_id) values (30, 5);
+insert into player_participates (team_id, player_id) values (31, 7);
+insert into player_participates (team_id, player_id) values (30, 8);
+insert into player_participates (team_id, player_id) values (31, 9);
+insert into player_participates (team_id, player_id) values (30, 10);
+insert into player_participates (team_id, player_id) values (31, 11);
+insert into player_participates (team_id, player_id) values (30, 12);
+insert into player_participates (team_id, player_id) values (31, 13);
+insert into player_participates (team_id, player_id) values (30, 14);
+insert into player_participates (team_id, player_id) values (31, 15);

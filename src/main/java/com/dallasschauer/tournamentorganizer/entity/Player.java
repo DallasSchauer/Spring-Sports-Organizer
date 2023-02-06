@@ -12,25 +12,31 @@ public class Player {
 	@Column(name="id")
 	private int id;
 	
+	@Column(name="username")
+	private String username;
+	
+	@Column(name="password")
+	private String password;
+	
 	@Column(name="name")
 	private String name;
 	
 	@Column(name="dob")
 	private Date dob;
 	
-	@Column(name="preferred_position")
-	private String position;
+	@Column(name="favorite_sport")
+	private int favoriteSport;
 
 	public Player() {
 		super();
 	}
 
-	public Player(int id, String name, Date dob, String position) {
+	public Player(int id, String name, Date dob, int favoriteSport) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.dob = dob;
-		this.position = position;
+		this.favoriteSport = favoriteSport;
 	}
 	
 	public int getId() {
@@ -57,11 +63,11 @@ public class Player {
 		this.dob = dob;
 	}
 
-	public String getPosition() {
-		return position;
+	public int getFavoriteSport() {
+		return favoriteSport;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setPosition(int favoriteSport) {
+		this.favoriteSport = favoriteSport;
 	}
 }

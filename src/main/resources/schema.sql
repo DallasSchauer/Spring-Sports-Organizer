@@ -1,16 +1,10 @@
-create table account(
-	id int auto_increment primary key,
-	username varchar(20) not null,
-	password varchar(20) not null,
-	account_type int not null,
-	constraint account_type_check check (0 <= account_type and account_type <= 2)
-);
-
 create table player(
 	id int auto_increment primary key,
+	username varchar(30) not null,
 	name varchar(20) not null,
+	password varchar(20) not null,
 	dob Date not null,
-	preferred_position varchar(20) default 'Any'
+	favorite_sport int default 6
 );
 
 create table team(
@@ -23,10 +17,8 @@ create table team(
 	constraint team_age_logic check (max_age >= min_age),
 	constraint team_min_age_check check (min_age >= 0),
 	constraint team_max_age_check check (max_age <= 150),
-	constraint team_sport_check check (0 <= sport and sport <= 5)
+	constraint team_sport_check check (0 <= sport and sport <= 6)
 );
-
-
 
 create table event(
 	id int auto_increment primary key,
