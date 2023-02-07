@@ -125,5 +125,13 @@ public class WebController {
 		   return "browseEvents";
 	   }
 	   
+	   @GetMapping(value = "/events/{id}")
+	   public String individualEvents
+	   (@PathVariable("id") int id, Model model) {
+		   model.addAttribute("event", es.findById(id));
+		   model.addAttribute("teams", ts.findAllTeamsByEventId(id));
+		   return "event";
+	   }
+	   
 	   
 }	

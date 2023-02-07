@@ -6,6 +6,12 @@
 	<title> Browse Events </title>
 </head>
 <body>
+	<script>
+		function eventClicked(value) {
+			location.href = "/events/" + value;
+		}
+	</script>
+
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
 	
@@ -29,7 +35,8 @@
 	<div id="tennisList" style="display:none">
 		<h1> Tennis Events </h1>
 		<table>
-			<tr th:each="tennisEvent:${tennisEvents}">
+			<tr th:each="tennisEvent:${tennisEvents}" style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${tennisEvent.id} + '\');'">
 				<td> 🎾 </td>
 				<td th:text="${tennisEvent.name}">Name</td>
 				<td th:text="${tennisEvent.maxAge}">Max Age</td>
@@ -46,7 +53,8 @@
 		<br>
 		<h1> Baseball Events </h1>
 		<table>
-			<tr th:each="baseballEvent:${baseballEvents}">
+			<tr th:each="baseballEvent:${baseballEvents}" style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${baseballEvent.id} + '\');'">
 				<td> ⚾ </td>
 				<td th:text="${baseballEvent.name}">Name</td>
 				<td th:text="${baseballEvent.maxAge}">Max Age</td>
@@ -63,7 +71,8 @@
 		<br>
 		<h1> Basketball Events </h1>
 		<table>
-			<tr th:each="basketballEvent:${basketballEvents}">
+			<tr th:each="basketballEvent:${basketballEvents}" style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${basketballEvent.id} + '\');'">
 				<td> 🏀 </td>
 				<td th:text="${basketballEvent.name}">Name</td>
 				<td th:text="${basketballEvent.maxAge}">Max Age</td>
@@ -80,7 +89,8 @@
 		<br>
 		<h1> Football Events </h1>
 		<table>
-			<tr th:each="footballEvent:${footballEvents}">
+			<tr th:each="footballEvent:${footballEvents}" style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${footballEvent.id} + '\');'">
 				<td> 🏈 </td>
 				<td th:text="${footballEvent.name}">Name</td>
 				<td th:text="${footballEvent.maxAge}">Max Age</td>
@@ -97,7 +107,8 @@
 		<br>
 		<h1> Hockey Events </h1>
 		<table>
-			<tr th:each="hockeyEvent:${hockeyEvents}">
+			<tr th:each="hockeyEvent:${hockeyEvents}" style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${hockeyEvent.id} + '\');'">
 				<td> 🏒 </td>
 				<td th:text="${hockeyEvent.name}">Name</td>
 				<td th:text="${hockeyEvent.maxAge}">Max Age</td>
@@ -114,7 +125,8 @@
 		<br>
 		<h1> Soccer Events </h1>
 		<table>
-			<tr th:each="soccerEvent:${soccerEvents}">
+			<tr th:each="soccerEvent:${soccerEvents}" style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${soccerEvent.id} + '\');'">
 				<td> ⚽ </td>
 				<td th:text="${soccerEvent.name}">Name</td>
 				<td th:text="${soccerEvent.maxAge}">Max Age</td>
@@ -193,7 +205,6 @@
 				text.style.display = "none";
 			}
 		}
-		
 		
 	</script>
 	

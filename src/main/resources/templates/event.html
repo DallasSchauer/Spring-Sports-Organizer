@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<link href = "/css/tables.css" rel = "stylesheet"/>
-	<title> Teams </title>
+	<title> Event Page </title>
 </head>
+
 <body>
 	<script>
 		function teamClicked(value) {
@@ -15,25 +16,41 @@
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
 	
+	<h1 th:text="${event.name}" />
+	
+	<h2> Participating Teams: </h2>
+	
 	<table>
 		<tr>
+			<th>Sport</th>
 			<th>Team Id</th>
 			<th>Manager Id</th>
 			<th>Name</th>
-			<th>Sport</th>
-			<th>Minimum Age</th>
 			<th>Maximum Age</th>
 		</tr>
 		<tr th:each="team:${teams}" style="cursor: pointer"
-		th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
+		 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
+			<td th:switch="${team.sport}">
+				<span th:case="0"><p>🎾</p></span>
+				<span th:case="1"><p>⚾</p></span>
+				<span th:case="2"><p>🏀</p></span>
+				<span th:case="3"><p>🏈</p></span>
+				<span th:case="4"><p>🏒</p></span>
+				<span th:case="5"><p>⚽</p></span>
+				<span th:case="6"><p>Other<p></span>
+			</td>
 			<td th:text="${team.id}">Id</td>
 			<td th:text="${team.managerId}">Manager Id</td>
 			<td th:text="${team.name}">Name</td>
-			<td th:text="${team.sport}">Sport</td>
-			<td th:text="${team.minAge}">Minimum Age</td>
 			<td th:text="${team.maxAge}">Maximum Age</td>
 		</tr>
 	</table>
-	<div th:replace="footer :: myfooter"></div>
+	
+	<th:block th:switch="${event.type}">
+		<p th:case="0">This is a league.</p>
+		<p th:case="1">This is a tournament.</p>
+	</th>		
+			
+  <div th:replace="footer :: myfooter"></div>
 </body>
 </html>

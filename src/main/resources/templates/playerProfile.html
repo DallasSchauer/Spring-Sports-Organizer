@@ -11,17 +11,30 @@
 	<div th:replace="navbar :: mynavbar"></div>
 	
 	<h6 th:text="${player.name}" />
+	<h6 th:text="${player.username}" />
 	
 	<table>
 		<tr>
 			<th>Id</th>
 			<th>Date of Birth</th>
+			<th>Favorite Sport</th>
 		</tr>
 		<tr>
 			<td th:text="${player.id}"/>
 			<td th:text="${player.dob}"/>
+			<td th:switch="${player.favoriteSport}">
+				<span th:case="0"><p>🎾</p></span>
+				<span th:case="1"><p>⚾</p></span>
+				<span th:case="2"><p>🏀</p></span>
+				<span th:case="3"><p>🏈</p></span>
+				<span th:case="4"><p>🏒</p></span>
+				<span th:case="5"><p>⚽</p></span>
+				<span th:case="6"><p>Other<p></span>
+			</td>
 		</tr>
 	</table>
+	
+	<br>
 	
 	<style>
 		.button {

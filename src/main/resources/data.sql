@@ -1,33 +1,33 @@
 insert into player (id, username, password, name, dob) values 
  (0, 'SUPER_USER', 'Admin123!', 'Super User', '2000-01-01');
-insert into player (username, password, name, dob) values 
- ('PhoenixFireE3', 'User1!', 'Alyssa', '1999-12-26');
-insert into player (username, password, name, dob) values 
- ('Ori', 'User1!', 'Brody', '1999-09-26');
-insert into player (username, password, name, dob) values 
- ('CSpokesperson', 'User1!', 'Casey', '2000-05-02');
-insert into player (username, password, name, dob) values 
- ('djschauer', 'User1!', 'Dallas', '1999-10-29');
-insert into player (username, password, name, dob) values
- ('xDemonChip', 'User1!', 'Dylan', '2000-02-01');
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('PhoenixFireE3', 'User1!', 'Alyssa', '1999-12-26', 1);
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('Ori', 'User1!', 'Brody', '1999-09-26', 0);
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('CSpokesperson', 'User1!', 'Casey', '2000-05-02', 2);
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('djschauer', 'User1!', 'Dallas', '1999-10-29', 4);
+insert into player (username, password, name, dob, favorite_sport) values
+ ('xDemonChip', 'User1!', 'Dylan', '2000-02-01', 6);
 insert into player (username, password, name, dob) values 
  ('HunterL', 'User1!', 'Hunter L', '2000-01-01');
-insert into player (username, password, name, dob) values
- ('Scarbruh', 'User1!', 'Hunter S', '2000-01-17');
-insert into player (username, password, name, dob) values 
- ('LC', 'User1!', 'Justin', '2000-05-19');
+insert into player (username, password, name, dob, favorite_sport) values
+ ('Scarbruh', 'User1!', 'Hunter S', '2000-01-17', 1);
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('LC', 'User1!', 'Justin', '2000-05-19', 5);
 insert into player (username, password, name, dob) values 
  ('Shiver', 'User1!', 'Ryan', '2000-01-01');
-insert into player (username, password, name, dob) values 
- ('SpookyJohnson', 'User1!', 'Savion', '2000-01-16');
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('SpookyJohnson', 'User1!', 'Savion', '2000-01-16', 0);
 insert into player (username, password, name, dob) values 
  ('ShawnMan', 'User1!', 'Shawn', '2000-01-29');
-insert into player (username, password, name, dob) values 
- ('Randall', 'User1!', 'Thomas', '2000-02-04');
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('Randall', 'User1!', 'Thomas', '2000-02-04', 3);
 insert into player (username, password, name, dob) values 
  ('Rexriptor', 'User1!', 'Tyler', '2000-01-07');
-insert into player (username, password, name, dob) values 
- ('Yurster', 'User1!', 'Yuriy', '2000-06-03');
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('Yurster', 'User1!', 'Yuriy', '2000-06-03', 5);
 insert into player (username, password, name, dob) values 
  ('Froggery', 'User1!', 'Zack', '2000-05-19');
 
