@@ -5,7 +5,9 @@ Near future:
 
 - Add functionality for 'other' sport
 - Make more events, teams, and managers
-- Java web token / session store / security
+- Java web token / session store / security (post -> get ?)
+  - https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#expression-basic-objects
+  - https://www.youtube.com/watch?v=PqYVStF3a0s
 - Figure out necessary pages for whole app
 - Make CSS files for two types of pages: lists and forms
 - Create event
@@ -17,7 +19,6 @@ Near future:
 Later:
 
 - Login/security
-- Sidebar? (My teams, my events)
 
 Done:
 
