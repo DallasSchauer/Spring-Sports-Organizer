@@ -89,9 +89,9 @@ insert into team_participates (event_id, team_id) values (2, 8);
 insert into team_participates (event_id, team_id) values (2, 9);
 
 
-insert into team (manager_id, name, sport) values (2, 'Hy-Vee Heroes', 0);
-insert into team (manager_id, name, sport) values (2, 'Family Guys', 0);
-insert into team (manager_id, name, sport) values (2, 'Hydration Nation', 0);
+insert into team (manager_id, name, sport) values (8, 'Hy-Vee Heroes', 0);
+insert into team (manager_id, name, sport) values (4, 'Family Guys', 0);
+insert into team (manager_id, name, sport) values (9, 'Hydration Nation', 0);
 insert into team (manager_id, name, sport) values (2, 'Jars', 0);
 
 insert into player_participates (team_id, player_id) values (10, 7);
@@ -114,12 +114,12 @@ insert into team_participates (event_id, team_id) values (3, 11);
 insert into team_participates (event_id, team_id) values (3, 12);
 insert into team_participates (event_id, team_id) values (3, 13);
  
-insert into team (manager_id, name, sport) values (2, 'Legally Blonde', 0);
+insert into team (manager_id, name, sport) values (3, 'Legally Blonde', 0);
 insert into team (manager_id, name, sport) values (2, 'The Kongz', 0);
-insert into team (manager_id, name, sport) values (2, 'Church of Based', 0);
-insert into team (manager_id, name, sport) values (2, 'Eye of the Spider', 0);
-insert into team (manager_id, name, sport) values (2, 'Stone Men', 0);
-insert into team (manager_id, name, sport) values (2, 'Money Monkey Men', 0);
+insert into team (manager_id, name, sport) values (1, 'Church of Based', 0);
+insert into team (manager_id, name, sport) values (5, 'Eye of the Spider', 0);
+insert into team (manager_id, name, sport) values (7, 'Stone Men', 0);
+insert into team (manager_id, name, sport) values (4, 'Money Monkey Men', 0);
 
 insert into player_participates (team_id, player_id) values (14, 3);
 insert into player_participates (team_id, player_id) values (14, 12);

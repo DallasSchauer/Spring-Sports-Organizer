@@ -1,3 +1,4 @@
+DROP TABLE if EXISTS player;
 create table player(
 	id int auto_increment primary key,
 	username varchar(30) not null,
@@ -7,6 +8,7 @@ create table player(
 	favorite_sport int default 6
 );
 
+DROP TABLE if EXISTS team;
 create table team(
 	id int auto_increment primary key,
 	manager_id int references player(id) on delete cascade,
@@ -20,6 +22,7 @@ create table team(
 	constraint team_sport_check check (0 <= sport and sport <= 6)
 );
 
+DROP TABLE if EXISTS event;
 create table event(
 	id int auto_increment primary key,
 	name varchar(40) not null,
@@ -34,12 +37,14 @@ create table event(
 	constraint event_sport_check check (0 <= sport and sport <= 5)
 );
 
+DROP TABLE if EXISTS player_participates;
 create table player_participates(
 	id int auto_increment primary key,
 	team_id int references team(id) on delete cascade,
 	player_id int references player(id) on delete cascade
 );
 	
+DROP TABLE if EXISTS league_details;
 create table league_details(
 	event_id int references event(id) on delete cascade,
 	start_date date not null,
@@ -53,6 +58,7 @@ create table league_details(
 	constraint league_num_games_check check (num_games >= 1)
 );
 
+DROP TABLE if EXISTS tournament_details;
 create table tournament_details(
 	event_id int references event(id) on delete cascade,
 	start_date date not null,
@@ -65,12 +71,14 @@ create table tournament_details(
 	constraint tournament_type_check check (tournament_type >= 0 and tournament_type <=2)
 );
 
+DROP TABLE if EXISTS team_participates;
 create table team_participates(
 	id int auto_increment primary key,
 	event_id int references event(id) on delete cascade,
 	team_id int references team(id) on delete cascade
 );
 
+DROP TABLE if EXISTS game;
 create table game(
 	id int auto_increment primary key,
 	event_id int references event(id) on delete cascade,
