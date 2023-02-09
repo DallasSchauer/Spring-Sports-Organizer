@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dallasschauer.tournamentorganizer.entity.Account;
+import com.dallasschauer.tournamentorganizer.entity.Player;
 import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
 import com.dallasschauer.tournamentorganizer.entity.Team;
 import com.dallasschauer.tournamentorganizer.service.EventService;
@@ -102,14 +103,14 @@ public class WebController {
 	   
 	   @GetMapping(value = "/createAccount") 
 	   public String createAccount(Model model) {
-		   model.addAttribute("account", new Account());
+		   model.addAttribute("player", new Player());
 		   return "createAccount";
 	   }
 	   
 	   @PostMapping(value = "/createAccount")
 	   public String createAccountSubmit
-	   (@ModelAttribute Account account, Model model) {
-		   model.addAttribute("account", account);
+	   (@ModelAttribute Player player, Model model) {
+		   ps.save(player);
 		   return "teams";
 	   }
 	   

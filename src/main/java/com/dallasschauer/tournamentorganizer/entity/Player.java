@@ -63,14 +63,6 @@ public class Player {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Date getDob() {
 		return dob;
 	}
@@ -83,7 +75,15 @@ public class Player {
 		return favoriteSport;
 	}
 
-	public void setPosition(int favoriteSport) {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setFavoriteSport(int favoriteSport) {
 		this.favoriteSport = favoriteSport;
 	}
 }
