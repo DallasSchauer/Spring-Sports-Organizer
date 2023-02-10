@@ -3,6 +3,10 @@ TO DO
 
 Near future:
 
+- Fix create event form page
+- Form CSS
+- sign up for team page
+- add team to event page
 - Add functionality for 'other' sport
 - Make more events, teams, and managers
 - Java web token / session store / security (post -> get ?)
@@ -29,5 +33,7 @@ Done:
 - Copy DB changes from work laptop
 - Merge accounts and players
 - Make some players for multiple sports
+- create team form page
+- create event form page
 
 Desktop path : pictures/studywork/springbootcourse/tournament-organizer

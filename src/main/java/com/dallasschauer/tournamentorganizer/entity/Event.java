@@ -26,13 +26,13 @@ public class Event {
 	private int type;
 	
 	@Column(name="avg_hours")
-	private int avgHours;
+	private double avgHours;
 	
 	public Event() {
 		super();
 	}
 
-	public Event(int id, String name, int maxAge, int maxTeams, int sport, int type, int avgHours) {
+	public Event(int id, String name, int maxAge, int maxTeams, int sport, int type, double avgHours) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -91,11 +91,11 @@ public class Event {
 		this.type = type;
 	}
 
-	public int getAvgHours() {
+	public double getAvgHours() {
 		return avgHours;
 	}
 
-	public void setAvgHours(int avgHours) {
+	public void setAvgHours(double avgHours) {
 		this.avgHours = avgHours;
 	}
 }

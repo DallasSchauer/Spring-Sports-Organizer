@@ -14,14 +14,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dallasschauer.tournamentorganizer.entity.Account;
+import com.dallasschauer.tournamentorganizer.entity.Event;
+import com.dallasschauer.tournamentorganizer.entity.LeagueDetails;
 import com.dallasschauer.tournamentorganizer.entity.Player;
 import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
 import com.dallasschauer.tournamentorganizer.entity.Team;
+import com.dallasschauer.tournamentorganizer.entity.TournamentDetails;
+import com.dallasschauer.tournamentorganizer.model.TotalEventDetails;
 import com.dallasschauer.tournamentorganizer.service.EventService;
+import com.dallasschauer.tournamentorganizer.service.LeagueDetailsService;
 import com.dallasschauer.tournamentorganizer.service.PlayerParticipatesService;
 import com.dallasschauer.tournamentorganizer.service.PlayerService;
 import com.dallasschauer.tournamentorganizer.service.TeamParticipatesService;
 import com.dallasschauer.tournamentorganizer.service.TeamService;
+import com.dallasschauer.tournamentorganizer.service.TournamentDetailsService;
 
 @Controller
 public class WebController {
@@ -30,18 +36,24 @@ public class WebController {
 		private final EventService es;
 		private final PlayerParticipatesService pps;
 		private final PlayerService ps;
+		private final TournamentDetailsService tds;
+		private final LeagueDetailsService lds;
 		
 		@Autowired
 		public WebController (TeamService ts,
 				TeamParticipatesService tps,
 				EventService es,
 				PlayerParticipatesService pps,
-				PlayerService ps) {
+				PlayerService ps,
+				TournamentDetailsService tds,
+				LeagueDetailsService lds) {
 			this.ts = ts;
 			this.tps = tps;
 			this.es = es;
 			this.pps = pps;
 			this.ps = ps;
+			this.tds = tds;
+			this.lds = lds;
 		}
 		
 		
@@ -111,7 +123,48 @@ public class WebController {
 	   public String createAccountSubmit
 	   (@ModelAttribute Player player, Model model) {
 		   ps.save(player);
-		   return "teams";
+		   return "browseEvents";
+	   }
+	   
+	   @GetMapping(value = "/createTeam")
+	   public String createTeam(Model model) {
+		   model.addAttribute("team", new Team());
+		   return "createTeam";
+	   }
+	   
+	   @PostMapping(value = "/createTeam")
+	   public String createTeamSubmit
+	   (@ModelAttribute Team team, Model model) {
+		   team.setManagerId(0); // fix later
+		   ts.save(team);
+		   return "browseEvents";
+	   }
+	   
+	   @GetMapping(value = "/createEvent")
+	   public String createEvent (Model model) {
+		   model.addAttribute("event", new TotalEventDetails());
+		   return "createEvent";
+	   }
+	   
+	   @PostMapping(value = "/createEvent")
+	   public String createEventSubmit
+	   (@ModelAttribute TotalEventDetails event,
+		Model model) {
+		   try {
+			   Event e = event.getEventDetails();
+			   Event res = es.save(e);
+			   if (e.getType() == 0) {
+				   LeagueDetails league = event.getLeagueDetails(res.getId());
+				   lds.save(league);
+			   } else {
+				   TournamentDetails tournament = event.getTournamentDetails(res.getId());
+				   tds.save(tournament);
+			   }
+		   } catch (Exception e) {
+			   return "error";
+		   }
+		   
+		   return "events";
 	   }
 	   
 	   @GetMapping(value = "/events")

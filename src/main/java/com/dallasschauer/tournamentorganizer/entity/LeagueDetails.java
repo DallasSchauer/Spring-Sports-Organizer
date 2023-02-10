@@ -33,4 +33,68 @@ public class LeagueDetails {
 	
 	@Column(name="tournament_at_end")
 	private boolean tournamentAtEnd;
+
+	public int getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getNumGames() {
+		return numGames;
+	}
+
+	public void setNumGames(int numGames) {
+		this.numGames = numGames;
+	}
+
+	public long getDays() {
+		return days;
+	}
+
+	public void setDays(long days) {
+		this.days = days;
+	}
+
+	public Time getEarliestTime() {
+		return earliestTime;
+	}
+
+	public void setEarliestTime(Time earliestTime) {
+		this.earliestTime = earliestTime;
+	}
+
+	public Time getLatestTime() {
+		return latestTime;
+	}
+
+	public void setLatestTime(Time latestTime) {
+		this.latestTime = latestTime;
+	}
+
+	public boolean isTournamentAtEnd() {
+		return tournamentAtEnd;
+	}
+
+	public void setTournamentAtEnd(boolean tournamentAtEnd) {
+		this.tournamentAtEnd = tournamentAtEnd;
+	}
 }

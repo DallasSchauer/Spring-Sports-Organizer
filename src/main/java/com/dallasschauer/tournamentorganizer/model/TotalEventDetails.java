@@ -7,6 +7,10 @@ import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
+import com.dallasschauer.tournamentorganizer.entity.Event;
+import com.dallasschauer.tournamentorganizer.entity.LeagueDetails;
+import com.dallasschauer.tournamentorganizer.entity.TournamentDetails;
+
 public class TotalEventDetails {
 	
 
@@ -176,5 +180,39 @@ public class TotalEventDetails {
 
 	public void setTournament_type(int tournament_type) {
 		this.tournament_type = tournament_type;
+	}
+	
+	public Event getEventDetails () {
+		Event ret = new Event();
+		ret.setName(getName());
+		ret.setMaxAge(getMax_age());
+		ret.setMaxTeams(getMax_teams());
+		ret.setSport(getSport());
+		ret.setType(getEvent_type());
+		ret.setAvgHours(getAvg_hours());
+		return ret;
+	}
+	
+	public TournamentDetails getTournamentDetails (int eventId) {
+		TournamentDetails ret = new TournamentDetails();
+		ret.setEventId(eventId);
+		ret.setStartDate(this.getStart_date());
+		ret.setEndDate(this.getEnd_date());
+		ret.setEarliestTime(this.getEarliest_time());
+		ret.setLatestTime(this.getLatest_time());
+		ret.setTournamentType(this.getTournament_type());
+		return ret;
+	}
+	
+	public LeagueDetails getLeagueDetails (int eventId) {
+		LeagueDetails ret = new LeagueDetails();
+		ret.setEventId(eventId);
+		ret.setStartDate(this.getStart_date());
+		ret.setEndDate(this.getEnd_date());
+		ret.setNumGames(this.getNum_games());
+		ret.setEarliestTime(this.getEarliest_time());
+		ret.setLatestTime(this.getLatest_time());
+		ret.setTournamentAtEnd(this.isTournament_at_end());
+		return ret;
 	}
 }
