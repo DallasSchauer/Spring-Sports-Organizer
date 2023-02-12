@@ -12,6 +12,7 @@ Near future:
 - Java web token / session store / security (post -> get ?)
   - https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#expression-basic-objects
   - https://www.youtube.com/watch?v=PqYVStF3a0s
+- Add log out button and signed-in text
 - Figure out necessary pages for whole app
 - Make CSS files for two types of pages: lists and forms
 - Create event
