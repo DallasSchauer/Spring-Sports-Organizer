@@ -7,21 +7,19 @@
 </head>
 <body>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> 
-		$(document).ready(function(){
-		    $("#type_selection").on('change', function() {
-		      if ( this.value === "0")
-		      {
-		        $("#league_details_div").show();
-		        $("#tournament_details_div").hide();
-		      }
-		      else if ( this.value === "1")
-		      {
-				$("#tournament_details_div").show();
-		        $("#league_details_div").hide();
-		      }
-		    });
-		   });
+	<script type="text/javascript">
+		function showDiv(select) {
+			if (select.value==0) {
+				document.getElementById('league_details_div').style.display = "block";
+				document.getElementById('tournament_details_div').style.display = "none";
+			} else if (select.value==1) {
+				document.getElementById('league_details_div').style.display = "none";
+				document.getElementById('tournament_details_div').style.display = "block";
+			} else {
+				document.getElementById('league_details_div').style.display = "none";
+				document.getElementById('tournament_details_div').style.display = "none";
+			}
+		}
 	</script>
 	
 	<div th:replace="header :: myheader"></div>
@@ -58,7 +56,9 @@
 	<p>Latest game time: <input type="time" th:field="*{latest_time}" required/></p>
 	
 	<p>Event type: </p>
-	<select id="type_selection" name="type" th:field="*{event_type}" required>
+	<select id="type_selection" name="type"
+	th:field="*{event_type}"
+	onchange="showDiv(this)">
 		<option value="0" th:value="0">League</option>
 		<option value="1" th:value="1">Tournament</option>
 	</select>
@@ -74,6 +74,7 @@
 	</div>
 	
 	<div id="tournament_details_div" style="display:none;">
+		<p>Tournament type:</p>
 		<select name="tournament_type" th:field="*{tournament_type}" required/>
 			<option th:value="0">Single Elimination</option>
 		</select>
