@@ -4,6 +4,7 @@ TO DO
 Near future:
 
 - Fix create event form page
+(https://stackoverflow.com/questions/49603161/show-hide-a-specific-div-with-checkboxes-with-html-css)
 - Form CSS
 - sign up for team page
 - add team to event page
