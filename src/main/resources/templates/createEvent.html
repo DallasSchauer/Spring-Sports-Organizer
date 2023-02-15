@@ -48,15 +48,15 @@
 	
 	
 	<p>Maximum teams: <input type="number" th:field="*{max_teams}" 
-	min="2" max="32" value="16" required/></p>
+	min="2" max="32" th:value="16" required/></p>
 	
 	<p>Start date: <input type="date" th:field="*{start_date}" required/></p>
 	
 	<p>End date: <input type="date" th:field="*{end_date}" required/></p>
 	
-	<p>Earliest game time: <input type="time" th:field="*{earliest_time}" required/></p>
+	<p>Earliest game time: <input type="datetime-local" th:field="*{earliest_time}" required/></p>
 	
-	<p>Latest game time: <input type="time" th:field="*{latest_time}" required/></p>
+	<p>Latest game time: <input type="datetime-local" th:field="*{latest_time}" required/></p>
 	
 	<p>Event type: </p>
 	<select id="type_selection" name="type"
@@ -68,7 +68,7 @@
 	</select>
 	
 	<div id="league_details_div" style="display:none;">
-		<p>Number of games in season: <input type="number" min="0" max="162" value="10"
+		<p>Number of games in season: <input type="number" min="0" max="162" th:value="10"
 		th:field="*{num_games}" required/></p>
 		<p>Tournament at end based on results: </p>
 		<select name="endTourney" th:field="*{tournament_at_end}" required>

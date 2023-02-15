@@ -123,7 +123,7 @@ public class WebController {
 	   public String createAccountSubmit
 	   (@ModelAttribute Player player, Model model) {
 		   ps.save(player);
-		   return "browseEvents";
+		   return browseEvents(model);
 	   }
 	   
 	   @GetMapping(value = "/createTeam")
@@ -137,7 +137,7 @@ public class WebController {
 	   (@ModelAttribute Team team, Model model) {
 		   team.setManagerId(0); // fix later
 		   ts.save(team);
-		   return "browseEvents";
+		   return browseEvents(model);
 	   }
 	   
 	   @GetMapping(value = "/createEvent")
@@ -165,10 +165,11 @@ public class WebController {
 				   tds.save(tournament);
 			   }
 		   } catch (Exception e) {
+			   System.out.println(e.getMessage());
 			   return "error";
 		   }
 		   
-		   return "events";
+		   return browseEvents(model);
 	   }
 	   
 	   @GetMapping(value = "/events")

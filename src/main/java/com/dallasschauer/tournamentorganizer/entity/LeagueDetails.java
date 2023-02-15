@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name="league_details")
 public class LeagueDetails {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="event_id")
 	private int eventId;
 	
@@ -26,10 +25,10 @@ public class LeagueDetails {
 	private long days;
 	
 	@Column(name="earliest_time")
-	private LocalTime earliestTime;
+	private String earliestTime;
 	
 	@Column(name="latest_time")
-	private LocalTime latestTime;
+	private String latestTime;
 	
 	@Column(name="tournament_at_end")
 	private boolean tournamentAtEnd;
@@ -74,19 +73,19 @@ public class LeagueDetails {
 		this.days = days;
 	}
 
-	public LocalTime getEarliestTime() {
+	public String getEarliestTime() {
 		return earliestTime;
 	}
 
-	public void setEarliestTime(LocalTime earliestTime) {
+	public void setEarliestTime(String earliestTime) {
 		this.earliestTime = earliestTime;
 	}
 
-	public LocalTime getLatestTime() {
+	public String getLatestTime() {
 		return latestTime;
 	}
 
-	public void setLatestTime(LocalTime latestTime) {
+	public void setLatestTime(String latestTime) {
 		this.latestTime = latestTime;
 	}
 
