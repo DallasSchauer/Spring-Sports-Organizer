@@ -1,7 +1,7 @@
 package com.dallasschauer.tournamentorganizer.entity;
 
 import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalTime;
 
 import javax.persistence.*;
 
@@ -26,10 +26,10 @@ public class LeagueDetails {
 	private long days;
 	
 	@Column(name="earliest_time")
-	private Time earliestTime;
+	private LocalTime earliestTime;
 	
 	@Column(name="latest_time")
-	private Time latestTime;
+	private LocalTime latestTime;
 	
 	@Column(name="tournament_at_end")
 	private boolean tournamentAtEnd;
@@ -74,19 +74,19 @@ public class LeagueDetails {
 		this.days = days;
 	}
 
-	public Time getEarliestTime() {
+	public LocalTime getEarliestTime() {
 		return earliestTime;
 	}
 
-	public void setEarliestTime(Time earliestTime) {
+	public void setEarliestTime(LocalTime earliestTime) {
 		this.earliestTime = earliestTime;
 	}
 
-	public Time getLatestTime() {
+	public LocalTime getLatestTime() {
 		return latestTime;
 	}
 
-	public void setLatestTime(Time latestTime) {
+	public void setLatestTime(LocalTime latestTime) {
 		this.latestTime = latestTime;
 	}
 

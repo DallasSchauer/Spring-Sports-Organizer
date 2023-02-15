@@ -151,6 +151,10 @@ public class WebController {
 	   (@ModelAttribute TotalEventDetails event,
 		Model model) {
 		   try {
+			   if (event.getEvent_type() != 0) {
+				   event.setEvent_type(event.getEvent_type() - 1);
+			   }
+			   
 			   Event e = event.getEventDetails();
 			   Event res = es.save(e);
 			   if (e.getType() == 0) {

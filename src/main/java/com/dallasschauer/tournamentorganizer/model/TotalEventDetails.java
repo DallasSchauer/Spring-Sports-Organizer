@@ -1,7 +1,7 @@
 package com.dallasschauer.tournamentorganizer.model;
 
 import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalTime;
 
 import javax.persistence.*;
 
@@ -28,8 +28,8 @@ public class TotalEventDetails {
 	private Date end_date;
 	private int num_games;
 	private long days;
-	private Time earliest_time;
-	private Time latest_time;
+	private LocalTime earliest_time;
+	private LocalTime latest_time;
 	private boolean tournament_at_end;
 	
 	// TournamentDetails fields
@@ -41,8 +41,8 @@ public class TotalEventDetails {
 	}
 
 	public TotalEventDetails(int id, String name, int max_age, int max_teams, int sport, int event_type,
-			double avg_hours, Date start_date, Date end_date, int num_games, long days, Time earliest_time,
-			Time latest_time, boolean tournament_at_end, int tournament_type) {
+			double avg_hours, Date start_date, Date end_date, int num_games, long days, LocalTime earliest_time,
+			LocalTime latest_time, boolean tournament_at_end, int tournament_type) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -150,19 +150,19 @@ public class TotalEventDetails {
 		this.days = days;
 	}
 
-	public Time getEarliest_time() {
+	public LocalTime getEarliest_time() {
 		return earliest_time;
 	}
 
-	public void setEarliest_time(Time earliest_time) {
+	public void setEarliest_time(LocalTime earliest_time) {
 		this.earliest_time = earliest_time;
 	}
 
-	public Time getLatest_time() {
+	public LocalTime getLatest_time() {
 		return latest_time;
 	}
 
-	public void setLatest_time(Time latest_time) {
+	public void setLatest_time(LocalTime latest_time) {
 		this.latest_time = latest_time;
 	}
 
