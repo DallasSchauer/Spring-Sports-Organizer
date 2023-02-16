@@ -28,6 +28,7 @@
 		<p>Football <input type="checkbox" id="football" onClick="checkFootball()"/></p>
 		<p>Hockey <input type="checkbox" id="hockey" onClick="checkHockey()"/></p>
 		<p>Soccer <input type="checkbox" id="soccer" onClick="checkSoccer()"/></p>
+		<p>Other <input type="checkbox" id="other" onClick="checkOther()"/></p>
 	</div>
 	
 	<br>
@@ -139,6 +140,24 @@
 		<br>
 	</div>
 	
+	<div id="otherList" style="display:none">
+		<br>
+		<h1> Other Events </h1>
+		<table>
+			<tr th:each="otherEvent:${otherEvents}" style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${otherEvent.id} + '\');'">
+				<td> Other </td>
+				<td th:text="${otherEvent.name}">Name</td>
+				<td th:text="${otherEvent.maxAge}">Max Age</td>
+				<td th:switch="${otherEvent.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	
 	<script>
 		function checkTennis() {
 			var checkBox = document.getElementById("tennis");
@@ -198,6 +217,17 @@
 		function checkSoccer() {
 			var checkBox = document.getElementById("soccer");
 			var text = document.getElementById("soccerList");
+			
+			if (checkBox.checked == true) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none";
+			}
+		}
+		
+		function checkOther() {
+			var checkBox = document.getElementById("other");
+			var text = document.getElementById("otherList");
 			
 			if (checkBox.checked == true) {
 				text.style.display = "block";

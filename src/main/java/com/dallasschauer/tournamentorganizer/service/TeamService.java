@@ -47,9 +47,6 @@ public class TeamService {
 	
 	public List<Team> findAllTeamsByEventId (int id) {
 		List<Integer> teamIds = tr.findAllTeamsInEvent(id);
-		if (teamIds.isEmpty()) {
-			throw new EntryNotFoundException("No teams for this event.");
-		}
 		List<Team> ret = new ArrayList<>();
 		for (Integer i: teamIds) {
 			Optional<Team> t = tr.findById(i);

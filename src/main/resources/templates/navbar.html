@@ -30,6 +30,13 @@
 	  background-color: #111;
 	}
 	
+	.navbar-button {
+		color: white;
+		background-color: green;
+		font-size: 32px;
+		height: 100%;
+	}
+	
 	</style>
 	</head>
 	<body>
@@ -39,6 +46,11 @@
 			<li><a href="#profile">Profile</a></li>
 			<li><a href="#myteams">My Teams</a></li>
 			<li><a href="/events">Browse Events</a></li>
+			<li style="float: right;"><button class="navbar-button">Log Out</button></li>
+			<a style="float: right; color: white" href="#profile" th:text="${USER_ID}" />
+			<p style="float: right; color: white;">Signed in as: </p>
+			
+			
 		</ul>
 	</div>
 	

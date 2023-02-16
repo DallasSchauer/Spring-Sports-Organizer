@@ -181,6 +181,7 @@ public class WebController {
 		   model.addAttribute("footballEvents", es.findEventBySport(3));
 		   model.addAttribute("hockeyEvents", es.findEventBySport(4));
 		   model.addAttribute("soccerEvents", es.findEventBySport(5));
+		   model.addAttribute("otherEvents", es.findEventBySport(6));
 		   return "browseEvents";
 	   }
 	   

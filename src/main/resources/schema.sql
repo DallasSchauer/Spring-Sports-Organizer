@@ -34,7 +34,7 @@ create table event(
 	constraint event_max_age_check check (0 <= max_age and max_age <= 150),
 	constraint event_max_teams_check check (0 <= max_teams and max_teams <= 64),
 	constraint event_type_check check (0 <= event_type and event_type <= 1),
-	constraint event_sport_check check (0 <= sport and sport <= 5)
+	constraint event_sport_check check (0 <= sport and sport <= 6)
 );
 
 DROP TABLE if EXISTS player_participates;
