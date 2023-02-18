@@ -1,7 +1,7 @@
 DROP TABLE if EXISTS player;
 create table player(
 	id int auto_increment primary key,
-	username varchar(30) not null,
+	username varchar(30) unique not null,
 	name varchar(20) not null,
 	password varchar(20) not null,
 	dob Date not null,

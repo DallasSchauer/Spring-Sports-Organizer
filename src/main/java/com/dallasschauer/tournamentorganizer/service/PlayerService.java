@@ -47,4 +47,19 @@ public class PlayerService {
 	public List<Player> findPlayersByTeam(int id) {
 		return pr.findPlayersByTeam(id);
 	}
+	
+	public Player checkLogin (String username, String password) {
+		Optional<Player> res = pr.findPlayerByUsername(username);
+		if (res.isEmpty()) {
+			return null;
+		} 
+		
+		Player p = res.get();
+		
+		if (p.getPassword().equals(password)) {
+			return p;
+		}
+		
+		return null;
+	}
 }

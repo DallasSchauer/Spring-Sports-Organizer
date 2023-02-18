@@ -16,12 +16,12 @@ insert into player (username, password, name, dob, favorite_sport) values
  ('Scarbruh', 'User1!', 'Hunter S', '2000-01-17', 1);
 insert into player (username, password, name, dob, favorite_sport) values 
  ('LC', 'User1!', 'Justin', '2000-05-19', 5);
-insert into player (username, password, name, dob) values 
- ('Shiver', 'User1!', 'Ryan', '2000-01-01');
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('Shiver', 'User1!', 'Ryan', '2000-01-01', 6); 
 insert into player (username, password, name, dob, favorite_sport) values 
  ('SpookyJohnson', 'User1!', 'Savion', '2000-01-16', 0);
-insert into player (username, password, name, dob) values 
- ('ShawnMan', 'User1!', 'Shawn', '2000-01-29');
+insert into player (username, password, name, dob, favorite_sport) values 
+ ('ShawnMan', 'User1!', 'Shawn', '2000-01-29', 2);
 insert into player (username, password, name, dob, favorite_sport) values 
  ('Randall', 'User1!', 'Thomas', '2000-02-04', 3);
 insert into player (username, password, name, dob) values 

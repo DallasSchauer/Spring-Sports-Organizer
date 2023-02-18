@@ -10,7 +10,26 @@
 		function playerClicked(value) {
         	location.href = "/players/" + value;
     	}
+    	
+    	function signupClicked(player, team) {
+			location.href = "/addPlayerToTeam/" + player + "/" + team;
+		}
 	</script>
+	
+	<style>
+		.signup-button {
+			color: white;
+			background-color: green;
+			font-size: 32px;
+			height: 100%;
+		}
+		
+		.signup-container {
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	</style>
 	
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
@@ -28,8 +47,13 @@
 		<h6 style="margin-right:auto; display:inline;
 		 text-align:right;" th:text="${team.name}" />
 	</div>
-	
-	
+	<div class="signup-container">
+		<a href="/addPlayerToTeam">
+			<button class="signup-button" style="margin-right: auto; margin-left: auto;"
+			th:onClick="'javascript:signupClicked(\'' + ${USER_ID} + '\' + ${team.id});'"> 
+			Sign-Up for Team</button>
+		</a>		
+	</div>
 	
 	<!-- Manager !-->
 	<h1> Manager </h1>

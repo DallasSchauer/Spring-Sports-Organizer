@@ -3,8 +3,11 @@ TO DO
 
 Near future:
 
+- model for all pages
+- event click page
 - sign up for team page
 - add team to event page
+- Login page
 - Make more events, teams, and managers
 - Java web token / session store / security / model passing (post -> get ?)
   - https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#expression-basic-objects

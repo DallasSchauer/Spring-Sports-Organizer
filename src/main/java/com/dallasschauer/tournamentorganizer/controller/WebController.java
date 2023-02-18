@@ -62,6 +62,25 @@ public class WebController {
 	      return "index";
 	   }
 	   
+	   @RequestMapping(value = "/login")
+	   public String login(Model model) {
+		   model.addAttribute("player", new Player());
+		   return "login";
+	   }
+	   
+	   @PostMapping(value = "/login")
+	   public String login
+	   (Player player, Model model) {
+		   Player res = ps.checkLogin(player.getUsername(), player.getPassword());
+		   
+		   if (res == null) {
+			   return "login";
+		   }
+		   
+		   model.addAttribute("USER_ID", res.getId());
+		   return browseEvents(model);
+	   }
+	   
 	   @RequestMapping(value = "/leagues")
 	   public String leagues() {
 		   return "leagues";
@@ -191,6 +210,18 @@ public class WebController {
 		   model.addAttribute("event", es.findById(id));
 		   model.addAttribute("teams", ts.findAllTeamsByEventId(id));
 		   return "event";
+	   }
+	   
+	   @PostMapping(value = "/addPlayerToTeam/{player}/{team}")
+	   public String addPlayerToTeam
+	   (@PathVariable("player") int player,
+		@PathVariable("team") int team,
+		Model model) {
+		   PlayerParticipates pp = new PlayerParticipates();
+		   pp.setPlayerId(player);
+		   pp.setTeamId(team);
+		   PlayerParticipates res = pps.save(pp);
+		   return playerProfile(player, model);
 	   }
 	   
 	   
