@@ -5,6 +5,7 @@ Near future:
 
 - model for all pages
 - event click page
+- add all buttons ->
 - sign up for team page
 - add team to event page
 - Login page
