@@ -38,16 +38,34 @@
 	}
 	
 	</style>
+	
+	<script>
+		function homeClicked(value) {
+			location.href = "/home/" + value;
+		}
+		
+		function profileClicked(value) {
+			location.href = "/players/" + value;
+		}
+		
+		function myTeamsClicked(value) {
+			location.href = "/teams/players/" + value;
+		}
+	</script>
+	
 	</head>
 	<body>
 	<div class="navbarwrapper">
 		<ul>
 			<li><a href="#home">Home</a></li>
-			<li><a href="#profile">Profile</a></li>
-			<li><a href="#myteams">My Teams</a></li>
+			<li><a th:onClick="'javascript:profileClicked(\'' +
+			${session.USER_ID} + '\');'">
+			Profile</a></li>
+			<li><a th:onClick="'javascript:myTeamsClicked(\'' +
+			${session.USER_ID} + '\');'">My Teams</a></li>
 			<li><a href="/events">Browse Events</a></li>
-			<li style="float: right;"><button class="navbar-button">Log Out</button></li>
-			<a style="float: right; color: white" href="#profile" th:text="${USER_ID}" />
+			<li style="float: right;"><a href="/logout" class="navbar-button">Log Out</a></li>
+			<a style="float: right; color: white;" th:text="${session.USER_ID}" />
 			<p style="float: right; color: white;">Signed in as: </p>
 			
 			

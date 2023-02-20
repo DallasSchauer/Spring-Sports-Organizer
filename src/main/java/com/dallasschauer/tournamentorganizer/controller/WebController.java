@@ -3,6 +3,8 @@ package com.dallasschauer.tournamentorganizer.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -58,50 +60,65 @@ public class WebController {
 		
 		
 	   @RequestMapping(value = "/index")
-	   public String index() {
+	   public String index(HttpSession session) {
 	      return "index";
 	   }
 	   
 	   @RequestMapping(value = "/login")
-	   public String login(Model model) {
+	   public String login(HttpSession session, Model model) {
 		   model.addAttribute("player", new Player());
 		   return "login";
 	   }
 	   
 	   @PostMapping(value = "/login")
 	   public String login
-	   (Player player, Model model) {
+	   (HttpSession session, Player player, Model model) {
 		   Player res = ps.checkLogin(player.getUsername(), player.getPassword());
 		   
 		   if (res == null) {
 			   return "login";
 		   }
 		   
+		   session.setAttribute("USER_ID", res.getId());
 		   model.addAttribute("USER_ID", res.getId());
-		   return browseEvents(model);
+		   return browseEvents(session, model);
+	   }
+	   
+	   @GetMapping(value = "/logout")
+	   public String logout
+	   (HttpSession session, Model model) {
+		   session.removeAttribute("USER_ID");
+		   model.addAttribute("player", new Player());
+		   return "login";
 	   }
 	   
 	   @RequestMapping(value = "/leagues")
-	   public String leagues() {
+	   public String leagues(HttpSession session, Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   return "leagues";
 	   }
 	   
-	   @RequestMapping(value = "/events")
-	   public String events() {
-		   return "events";
-	   }
-	   
-	   
-	   
 	   @GetMapping(value = "/teams") 
-		public String webTeams(Model model) {
-			model.addAttribute("teams", ts.findAllTeamsWithoutBye());
+		public String webTeams(HttpSession session, Model model) {
+		   	if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   	}
+		   
+		   	model.addAttribute("teams", ts.findAllTeamsWithoutBye());
 			return "teams";
 		}
 	   
 	   @GetMapping(value ="/teams/{id}")
 	   public String teamPage 
-	   (@PathVariable("id") int id, Model model) {
+	   (HttpSession session, @PathVariable("id") int id,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   Team team = ts.findById(id);
 		   model.addAttribute("team", team);
 		   model.addAttribute("manager", ps.findById(team.getManagerId()));
@@ -113,7 +130,12 @@ public class WebController {
 	   
 	   @GetMapping(value = "/teams/players/{id}")
 	   public String personalTeams
-	   (@PathVariable("id") int id, Model model) {
+	   (HttpSession session, @PathVariable("id") int id,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   model.addAttribute("managedTeams", ts.findTeamsByManager(id));
 		   model.addAttribute("playerTeams", ts.findTeamsByPlayer(id));
 		   return "personalTeams";
@@ -121,54 +143,82 @@ public class WebController {
 	   
 	   @GetMapping(value = "/players/{id}")
 	   public String playerProfile
-	   (@PathVariable("id") int id, Model model) {
+	   (HttpSession session, @PathVariable("id") int id,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   model.addAttribute("player", ps.findById(id));
 		   
 		   return "playerProfile";
 	   }
 	   
 	   @GetMapping(value = "/navbar")
-	   public String webNavBar(Model model) {
+	   public String webNavBar(HttpSession session, 
+			   Model model) {
 		   return "navbar";
 	   }
 	   
 	   @GetMapping(value = "/createAccount") 
-	   public String createAccount(Model model) {
+	   public String createAccount(
+			   HttpSession session, Model model) {
 		   model.addAttribute("player", new Player());
 		   return "createAccount";
 	   }
 	   
 	   @PostMapping(value = "/createAccount")
 	   public String createAccountSubmit
-	   (@ModelAttribute Player player, Model model) {
+	   (HttpSession session, @ModelAttribute Player player,
+			   Model model) {
 		   ps.save(player);
-		   return browseEvents(model);
+		   return browseEvents(session, model);
 	   }
 	   
 	   @GetMapping(value = "/createTeam")
-	   public String createTeam(Model model) {
+	   public String createTeam(HttpSession session,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   model.addAttribute("team", new Team());
 		   return "createTeam";
 	   }
 	   
 	   @PostMapping(value = "/createTeam")
 	   public String createTeamSubmit
-	   (@ModelAttribute Team team, Model model) {
-		   team.setManagerId(0); // fix later
+	   (HttpSession session, @ModelAttribute Team team, 
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
+		   team.setManagerId((int)session.getAttribute("USER_ID"));
 		   ts.save(team);
-		   return browseEvents(model);
+		   return browseEvents(session, model);
 	   }
 	   
 	   @GetMapping(value = "/createEvent")
-	   public String createEvent (Model model) {
+	   public String createEvent (HttpSession session, 
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   model.addAttribute("event", new TotalEventDetails());
 		   return "createEvent";
 	   }
 	   
 	   @PostMapping(value = "/createEvent")
 	   public String createEventSubmit
-	   (@ModelAttribute TotalEventDetails event,
+	   (HttpSession session, 
+		@ModelAttribute TotalEventDetails event,
 		Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   try {
 			   if (event.getEvent_type() != 0) {
 				   event.setEvent_type(event.getEvent_type() - 1);
@@ -188,12 +238,16 @@ public class WebController {
 			   return "error";
 		   }
 		   
-		   return browseEvents(model);
+		   return browseEvents(session, model);
 	   }
 	   
 	   @GetMapping(value = "/events")
 	   public String browseEvents
-	   (Model model) {
+	   (HttpSession session, Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   model.addAttribute("tennisEvents", es.findEventBySport(0));
 		   model.addAttribute("baseballEvents", es.findEventBySport(1));
 		   model.addAttribute("basketballEvents", es.findEventBySport(2));
@@ -206,7 +260,12 @@ public class WebController {
 	   
 	   @GetMapping(value = "/events/{id}")
 	   public String individualEvents
-	   (@PathVariable("id") int id, Model model) {
+	   (HttpSession session,
+			   @PathVariable("id") int id, Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model);
+		   }
+		   
 		   model.addAttribute("event", es.findById(id));
 		   model.addAttribute("teams", ts.findAllTeamsByEventId(id));
 		   return "event";
@@ -214,14 +273,15 @@ public class WebController {
 	   
 	   @PostMapping(value = "/addPlayerToTeam/{player}/{team}")
 	   public String addPlayerToTeam
-	   (@PathVariable("player") int player,
+	   (HttpSession session,
+		@PathVariable("player") int player,
 		@PathVariable("team") int team,
 		Model model) {
 		   PlayerParticipates pp = new PlayerParticipates();
 		   pp.setPlayerId(player);
 		   pp.setTeamId(team);
 		   PlayerParticipates res = pps.save(pp);
-		   return playerProfile(player, model);
+		   return playerProfile(session, player, model);
 	   }
 	   
 	   

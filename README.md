@@ -3,6 +3,7 @@ TO DO
 
 Near future:
 
+- personal home page
 - model for all pages
 - event click page
 - add all buttons ->
