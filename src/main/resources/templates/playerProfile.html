@@ -13,6 +13,8 @@
 	<h6 th:text="${player.name}" />
 	<h6 th:text="${player.username}" />
 	
+	<p th:if="${player.id} == ${session.USER_ID}">This is YOUR account.</p>
+	
 	<table>
 		<tr>
 			<th>Id</th>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/events.css" rel = "stylesheet"/>
+	<title> Add Team to Event </title>
+</head>
+<body>
+	
+	<div th:replace="header :: myheader"></div>
+	<div th:replace="navbar :: mynavbar"></div>
+	
+	
+	<h3>Add Team to Event</h3>
+	
+	<form th:action="@{/addTeamToEvent}"
+	th:object="${participation}" method="post">
+	
+	
+	<h1>Event:</h1>
+	
+		<input type="hidden" th:value="${event.id}" th:attr="name='eventId'"/>
+	
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Max Age</th>
+				<th>Event Type</th>
+			</tr>
+			<tr th:each="e:${event}" style="cursor:pointer">
+				<td th:text="${e.id}" />
+				<td th:text="${e.name}" />
+				<td th:text="${e.maxAge}" />
+				<td th:switch="${e.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />	
+				</td>
+		</table>
+		
+		
+		
+		<h1>Team to add:</h1>
+		
+		<select th:field="*{teamId}">
+	    	<option th:each="i : ${managedTeams}" th:value="${i.id}" th:text="${i.name}">
+	    	</option>
+		</select>
+	
+	<input type="submit" value="Submit" />
+	</form>
+	
+	<div th:replace="footer :: myfooter"></div>
+	
+	
+	
+</body>
+</html>

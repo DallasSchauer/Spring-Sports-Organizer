@@ -21,6 +21,7 @@ import com.dallasschauer.tournamentorganizer.entity.LeagueDetails;
 import com.dallasschauer.tournamentorganizer.entity.Player;
 import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
 import com.dallasschauer.tournamentorganizer.entity.Team;
+import com.dallasschauer.tournamentorganizer.entity.TeamParticipates;
 import com.dallasschauer.tournamentorganizer.entity.TournamentDetails;
 import com.dallasschauer.tournamentorganizer.model.TotalEventDetails;
 import com.dallasschauer.tournamentorganizer.service.EventService;
@@ -65,8 +66,9 @@ public class WebController {
 	   }
 	   
 	   @RequestMapping(value = "/login")
-	   public String login(HttpSession session, Model model) {
+	   public String login(HttpSession session, Model model, String message) {
 		   model.addAttribute("player", new Player());
+		   model.addAttribute("message", message);
 		   return "login";
 	   }
 	   
@@ -76,12 +78,11 @@ public class WebController {
 		   Player res = ps.checkLogin(player.getUsername(), player.getPassword());
 		   
 		   if (res == null) {
-			   return "login";
+			   return login(session, model, "There was an error. Try again.");
 		   }
 		   
 		   session.setAttribute("USER_ID", res.getId());
-		   model.addAttribute("USER_ID", res.getId());
-		   return browseEvents(session, model);
+		   return home(session, model);
 	   }
 	   
 	   @GetMapping(value = "/logout")
@@ -92,10 +93,20 @@ public class WebController {
 		   return "login";
 	   }
 	   
+	   @GetMapping(value = "/home")
+	   public String home
+	   (HttpSession session, Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   return "home";
+	   }
+	   
 	   @RequestMapping(value = "/leagues")
 	   public String leagues(HttpSession session, Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   return "leagues";
@@ -104,7 +115,7 @@ public class WebController {
 	   @GetMapping(value = "/teams") 
 		public String webTeams(HttpSession session, Model model) {
 		   	if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   	}
 		   
 		   	model.addAttribute("teams", ts.findAllTeamsWithoutBye());
@@ -116,7 +127,7 @@ public class WebController {
 	   (HttpSession session, @PathVariable("id") int id,
 			   Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   Team team = ts.findById(id);
@@ -133,11 +144,13 @@ public class WebController {
 	   (HttpSession session, @PathVariable("id") int id,
 			   Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
-		   
+		
 		   model.addAttribute("managedTeams", ts.findTeamsByManager(id));
+		   
 		   model.addAttribute("playerTeams", ts.findTeamsByPlayer(id));
+		   
 		   return "personalTeams";
 	   }
 	   
@@ -146,7 +159,7 @@ public class WebController {
 	   (HttpSession session, @PathVariable("id") int id,
 			   Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   model.addAttribute("player", ps.findById(id));
@@ -179,7 +192,7 @@ public class WebController {
 	   public String createTeam(HttpSession session,
 			   Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   model.addAttribute("team", new Team());
@@ -191,7 +204,7 @@ public class WebController {
 	   (HttpSession session, @ModelAttribute Team team, 
 			   Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   team.setManagerId((int)session.getAttribute("USER_ID"));
@@ -203,7 +216,7 @@ public class WebController {
 	   public String createEvent (HttpSession session, 
 			   Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   model.addAttribute("event", new TotalEventDetails());
@@ -216,7 +229,7 @@ public class WebController {
 		@ModelAttribute TotalEventDetails event,
 		Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   try {
@@ -245,7 +258,7 @@ public class WebController {
 	   public String browseEvents
 	   (HttpSession session, Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   model.addAttribute("tennisEvents", es.findEventBySport(0));
@@ -263,7 +276,7 @@ public class WebController {
 	   (HttpSession session,
 			   @PathVariable("id") int id, Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
-			   return login(session, model);
+			   return login(session, model, "");
 		   }
 		   
 		   model.addAttribute("event", es.findById(id));
@@ -271,17 +284,52 @@ public class WebController {
 		   return "event";
 	   }
 	   
-	   @PostMapping(value = "/addPlayerToTeam/{player}/{team}")
+	   @GetMapping(value = "/addPlayerToTeam/{player}/{team}")
 	   public String addPlayerToTeam
 	   (HttpSession session,
 		@PathVariable("player") int player,
 		@PathVariable("team") int team,
 		Model model) {
-		   PlayerParticipates pp = new PlayerParticipates();
-		   pp.setPlayerId(player);
-		   pp.setTeamId(team);
-		   PlayerParticipates res = pps.save(pp);
-		   return playerProfile(session, player, model);
+		   try {
+			   PlayerParticipates pp = new PlayerParticipates();
+			   pp.setPlayerId(player);
+			   pp.setTeamId(team);
+			   PlayerParticipates res = pps.save(pp);
+		   } catch (Exception e) {
+			   System.out.println(e.getMessage());
+			   model.addAttribute("message", "ERROR: " +
+					   e.getMessage());
+			   return "addPlayerToTeam";
+		   }
+		   
+		   return teamPage(session, team, model);
+	   }
+	   
+	   @GetMapping(value = "/addTeamToEvent/{event}/{manager}")
+	   public String addTeamToEvent
+	   (HttpSession session,
+		@PathVariable("event") int event,
+		@PathVariable("manager") int manager,
+		Model model) {
+		   model.addAttribute("participation", new TeamParticipates());
+		   model.addAttribute("managedTeams", ts.findTeamsByManager(manager));
+		   model.addAttribute("event", es.findById(event));
+		   
+		   return "addTeamToEvent";
+	   }
+	   
+	   @PostMapping(value = "/addTeamToEvent")
+	   public String addTeamToEvent
+	   (HttpSession session,
+		TeamParticipates tp,
+		Model model) {
+		   try {
+			   tps.save(tp);
+		   } catch (Exception e) {
+			   System.out.println(e.getMessage());
+			   return "error";
+		   }
+		   return individualEvents(session, tp.getEventId(), model);
 	   }
 	   
 	   

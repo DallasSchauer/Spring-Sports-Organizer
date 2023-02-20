@@ -14,6 +14,8 @@
 	<p>Username: <input type="text" th:field="*{username}" required/></p>
 	<p>Password: <input type="password" th:field="*{password}" required/></p>
 	
+	<p style="color:red;"th:text="${message}" />
+	
 	<p><input type="submit" value="Submit" /></p>
 	</form>
 	

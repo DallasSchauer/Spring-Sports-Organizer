@@ -11,7 +11,23 @@
 		function teamClicked(value) {
         	location.href = "/teams/" + value;
     	}
+    	
+    	function signupClicked() {
+			var manager = "[[${session.USER_ID}]]";
+			var team = "[[${event.id}]]";
+			
+			location.href = "/addTeamToEvent/" + team + "/" + manager;
+		}
 	</script>
+	
+	<style>
+		.signup-button {
+			color: white;
+			background-color: green;
+			font-size: 32px;
+			height: 100%;
+		}
+	</style>
 	
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
@@ -45,6 +61,12 @@
 			<td th:text="${team.maxAge}">Maximum Age</td>
 		</tr>
 	</table>
+	
+	<div class="signup-container">
+			<button class="signup-button" style="position:relative; float:right;"
+			th:onClick="'javascript:signupClicked();'"> 
+			Sign-Up Team for Event</button>
+	</div>
 	
 	<th:block th:switch="${event.type}">
 		<p th:case="0">This is a league.</p>

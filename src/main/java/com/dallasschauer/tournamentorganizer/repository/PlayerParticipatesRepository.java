@@ -13,7 +13,8 @@ public interface PlayerParticipatesRepository extends JpaRepository<PlayerPartic
 	@Query(value="select dob from player where id=?", nativeQuery=true)
 	java.sql.Date findDateOfBirth(int id);
 	
-	@Query(value="select max_age from event where id=?", nativeQuery=true)
+	@Query(value="select min(max_age) from event where id in (select event_id "
+			+ "from team_participates where team_id=?)", nativeQuery=true)
 	int findMaxAgeOfEvent(int id);
 	
 	@Query(value="select * from player_participates where player_id=?",

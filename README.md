@@ -3,30 +3,21 @@ TO DO
 
 Near future:
 
+- data validation for adding team to event
+- change error page to accept error message
 - personal home page
-- model for all pages
-- event click page
-- add all buttons ->
-- sign up for team page
-- add team to event page
-- Login page
 - Make more events, teams, and managers
-- Java web token / session store / security / model passing (post -> get ?)
-  - https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#expression-basic-objects
-  - https://www.youtube.com/watch?v=PqYVStF3a0s
-- Add log out button and signed-in text
 - Figure out necessary pages for whole app
 - Create schedule / tournament schedule button
 - Schedule on home pages
-- Make navbar functional
 
-Later:
-
-- Login/security
 
 
 Done:
 
+- add team to event page
+- model for all pages
+- event click page
 - Error page
 - Team page
 - Player profile
@@ -41,5 +32,9 @@ Done:
 - Create event
 - Create league
 - Make CSS files for two types of pages: lists and forms
+- Add log out button and signed-in text
+- Login page
+- sign up for team page
+- Make navbar functional
 
 Desktop path : pictures/studywork/springbootcourse/tournament-organizer

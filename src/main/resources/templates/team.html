@@ -11,8 +11,15 @@
         	location.href = "/players/" + value;
     	}
     	
-    	function signupClicked(player, team) {
+    	function signupClicked() {
+			var player = "[[${session.USER_ID}]]";
+			var team = "[[${team.id}]]";
+			
 			location.href = "/addPlayerToTeam/" + player + "/" + team;
+		}
+		
+		function eventClicked(value) {
+			location.href = "/events/" + value;
 		}
 	</script>
 	
@@ -48,11 +55,9 @@
 		 text-align:right;" th:text="${team.name}" />
 	</div>
 	<div class="signup-container">
-		<a href="/addPlayerToTeam">
-			<button class="signup-button" style="margin-right: auto; margin-left: auto;"
-			th:onClick="'javascript:signupClicked(\'' + ${USER_ID} + '\' + ${team.id});'"> 
+			<button class="signup-button" style="position:relative; float:right;"
+			th:onClick="'javascript:signupClicked();'"> 
 			Sign-Up for Team</button>
-		</a>		
 	</div>
 	
 	<!-- Manager !-->
@@ -99,7 +104,8 @@
 			<th>Max Age</th>
 			<th>Event Type</th>
 		</tr>
-		<tr th:each="event:${events}">
+		<tr th:each="event:${events}" style="cursor:pointer"
+		th:onClick="'javascript:eventClicked(\'' + ${event.id} + '\');'">
 			<td th:text="${event.id}" />
 			<td th:text="${event.name}" />
 			<td th:text="${event.maxAge}" />

@@ -31,6 +31,9 @@
 	}
 	
 	.navbar-button {
+		-webkit-appearance: button;
+    	-moz-appearance: button;
+    	appearance: button;
 		color: white;
 		background-color: green;
 		font-size: 32px;
@@ -57,14 +60,17 @@
 	<body>
 	<div class="navbarwrapper">
 		<ul>
-			<li><a href="#home">Home</a></li>
+			<li><a href="/home">Home</a></li>
 			<li><a th:onClick="'javascript:profileClicked(\'' +
 			${session.USER_ID} + '\');'">
 			Profile</a></li>
 			<li><a th:onClick="'javascript:myTeamsClicked(\'' +
 			${session.USER_ID} + '\');'">My Teams</a></li>
 			<li><a href="/events">Browse Events</a></li>
-			<li style="float: right;"><a href="/logout" class="navbar-button">Log Out</a></li>
+			<li style="float: right;"><button onclick="location.href='/logout';
+			"  
+			class="navbar-button">
+			Log Out</button></li>
 			<a style="float: right; color: white;" th:text="${session.USER_ID}" />
 			<p style="float: right; color: white;">Signed in as: </p>
 			
