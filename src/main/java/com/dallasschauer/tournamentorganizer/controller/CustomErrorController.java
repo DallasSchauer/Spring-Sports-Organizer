@@ -1,7 +1,10 @@
 package com.dallasschauer.tournamentorganizer.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +18,8 @@ public class CustomErrorController implements ErrorController {
 	}
 	
 	@RequestMapping(value = "/error")
-	   public String error() {
+	   public String error(HttpSession session, 
+			   Model model) {
 		   return "error";
 	   }
 }

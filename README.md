@@ -3,9 +3,9 @@ TO DO
 
 Near future:
 
-- data validation for adding team to event
-- change error page to accept error message
-- personal home page
+
+- personal home page (list of games this month, in order of date)
+- Add commissioner functionality
 - Make more events, teams, and managers
 - Figure out necessary pages for whole app
 - Create schedule / tournament schedule button
@@ -15,6 +15,8 @@ Near future:
 
 Done:
 
+- data validation for adding team to event
+- change error page to accept error message
 - add team to event page
 - model for all pages
 - event click page
@@ -36,5 +38,6 @@ Done:
 - Login page
 - sign up for team page
 - Make navbar functional
+
 
 Desktop path : pictures/studywork/springbootcourse/tournament-organizer

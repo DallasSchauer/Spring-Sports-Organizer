@@ -9,6 +9,7 @@ import com.dallasschauer.tournamentorganizer.entity.TeamParticipates;
 import com.dallasschauer.tournamentorganizer.exception.BusinessException;
 import com.dallasschauer.tournamentorganizer.exception.EntryNotFoundException;
 import com.dallasschauer.tournamentorganizer.repository.TeamParticipatesRepository;
+import com.dallasschauer.tournamentorganizer.utils.Utils;
 
 @Service
 public class TeamParticipatesService {
@@ -38,5 +39,13 @@ public class TeamParticipatesService {
 		TeamParticipates ret = findById(id);
 		tpr.deleteById(id);
 		return ret;
+	}
+	
+	public int findOldestAge (int id) {
+		java.sql.Date dob = tpr.findOldestPlayer(id);
+		if (dob == null) {
+			return 0;
+		}
+		return Utils.findAge(dob);
 	}
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.dallasschauer.tournamentorganizer.entity.Account;
 import com.dallasschauer.tournamentorganizer.entity.Event;
 import com.dallasschauer.tournamentorganizer.entity.LeagueDetails;
 import com.dallasschauer.tournamentorganizer.entity.Player;
@@ -31,6 +30,7 @@ import com.dallasschauer.tournamentorganizer.service.PlayerService;
 import com.dallasschauer.tournamentorganizer.service.TeamParticipatesService;
 import com.dallasschauer.tournamentorganizer.service.TeamService;
 import com.dallasschauer.tournamentorganizer.service.TournamentDetailsService;
+import com.dallasschauer.tournamentorganizer.utils.Utils;
 
 @Controller
 public class WebController {
@@ -184,8 +184,9 @@ public class WebController {
 	   public String createAccountSubmit
 	   (HttpSession session, @ModelAttribute Player player,
 			   Model model) {
-		   ps.save(player);
-		   return browseEvents(session, model);
+		   Player res = ps.save(player);
+		   session.setAttribute("USER_ID", res.getId());
+		   return home(session, model);
 	   }
 	   
 	   @GetMapping(value = "/createTeam")
@@ -291,6 +292,19 @@ public class WebController {
 		@PathVariable("team") int team,
 		Model model) {
 		   try {
+			   Player p = ps.findById(player);
+			   Team t = ts.findById(team);
+			   
+			   if (Utils.findAge(p.getDob()) > t.getMaxAge()) {
+				   model.addAttribute("message", "Player is too old for this team.");
+				   return "error";
+			   }
+			   
+			   if (Utils.findAge(p.getDob()) < t.getMinAge()) {
+				   model.addAttribute("message", "Player is too young for this team.");
+				   return "error";
+			   }
+			   
 			   PlayerParticipates pp = new PlayerParticipates();
 			   pp.setPlayerId(player);
 			   pp.setTeamId(team);
@@ -299,7 +313,7 @@ public class WebController {
 			   System.out.println(e.getMessage());
 			   model.addAttribute("message", "ERROR: " +
 					   e.getMessage());
-			   return "addPlayerToTeam";
+			   return "error";
 		   }
 		   
 		   return teamPage(session, team, model);
@@ -324,6 +338,19 @@ public class WebController {
 		TeamParticipates tp,
 		Model model) {
 		   try {
+			   Team t = ts.findById(tp.getTeamId());
+			   Event e = es.findById(tp.getEventId());
+			   
+			   if (t.getSport() != e.getSport()) {
+				   model.addAttribute("message", "Team and event sports do not match.");
+				   return "error";
+			   }
+			   if (tps.findOldestAge(t.getId()) > e.getMaxAge()) {
+				   model.addAttribute("message", "Player on your team is too old for event.");
+				   return "error";
+			   }
+			   
+			   
 			   tps.save(tp);
 		   } catch (Exception e) {
 			   System.out.println(e.getMessage());
