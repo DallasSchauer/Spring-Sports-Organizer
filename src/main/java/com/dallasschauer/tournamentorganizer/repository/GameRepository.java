@@ -17,9 +17,12 @@ public interface GameRepository extends JpaRepository<Game, Integer>{
 			nativeQuery=true)
 	public List<Game> findGamesByTeamId (int id);
 	
-	@Query(value="select * from game where finished=false order by game_time",
+	@Query(value="select * from game where finished=false and event_id in "
+			+ " (select event_id from team_participates where team_id in "
+			+ " (select team_id from player_participates where player_id=?))"
+			+ " order by game_time",
 			nativeQuery=true)
-	public List<Game> findFutureGames();
+	public List<Game> findFutureGames(int id);
 	
 	@Query(value="select team_id from team_participates where event_id=?",
 			nativeQuery=true)

@@ -56,6 +56,10 @@ public class GameService {
 		return ret;
 	}
 	
+	public List<Game> findFutureGames (int playerId) {
+		return gr.findFutureGames(playerId);
+	}
+	
 	public Game createTournamentBracket (int eventId, int numTeams) {
 		Game championship = new Game();
 		championship.setEventId(eventId);

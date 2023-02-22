@@ -3,7 +3,7 @@ TO DO
 
 Near future:
 
-
+- game page
 - personal home page (list of games this month, in order of date)
 - Add commissioner functionality
 - Make more events, teams, and managers

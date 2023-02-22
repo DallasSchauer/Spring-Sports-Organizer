@@ -24,6 +24,7 @@ import com.dallasschauer.tournamentorganizer.entity.TeamParticipates;
 import com.dallasschauer.tournamentorganizer.entity.TournamentDetails;
 import com.dallasschauer.tournamentorganizer.model.TotalEventDetails;
 import com.dallasschauer.tournamentorganizer.service.EventService;
+import com.dallasschauer.tournamentorganizer.service.GameService;
 import com.dallasschauer.tournamentorganizer.service.LeagueDetailsService;
 import com.dallasschauer.tournamentorganizer.service.PlayerParticipatesService;
 import com.dallasschauer.tournamentorganizer.service.PlayerService;
@@ -41,6 +42,7 @@ public class WebController {
 		private final PlayerService ps;
 		private final TournamentDetailsService tds;
 		private final LeagueDetailsService lds;
+		private final GameService gs;
 		
 		@Autowired
 		public WebController (TeamService ts,
@@ -49,7 +51,8 @@ public class WebController {
 				PlayerParticipatesService pps,
 				PlayerService ps,
 				TournamentDetailsService tds,
-				LeagueDetailsService lds) {
+				LeagueDetailsService lds,
+				GameService gs) {
 			this.ts = ts;
 			this.tps = tps;
 			this.es = es;
@@ -57,6 +60,7 @@ public class WebController {
 			this.ps = ps;
 			this.tds = tds;
 			this.lds = lds;
+			this.gs = gs;
 		}
 		
 		
@@ -99,6 +103,17 @@ public class WebController {
 		   if (session.getAttribute("USER_ID") == null) {
 			   return login(session, model, "");
 		   }
+		   
+		   List<Event> events = es.findEventsByPlayer((int)session.getAttribute("USER_ID"));
+		   List<Integer> ids = new ArrayList<Integer>();
+		   for (Event e : events) {
+			   ids.add(e.getId());
+		   }
+		   
+		   
+		   model.addAttribute("events", events);
+		   model.addAttribute("ids", ids);
+		   model.addAttribute("games", gs.findFutureGames((int)session.getAttribute("USER_ID")));
 		   
 		   return "home";
 	   }

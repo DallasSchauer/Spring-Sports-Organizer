@@ -5,37 +5,134 @@
 	<link href = "/css/events.css" rel = "stylesheet"/>
 	<title> Teams </title>
 </head>
+	<style>
+		.flex-container {
+			display: flex;
+		}
+		
+		.flex-child {
+			flex: 1;
+			border: 1px;
+		}
+		
+		.float-child:first-child {
+			margin-right: 20px;
+		}
+		
+		td {
+			font-size: large;
+			color: white;
+			padding: 1px 1px;	
+			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		}
+		
+		tr:hover {
+			color:blue;
+			background-color:grey;
+		}
+		
+		p {
+			font-size: large;
+		}
+		
+		.separate-events {
+			background-color:coral;
+		}
+		
+		#1 {
+			background-color:aqua;
+		}
+		
+		table {
+			width: 100%;
+			margin: auto;
+			padding: 2px 2px;
+			border-collapse:collapse;
+		}
+	</style>
+	
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			const events = JSON.parse("[[${ids}]]");
+			
+			events.forEach(i => {
+				var randomColor = Math.floor(Math.random()*16777215).toString(16);
+				var colorName = "#" + randomColor;
+				var collection = [];
+				collection.push(document.getElementsByClassName(parseInt(i)));
+				collection.forEach(j => {
+					if (j != null) {
+						Array.from(j).forEach(k => k.style.backgroundColor=colorName);
+					}
+				});
+					
+			});
+		});
+	
+		function gameClicked(value) {
+			location.href ="/games/" + value;
+		}
+		
+		function eventClicked(value) {
+			location.href = "/events/" + value;
+		}
+	</script>
+	
 <body>
 	
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
 	
-	<h6>Home Page </h6>
-	
-	<h6 th:text="${session.USER_ID}" />
-	
-	
-	
-	<style>
-		.button {
-	  background-color: #4CAF50;
-	  font-family:Georgia, 'Times New Roman', Times, serif;
-	  border:aliceblue;
-	  color: white;
-	  padding: 15px 32px;
-	  text-align: center;
-	  margin-left: auto;
-	  margin-right: auto;
-	  text-decoration: none;
-	  display: inline-block;
-	  font-size: 36px;
-	  margin: 4px 2px;
-	  cursor: pointer;
-	  position: relative;
-	}
-	</style>
-	
-	
-	
+		
+	<div class="flex-container">
+		<div id="personalEvents" class="flex-child" style="width:50vw;">
+			<h1>Events</h1>
+			<table>
+			<tr>
+				<th>Sport</th>
+				<th>Name</th>
+				<th>Event Type</th>
+			</tr>
+			<tr th:each="event:${events}"
+			th:id="${event.id}"
+			th:class="${event.id}"
+			style="cursor:pointer"
+			th:onClick="'javascript:eventClicked(\'' + ${event.id} + '\');'">
+				<td th:switch="${event.sport}">
+					<span th:case="0"><p>🎾</p></span>
+					<span th:case="1"><p>⚾</p></span>
+					<span th:case="2"><p>🏀</p></span>
+					<span th:case="3"><p>🏈</p></span>
+					<span th:case="4"><p>🏒</p></span>
+					<span th:case="5"><p>⚽</p></span>
+					<span th:case="6"><p>Other<p></span>
+				</td>
+				<td th:text="${event.name}" />
+				<td th:switch="${event.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />	
+				</td>
+			</table>
+		</div>
+		
+		<div id="upcomingGames" class="flex-child" style="width:50vw;">
+			<h1>Upcoming Games</h1>
+			<table>
+				<tr>
+					<th>Game time</th>
+					<th>Away team</th>
+					<th>Home team</th>
+				</tr>
+				<tr th:each="game:${games}" 
+				th:class="${game.eventId}"
+				style="cursor:pointer"
+				th:onClick="'javascript:gameClicked(\'' + ${game.id} + '\');'">
+					<td th:text="${game.gameTime}">Game time</td>
+					<td th:text="${game.awayTeam}">Away team</td>
+					<td th:text="${game.homeTeam}">Home team</td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

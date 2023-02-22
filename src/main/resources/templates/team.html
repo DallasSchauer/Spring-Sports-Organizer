@@ -100,6 +100,7 @@
 	<table>
 		<tr>
 			<th>Id</th>
+			<th>Sport</th>
 			<th>Name</th>
 			<th>Max Age</th>
 			<th>Event Type</th>
@@ -107,6 +108,15 @@
 		<tr th:each="event:${events}" style="cursor:pointer"
 		th:onClick="'javascript:eventClicked(\'' + ${event.id} + '\');'">
 			<td th:text="${event.id}" />
+			<td th:switch="${team.sport}">
+				<span th:case="0"><p>🎾</p></span>
+				<span th:case="1"><p>⚾</p></span>
+				<span th:case="2"><p>🏀</p></span>
+				<span th:case="3"><p>🏈</p></span>
+				<span th:case="4"><p>🏒</p></span>
+				<span th:case="5"><p>⚽</p></span>
+				<span th:case="6"><p>Other<p></span>
+			</td>
 			<td th:text="${event.name}" />
 			<td th:text="${event.maxAge}" />
 			<td th:switch="${event.type}">

@@ -60,4 +60,8 @@ public class EventService {
 	public List<Event> findEventsByTeam(int i) {
 		return er.findEventsByTeamId(i);
 	}
+	
+	public List<Event> findEventsByPlayer(int i) {
+		return er.findEventByPlayer(i);
+	}
 }

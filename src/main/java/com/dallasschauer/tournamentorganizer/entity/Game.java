@@ -1,6 +1,7 @@
 package com.dallasschauer.tournamentorganizer.entity;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -19,7 +20,7 @@ public class Game {
 	private int eventId;
 	
 	@Column(name="game_time")
-	private Time gameTime;
+	private Timestamp gameTime;
 	
 	@Column(name="away_team_id")
 	private int awayTeam;
@@ -48,7 +49,7 @@ public class Game {
 	@Transient
 	private Game right;
 
-	public Game(int id, int eventId, Time gameTime, int awayTeam, int homeTeam, int awayScore, int homeScore,
+	public Game(int id, int eventId, Timestamp gameTime, int awayTeam, int homeTeam, int awayScore, int homeScore,
 			boolean finished, int winner, Game parent, Game left, Game right) {
 		super();
 		this.id = id;
@@ -85,11 +86,11 @@ public class Game {
 		this.eventId = eventId;
 	}
 
-	public Time getGameTime() {
+	public Timestamp getGameTime() {
 		return gameTime;
 	}
 
-	public void setGameTime(Time gameTime) {
+	public void setGameTime(Timestamp gameTime) {
 		this.gameTime = gameTime;
 	}
 

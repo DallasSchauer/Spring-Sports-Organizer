@@ -201,3 +201,18 @@ insert into player_participates (team_id, player_id) values (30, 12);
 insert into player_participates (team_id, player_id) values (31, 13);
 insert into player_participates (team_id, player_id) values (30, 14);
 insert into player_participates (team_id, player_id) values (31, 15);
+
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (6, '2023-08-05 18:00:00', 30, 31); 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (6, '2023-08-19 18:00:00', 31, 30);  
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (6, '2023-06-10 18:00:00', 30, 31); 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (6, '2023-06-24 18:00:00', 31, 30); 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (6, '2023-07-08 18:00:00', 30, 31); 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (6, '2023-07-22 18:00:00', 31, 30);
+
+

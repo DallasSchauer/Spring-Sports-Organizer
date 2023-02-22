@@ -88,6 +88,6 @@ create table game(
 	away_score int default 0,
 	home_score int default 0,
 	finished boolean default false,
-	winner_id int
+	winner_id int default 0
 );
 

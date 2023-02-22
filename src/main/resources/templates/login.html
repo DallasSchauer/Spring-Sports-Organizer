@@ -12,17 +12,13 @@
 	  font-family:Georgia, 'Times New Roman', Times, serif;
 	  border:aliceblue;
 	  color: white;
-	  padding: 15px 32px;
+	  padding: 5px 5px;
 	  text-align: center;
 	  text-decoration: none;
 	  display: inline-block;
 	  font-size: 36px;
 	  margin: 4px 2px;
 	  cursor: pointer;
-	  top:20%; 
-	  left:14%;
-	  position: absolute;
-	  transform: translate(-50%, -50%);
 	}
 	
 	.button:hover{
@@ -46,7 +42,9 @@
 	</form>
 	
 	<h1>--OR--</h1>
-	<a class="button" style="top:105%; background-color:navy;"
+	<br>
+	
+	<a class="button" style="position:relative; background-color:navy;"
 		th:href="@{/createAccount}">Create an Account</a>
 	
 	<div th:replace="footer :: myfooter"></div>
