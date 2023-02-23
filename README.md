@@ -3,9 +3,8 @@ TO DO
 
 Near future:
 
-- game page
-- personal home page (list of games this month, in order of date)
-- Add commissioner functionality
+- Make more games, some finished, some not.
+- Add commissioner functionality (in DB and pages)
 - Make more events, teams, and managers
 - Figure out necessary pages for whole app
 - Create schedule / tournament schedule button
@@ -15,6 +14,8 @@ Near future:
 
 Done:
 
+- game page
+- personal home page (list of games this month, in order of date)
 - data validation for adding team to event
 - change error page to accept error message
 - add team to event page

@@ -182,7 +182,7 @@ insert into team (manager_id, name, sport) values (17, 'Shirts', 2);
 insert into team (manager_id, name, sport) values (17, 'Skins', 2);
 
 insert into event (name, max_teams, sport, event_type, avg_hours) values
-('2019 Summer Basketball Games', 2, 2, 0, 1);
+('2023 Summer Basketball Games', 2, 2, 0, 1);
 
 insert into team_participates (event_id, team_id) values (6, 30);
 insert into team_participates (event_id, team_id) values (6, 31);

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/events.css" rel = "stylesheet"/>
+	<title> Event Page </title>
+</head>
+<style>
+		.flex-container {
+			display: flex;
+		}
+		
+		.flex-child {
+			flex: 1;
+			border: 1px;
+		}
+		
+		.float-child:first-child {
+			margin-right: 20px;
+		}
+		
+		td {
+			font-size: large;
+			color: white;
+			padding: 1px 1px;	
+			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		}
+		
+		tr:hover {
+			color:blue;
+			background-color:grey;
+			cursor:pointer;
+		}
+		
+		#team1 tr {
+			background-color:darkgrey;
+		}
+		
+		#team2 tr {
+			background-color:black;
+		}
+		
+		p {
+			font-size: large;
+		}
+		
+		table {
+			width: 100%;
+			margin: auto;
+			padding: 2px 2px;
+			border-collapse:collapse;
+		}
+</style>
+<body>
+	<script>
+		function teamClicked(value) {
+        	location.href = "/teams/" + value;
+    	}
+    	
+    	function eventClicked(value) {
+			location.href = "/events/" + value;
+		}
+		
+		function playerClicked(value) {
+			location.href = "/players/" + value;
+		}
+	</script>
+	
+	<div th:replace="header :: myheader"></div>
+	<div th:replace="navbar :: mynavbar"></div>
+	
+	
+	<h2 th:text="${game.gameTime}"/>
+	<h1 th:text="${team1.name} + ' vs ' + ${team2.name}"/>
+	
+	<!-- get event, manager for both teams, then list of players -->
+	
+	<h2 th:switch="${game.finished}">
+		<span th:case="True" th:text="${game.awayScore} + '	- ' + ${game.homeScore}">
+		</span>
+		<span th:case="False"></span>
+	</h2>
+	
+	<div class="flex-container">
+		<div id="team1" class="flex-child" style="width:40vw;">
+			<h1>Manager</h1>
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Date of Birth</th>
+				</tr>
+				<tr style="cursor:pointer"
+				th:onClick="'javascript:playerClicked(\'' + ${manager1.id} + '\');'">
+					<td th:text="${manager1.id}"/>
+					<td th:text="${manager1.name}"/>
+					<td th:text="${manager1.dob}"/>
+				</tr>
+			</table>
+			<br>
+			<h1>Players</h1>
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Date of Birth</th>
+				</tr>
+				<tr th:each="player1:${p1}"
+				style="cursor:pointer"
+				th:onClick="'javascript:playerClicked(\'' + ${player1.id} + '\');'">
+					<td th:text="${player1.id}"/>
+					<td th:text="${player1.name}"/>
+					<td th:text="${player1.dob}"/>
+				</tr>
+			</table>
+		</div>
+		<div id="team2" class="flex-child" style="width:40vw;">
+			<h1>Manager</h1>
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Date of Birth</th>
+				</tr>
+				<tr style="cursor:pointer"
+				th:onClick="'javascript:playerClicked(\'' + ${manager2.id} + '\');'">
+					<td th:text="${manager2.id}"/>
+					<td th:text="${manager2.name}"/>
+					<td th:text="${manager2.dob}"/>
+				</tr>
+			</table>
+			<br>
+			<h1>Players</h1>
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Date of Birth</th>
+				</tr>
+				<tr th:each="player2:${p2}"
+				style="cursor:pointer"
+				th:onClick="'javascript:playerClicked(\'' + ${player2.id} + '\');'">
+					<td th:text="${player2.id}"/>
+					<td th:text="${player2.name}"/>
+					<td th:text="${player2.dob}"/>
+				</tr>
+			</table>
+		</div>		
+	</div>
+	
+	
+	<h2>Event</h2>
+	<table>
+		<tr>
+			<th>Sport</th>
+			<th>Id</th>
+			<th>Max age</th>
+			<th>Event Type</th>
+		</tr>
+		<tr style="cursor:pointer;"
+		th:onClick="'javascript:eventClicked(\'' + ${event.id} + '\');'">
+			<td th:switch="${event.sport}">
+					<span th:case="0"><p>🎾</p></span>
+					<span th:case="1"><p>⚾</p></span>
+					<span th:case="2"><p>🏀</p></span>
+					<span th:case="3"><p>🏈</p></span>
+					<span th:case="4"><p>🏒</p></span>
+					<span th:case="5"><p>⚽</p></span>
+					<span th:case="6"><p>Other<p></span>
+				</td>
+				<td th:text="${event.name}" />
+				<td th:text="${event.maxAge}" />
+				<td th:switch="${event.type}">
+					<span th:case="0" th:text="League" />
+					<span th:case="1" th:text="Tournament" />	
+				</td>
+		</tr>
+	</table>
+			
+  <div th:replace="footer :: myfooter"></div>
+</body>
+</html>

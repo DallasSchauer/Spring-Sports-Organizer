@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dallasschauer.tournamentorganizer.entity.Event;
+import com.dallasschauer.tournamentorganizer.entity.Game;
 import com.dallasschauer.tournamentorganizer.entity.LeagueDetails;
 import com.dallasschauer.tournamentorganizer.entity.Player;
 import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
@@ -299,6 +300,37 @@ public class WebController {
 		   model.addAttribute("teams", ts.findAllTeamsByEventId(id));
 		   return "event";
 	   }
+	   
+	   @GetMapping(value = "/games/{id}")
+	   public String individualGames
+	   (HttpSession session,
+			   @PathVariable("id") int id,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   Game g = gs.findById(id);
+		   Event e = es.findById(g.getEventId());
+		   Team t1 = ts.findById(g.getAwayTeam());
+		   Team t2 = ts.findById(g.getHomeTeam());
+		   Player manager1 = ps.findById(t1.getManagerId());
+		   Player manager2 = ps.findById(t2.getManagerId());
+		   List<Player> p1 = ps.findPlayersByTeam(t1.getId());
+		   List<Player> p2 = ps.findPlayersByTeam(t2.getId());
+		   
+		   model.addAttribute("game", g);
+		   model.addAttribute("team1", t1);
+		   model.addAttribute("team2", t2);
+		   model.addAttribute("event", e);
+		   model.addAttribute("manager1", manager1);
+		   model.addAttribute("manager2", manager2);
+		   model.addAttribute("p1", p1);
+		   model.addAttribute("p2", p2);
+		   
+		   return "game";
+	   }
+	  
 	   
 	   @GetMapping(value = "/addPlayerToTeam/{player}/{team}")
 	   public String addPlayerToTeam
