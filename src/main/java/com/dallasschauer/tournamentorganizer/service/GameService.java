@@ -238,6 +238,10 @@ public class GameService {
 		return ret;
 	}
 	
+	public List<Game> findGamesByEvent (int id) {
+		return gr.findGamesByEventId(id);
+	}
+	
 //	public Game populateTournamentBracket (Game championship, List<Seed> teams) {
 //		
 //		

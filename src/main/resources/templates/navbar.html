@@ -76,8 +76,9 @@
 			"  
 			class="navbar-button">
 			Log Out</button></li>
-			<a style="float: right; color: white;" th:text="${session.USER_ID}" />
-			<p style="float: right; color: white;">Signed in as: </p>
+			<li style="float: right; cursor:default;">
+			<a style="float: right; color: white;" 
+			th:text="'Signed in as: ' + ${session.USER_ID}" /></li>
 			
 			
 		</ul>

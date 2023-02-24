@@ -255,20 +255,21 @@ public class WebController {
 			   }
 			   
 			   Event e = event.getEventDetails();
+			   e.setCommissioner((int)session.getAttribute("USER_ID"));
 			   Event res = es.save(e);
 			   if (e.getType() == 0) {
 				   LeagueDetails league = event.getLeagueDetails(res.getId());
 				   lds.save(league);
+				   return individualEvents(session, e.getId(), model);
 			   } else {
 				   TournamentDetails tournament = event.getTournamentDetails(res.getId());
 				   tds.save(tournament);
+				   return individualEvents(session, e.getId(), model);
 			   }
 		   } catch (Exception e) {
 			   System.out.println(e.getMessage());
 			   return "error";
 		   }
-		   
-		   return browseEvents(session, model);
 	   }
 	   
 	   @GetMapping(value = "/events")
@@ -298,6 +299,9 @@ public class WebController {
 		   
 		   model.addAttribute("event", es.findById(id));
 		   model.addAttribute("teams", ts.findAllTeamsByEventId(id));
+		   List<Game> games = gs.findGamesByEvent(id);
+		   model.addAttribute("numGames", games.size());
+		   model.addAttribute("games", games);
 		   return "event";
 	   }
 	   

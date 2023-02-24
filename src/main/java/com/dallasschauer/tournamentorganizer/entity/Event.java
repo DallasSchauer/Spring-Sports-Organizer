@@ -13,6 +13,9 @@ public class Event {
 	@Column(name="name")
 	private String name;
 	
+	@Column(name="commissioner")
+	private int commissioner;
+	
 	@Column(name="max_age")
 	private int maxAge;
 	
@@ -57,6 +60,14 @@ public class Event {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getCommissioner() {
+		return commissioner;
+	}
+	
+	public void setCommissioner(int commissioner) {
+		this.commissioner = commissioner;
 	}
 
 	public int getMaxAge() {

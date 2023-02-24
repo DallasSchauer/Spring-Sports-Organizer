@@ -26,6 +26,7 @@ DROP TABLE if EXISTS event;
 create table event(
 	id int auto_increment primary key,
 	name varchar(40) not null,
+	commissioner int references player(id) on delete cascade,
 	max_age int default 150,
 	max_teams int not null,
 	sport int not null,

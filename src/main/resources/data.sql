@@ -52,8 +52,8 @@ insert into player_participates (team_id, player_id) values (5, 4);
 insert into player_participates (team_id, player_id) values (6, 6);
 insert into player_participates (team_id, player_id) values (6, 7);
 
-insert into event (name, max_teams, sport, event_type, avg_hours) values 
-('2019 Tennis Cup', 6, 0, 1, .25);
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values 
+('2019 Tennis Cup', 0, 6, 0, 1, .25);
 insert into tournament_details (event_id, start_date, end_date, tournament_type)
 values (1, '2020-06-13', '2020-06-23', 1);
 
@@ -76,8 +76,8 @@ insert into player_participates (team_id, player_id) values (8, 8);
 insert into player_participates (team_id, player_id) values (9, 5);
 insert into player_participates (team_id, player_id) values (9, 9);
 
-insert into event (name, max_teams, sport, event_type, avg_hours) values 
-('2020 Tennis Cup', 6, 0, 1, .25);
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values 
+('2020 Tennis Cup', 0, 6, 0, 1, .25);
 insert into tournament_details (event_id, start_date, end_date, tournament_type)
 values (2, '2020-06-13', '2020-06-13', 1);
 
@@ -103,8 +103,8 @@ insert into player_participates (team_id, player_id) values (12, 15);
 insert into player_participates (team_id, player_id) values (13, 1);
 insert into player_participates (team_id, player_id) values (13, 2);
 
-insert into event (name, max_teams, sport, event_type, avg_hours) values 
-('2021 Tennis Cup', 6, 0, 1, .25);
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values 
+('2021 Tennis Cup', 0, 6, 0, 1, .25);
 insert into tournament_details (event_id, start_date, end_date, tournament_type)
 values (3, '2021-08-09', '2021-08-09', 1);
 
@@ -133,8 +133,8 @@ insert into player_participates (team_id, player_id) values (18, 11);
 insert into player_participates (team_id, player_id) values (19, 4);
 insert into player_participates (team_id, player_id) values (19, 8);
 
-insert into event (name, max_teams, sport, event_type, avg_hours) values 
-('2022 Tennis Cup', 6, 0, 1, .25);
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values 
+('2022 Tennis Cup', 0, 6, 0, 1, .25);
 insert into tournament_details (event_id, start_date, end_date, tournament_type)
 values (4, '2022-09-11', '2022-09-11', 1);
 
@@ -159,8 +159,8 @@ insert into team (manager_id, name, sport) values (16, 'San Francisco Giants', 1
 insert into team (manager_id, name, sport) values (16, 'Atlanta Braves', 1);
 insert into team (manager_id, name, sport) values (16, 'Minnesota Twins', 1);
 
-insert into event (name, max_teams, sport, event_type, avg_hours) values
-('2023 MLB', 10, 1, 0, 3.0);
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values
+('2023 MLB', 0, 10, 1, 0, 3.0);
 insert into league_details (event_id, start_date, end_date, num_games)
 values (5, '2022-04-01', '2022-09-30', 20);
 
@@ -181,8 +181,8 @@ insert into player (username, password, name, dob) values
 insert into team (manager_id, name, sport) values (17, 'Shirts', 2);
 insert into team (manager_id, name, sport) values (17, 'Skins', 2);
 
-insert into event (name, max_teams, sport, event_type, avg_hours) values
-('2023 Summer Basketball Games', 2, 2, 0, 1);
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values
+('2023 Summer Basketball Games', 0, 2, 2, 0, 1);
 
 insert into team_participates (event_id, team_id) values (6, 30);
 insert into team_participates (event_id, team_id) values (6, 31);
@@ -215,4 +215,22 @@ values (6, '2023-07-08 18:00:00', 30, 31);
 insert into game (event_id, game_time, away_team_id, home_team_id)
 values (6, '2023-07-22 18:00:00', 31, 30);
 
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values
+('2022 Summer Basketball Games', 4, 2, 2, 0, 1);
+
+insert into team_participates (event_id, team_id) values (7, 30);
+insert into team_participates (event_id, team_id) values (7, 31);
+
+insert into game (event_id, game_time, away_team_id, home_team_id, 
+away_score, home_score, finished, winner_id) values 
+(7, '2022-06-09', 30, 31, 21, 14, TRUE, 30);
+insert into game (event_id, game_time, away_team_id, home_team_id, 
+away_score, home_score, finished, winner_id) values 
+(7, '2022-06-23', 31, 30, 16, 21, TRUE, 30);
+insert into game (event_id, game_time, away_team_id, home_team_id, 
+away_score, home_score, finished, winner_id) values 
+(7, '2022-07-07', 30, 31, 20, 21, TRUE, 31);
+insert into game (event_id, game_time, away_team_id, home_team_id, 
+away_score, home_score, finished, winner_id) values 
+(7, '2022-07-21', 31, 30, 21, 10, TRUE, 31);
 

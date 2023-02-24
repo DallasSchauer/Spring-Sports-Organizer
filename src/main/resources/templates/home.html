@@ -46,10 +46,14 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			const events = JSON.parse("[[${ids}]]");
+			const colors = ['19F112', '0B4E09', 'EB3A1F', '881D0D',
+							'ED6F11', 'E28947', 'E8F10A', 'F7FB65',
+							'0FF3EE', '399D9B', '39569D', '1152F3',
+							'6211F3', '4F2B8F', '8F2B84', 'F407DA']
 			
 			events.forEach(i => {
-				var randomColor = Math.floor(Math.random()*16777215).toString(16);
-				var colorName = "#" + randomColor;
+				var randomIndex = Math.floor(Math.random()*colors.length);
+				var colorName = "#" + colors.splice(randomIndex, 1);
 				var collection = [];
 				collection.push(document.getElementsByClassName(parseInt(i)));
 				collection.forEach(j => {

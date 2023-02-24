@@ -44,11 +44,11 @@
 	</select>
 	
 	<p>Maximum age: <input type="number" th:field="*{max_age}" 
-	min="0" max="150" value="150" required/></p>
+	min="0" max="150" th:placeholder="150" value="150" th:value="150" required/></p>
 	
 	
 	<p>Maximum teams: <input type="number" th:field="*{max_teams}" 
-	min="2" max="32" th:value="16" required/></p>
+	min="2" max="32" th:placeholder="16" value="16" th:value="16" required/></p>
 	
 	<p>Start date: <input type="date" th:field="*{start_date}" required/></p>
 	
