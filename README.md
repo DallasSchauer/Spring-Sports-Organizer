@@ -3,6 +3,7 @@ TO DO
 
 Near future:
 
+- Commissioner make schedule button, make tournament event after
 - Make more games, some finished, some not.
 - Make more events, teams, and managers
 - Figure out necessary pages for whole app
