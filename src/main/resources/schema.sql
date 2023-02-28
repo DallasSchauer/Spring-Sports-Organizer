@@ -83,6 +83,7 @@ DROP TABLE if EXISTS game;
 create table game(
 	id int auto_increment primary key,
 	event_id int references event(id) on delete cascade,
+	parent int,
 	game_time timestamp,
 	away_team_id int default 0,
 	home_team_id int default 0,

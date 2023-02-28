@@ -160,7 +160,7 @@ insert into team (manager_id, name, sport) values (16, 'Atlanta Braves', 1);
 insert into team (manager_id, name, sport) values (16, 'Minnesota Twins', 1);
 
 insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values
-('2023 MLB', 0, 10, 1, 0, 3.0);
+('2023 MLB', 4, 10, 1, 0, 3.0);
 insert into league_details (event_id, start_date, end_date, num_games)
 values (5, '2022-04-01', '2022-09-30', 20);
 

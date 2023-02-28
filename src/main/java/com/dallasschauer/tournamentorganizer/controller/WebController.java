@@ -302,7 +302,23 @@ public class WebController {
 		   List<Game> games = gs.findGamesByEvent(id);
 		   model.addAttribute("numGames", games.size());
 		   model.addAttribute("games", games);
+		   model.addAttribute("unfinished", 
+				   gs.findNumUnfinishedGamesFromEvent(id));
+		   
 		   return "event";
+	   }
+	   
+	   @GetMapping(value = "/events/{id}/generateSchedule")
+	   public String generateSchedule
+	   (HttpSession session,
+			   @PathVariable("id") int id, Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   gs.createSeasonSchedule(id);
+		   
+		   return individualEvents(session, id, model);
 	   }
 	   
 	   @GetMapping(value = "/games/{id}")

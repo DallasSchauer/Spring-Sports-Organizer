@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dallasschauer.tournamentorganizer.entity.Game;
 import com.dallasschauer.tournamentorganizer.exception.BusinessException;
@@ -14,6 +15,7 @@ import com.dallasschauer.tournamentorganizer.exception.EntryNotFoundException;
 import com.dallasschauer.tournamentorganizer.model.Seed;
 import com.dallasschauer.tournamentorganizer.repository.GameRepository;
 
+@Transactional
 @Service
 public class GameService {
 	private final GameRepository gr;
@@ -83,11 +85,13 @@ public class GameService {
 		
 		Game left = new Game();
 		left.setParent(head);
+		left.setParentId(head.getId());
 		left.setEventId(head.getEventId());
 		head.setLeft(left);
 		
 		Game right = new Game();
 		right.setParent(head);
+		right.setParentId(head.getId());
 		right.setEventId(head.getEventId());
 		head.setRight(right);
 		
@@ -105,10 +109,29 @@ public class GameService {
 		return count;
 	}
 	
+	public int findNumGamesFromEventId(int eventId) {
+		Integer ret = gr.findNumGamesFromEventId(eventId);
+		if (ret == null) {
+			return 0;
+		} else {
+			return ret.intValue(); 
+		}
+	}
+	
+	public int findNumUnfinishedGamesFromEvent(int eventId) {
+		Integer ret = gr.findNumUnfinishedGamesFromEvent(eventId);
+		if (ret == null) {
+			return 0;
+		} else {
+			return ret.intValue();
+		}
+	}
+	
 	public void createSeasonSchedule (int eventId) {
-		int numGames = gr.findNumGamesFromEventId(eventId);
+		deleteGamesByEvent(eventId);
+		
+		int numGames = findNumGamesFromEventId(eventId);
 		List<Integer> teams = gr.findTeamsByEventId(eventId);
-		int MAX_GAMES = (numGames / teams.size()) + 1;
 		
 				
 		HashMap<Integer, List<Integer>> GameMap = 
@@ -155,8 +178,13 @@ public class GameService {
 		}
 	}
 	
-	public int findNumGamesBetweenTwoTeams (int eventId, int team1, int team2) {
-		return gr.findNumGamesBetweenTwoTeams(eventId, team1, team2);
+	public Integer findNumGamesBetweenTwoTeams (int eventId, int team1, int team2) {
+		Integer ret = gr.findNumGamesBetweenTwoTeams(eventId, team1, team2);
+		if (ret == null) {
+			return 0;
+		} else {
+			return ret;
+		} 
 	}
 	
 	public void addGameToMap(HashMap<Integer, List<Integer>> map, int team1,
@@ -240,6 +268,10 @@ public class GameService {
 	
 	public List<Game> findGamesByEvent (int id) {
 		return gr.findGamesByEventId(id);
+	}
+	
+	public void deleteGamesByEvent (int id) {
+		gr.deleteEventGames(id);
 	}
 	
 //	public Game populateTournamentBracket (Game championship, List<Seed> teams) {

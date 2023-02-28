@@ -3,6 +3,7 @@ package com.dallasschauer.tournamentorganizer.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -30,12 +31,20 @@ public interface GameRepository extends JpaRepository<Game, Integer>{
 	
 	@Query(value="select num_games from league_details where event_id=?",
 			nativeQuery=true)
-	public int findNumGamesFromEventId (int id);
+	public Integer findNumGamesFromEventId (int id);
+	
+	@Query(value="select COUNT(id) from game where event_id=? and finished=false",
+			nativeQuery=true)
+	public Integer findNumUnfinishedGamesFromEvent (int id);
 	
 	@Query(value="select COUNT(id) from game where event_id = :eventId and "
 			+ "away_team_id in (:team1, :team2) and home_team_id in (:team1, :team2)",
 			nativeQuery=true)
-	public int findNumGamesBetweenTwoTeams(@Param("eventId") int eventId,
+	public Integer findNumGamesBetweenTwoTeams(@Param("eventId") int eventId,
 			@Param("team1") int team1,
 			@Param("team2") int team2);
+	
+	@Modifying
+	@Query(value="delete from game where event_id=?", nativeQuery=true)
+	public void deleteEventGames(int id);
 }

@@ -22,6 +22,10 @@
 			
 			location.href = "/addTeamToEvent/" + team + "/" + manager;
 		}
+		
+		function generateScheduleClicked(value) {
+			location.href = "/events/" + value + "/generateSchedule";
+		}
 	</script>
 	
 	<style>
@@ -31,6 +35,8 @@
 			font-size: 32px;
 			height: 100%;
 			cursor:pointer;
+			padding: 10px;
+			margin: 10px;
 		}
 	</style>
 	
@@ -42,6 +48,14 @@
 	</span>
 	
 	<h1 th:text="${event.name}" />
+	
+	<span th:if="${numGames} > 0">
+		<div class="signup-container">
+				<button class="signup-button" style="position:relative; float:right;"
+				th:onClick="'javascript:signupClicked();'"> 
+				Sign-Up Team for Event</button>
+		</div>
+	</span>
 	
 	<span th:if="${teams.size} > 0">
 		<h2> Participating Teams: </h2>
@@ -72,6 +86,14 @@
 			</tr>
 		</table>
 	</span>	
+	
+	<span th:if="${event.type} == 0">
+		<span th:if="${session.USER_ID} == ${event.commissioner}">
+			<button class="signup-button" 
+			th:onClick="'javascript:generateScheduleClicked(\'' + ${event.id} + '\');'">
+			Create Schedule</button>
+		</span>
+	</span>
 		
 	<span th:if="${numGames} > 0">	
 	
@@ -99,18 +121,14 @@
 		</table>
 	</span>
 	
-	
-	<div class="signup-container">
-			<button class="signup-button" style="position:relative; float:right;"
-			th:onClick="'javascript:signupClicked();'"> 
-			Sign-Up Team for Event</button>
-	</div>
-	
-	<th:block th:switch="${event.type}">
-		<p th:case="0">This is a league.</p>
-		<p th:case="1">This is a tournament.</p>
-	</th>		
-	
+	<span th:if="${event.type} == 0">
+		<span th:if="${numGames} > 0">
+			<span th:if="${unfinished} == 0">
+				<button class="signup-button">
+				Create Season Tournament</button>
+			</span>
+		</span>
+	</span>
 	
 			
   <div th:replace="footer :: myfooter"></div>

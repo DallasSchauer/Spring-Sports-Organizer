@@ -40,6 +40,9 @@ public class Game {
 	@Column(name="winner_id")
 	private int winner;
 	
+	@Column(name="parent")
+	private Integer parentId;
+	
 	@Transient
 	private Game parent;
 
@@ -50,7 +53,7 @@ public class Game {
 	private Game right;
 
 	public Game(int id, int eventId, Timestamp gameTime, int awayTeam, int homeTeam, int awayScore, int homeScore,
-			boolean finished, int winner, Game parent, Game left, Game right) {
+			boolean finished, int winner, Integer parentId, Game parent, Game left, Game right) {
 		super();
 		this.id = id;
 		this.eventId = eventId;
@@ -61,6 +64,7 @@ public class Game {
 		this.homeScore = homeScore;
 		this.finished = finished;
 		this.winner = winner;
+		this.parentId = parentId;
 		this.parent = parent;
 		this.left = left;
 		this.right = right;
@@ -140,6 +144,14 @@ public class Game {
 
 	public void setWinner(int winner) {
 		this.winner = winner;
+	}
+	
+	public Integer getParentId() {
+		return parentId;
+	}
+	
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 	
 	public Game getParent() {
