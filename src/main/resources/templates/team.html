@@ -21,6 +21,10 @@
 		function eventClicked(value) {
 			location.href = "/events/" + value;
 		}
+		
+		function editClicked(value) {
+			location.href = "/editTeam/" + value;
+		}
 	</script>
 	
 	<style>
@@ -59,6 +63,13 @@
 			th:onClick="'javascript:signupClicked();'"> 
 			Sign-Up for Team</button>
 	</div>
+	
+	<span th:if="${session.USER_ID} == ${manager.id}">
+		<button style="border:3px solid black; margin:10px; font-size: 28px;"
+		th:onClick="'javascript:editClicked(\'' + ${team.id} + '\');'">
+		✏️ Edit ✏️</button>
+	</a>
+	</span>
 	
 	<!-- Manager !-->
 	<h1> Manager </h1>

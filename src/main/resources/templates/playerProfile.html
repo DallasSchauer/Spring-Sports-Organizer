@@ -13,7 +13,10 @@
 	<h6 th:text="${player.name}" />
 	<h6 th:text="${player.username}" />
 	
-	<p th:if="${player.id} == ${session.USER_ID}">This is YOUR account.</p>
+	<a th:href="@{/editAccount}">
+		<button style="border:3px solid black; margin:10px; font-size: 28px;"
+		th:if="${player.id} == ${session.USER_ID}">✏️ Edit ✏️</button>
+	</a>
 	
 	<table>
 		<tr>

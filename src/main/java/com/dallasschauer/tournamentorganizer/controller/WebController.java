@@ -205,6 +205,26 @@ public class WebController {
 		   return home(session, model);
 	   }
 	   
+	   @GetMapping(value = "/editAccount") 
+	   public String editAccount(
+			   HttpSession session, Model model) {
+		   model.addAttribute("player", 
+				   ps.findById((int)session.getAttribute("USER_ID")));
+		   return "editAccount";
+	   }
+	   
+	   @PostMapping(value = "/editAccount")
+	   public String editAccountSubmit
+	   (HttpSession session, @ModelAttribute Player player,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   ps.save(player);
+		   return home(session, model);
+	   }
+	   
 	   @GetMapping(value = "/createTeam")
 	   public String createTeam(HttpSession session,
 			   Model model) {
@@ -224,6 +244,31 @@ public class WebController {
 			   return login(session, model, "");
 		   }
 		   
+		   team.setManagerId((int)session.getAttribute("USER_ID"));
+		   ts.save(team);
+		   return browseEvents(session, model);
+	   }
+	   
+	   @GetMapping(value = "/editTeam/{id}")
+	   public String editTeam(HttpSession session,
+			   Model model, @PathVariable("id") int id) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   
+		   model.addAttribute("team", ts.findById(id));
+		   return "editTeam";
+	   }
+	   
+	   @PostMapping(value = "/editTeam/")
+	   public String editTeamSubmit
+	   (HttpSession session, @ModelAttribute Team team, 
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+
 		   team.setManagerId((int)session.getAttribute("USER_ID"));
 		   ts.save(team);
 		   return browseEvents(session, model);
@@ -320,6 +365,15 @@ public class WebController {
 		   
 		   return individualEvents(session, id, model);
 	   }
+	   
+//	   @GetMapping(value = "/events/{id}/generateTournament")
+//	   public String generateTournamentFromLeague
+//	   (HttpSession session,
+//			   @PathVariable("id") int id, Model model) {
+//		   if (session.getAttribute("USER_ID") == null) {
+//			   return login(session, model, "");
+//		   }
+//	   }
 	   
 	   @GetMapping(value = "/games/{id}")
 	   public String individualGames

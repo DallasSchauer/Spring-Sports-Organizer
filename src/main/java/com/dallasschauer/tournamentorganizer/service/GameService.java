@@ -62,6 +62,7 @@ public class GameService {
 		return gr.findFutureGames(playerId);
 	}
 	
+	
 	public Game createTournamentBracket (int eventId, int numTeams) {
 		Game championship = new Game();
 		championship.setEventId(eventId);
@@ -97,6 +98,10 @@ public class GameService {
 		
 		populateTournamentStructure(left, round + 1, max);
 		populateTournamentStructure(right, round + 1, max);
+	}
+	
+	public void populateTournament (Game championship, List<Seed> teams) {
+		
 	}
 	
 	public int countGameNum (Game head) {
@@ -273,10 +278,4 @@ public class GameService {
 	public void deleteGamesByEvent (int id) {
 		gr.deleteEventGames(id);
 	}
-	
-//	public Game populateTournamentBracket (Game championship, List<Seed> teams) {
-//		
-//		
-//		return championship;
-//	}
 }

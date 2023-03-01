@@ -3,7 +3,20 @@ TO DO
 
 Near future:
 
-- Commissioner make schedule button, make tournament event after
+- Edit event, account, and game page
+- Commissioner functionality to edit games
+- Commissioner make tournament event after
+- Tournament creating pseudocode:
+	- have list of teams ordered by seed
+	- visit each leaf node
+	- assign highest vs 2^rounds - numGames assigned so far,
+	if not enough teams, assign bye
+	- repeat
+- Tournament refreshing pseudocode:
+	- go to highest round with teams in it
+	- put all teams in list, order by seed
+	- pair highest seed with lowest seed, repeat
+- Put edit/delete buttons where applicable
 - Make more games, some finished, some not.
 - Make more events, teams, and managers
 - Figure out necessary pages for whole app
@@ -14,6 +27,7 @@ Near future:
 
 Done:
 
+- Commissioner make schedule button, 
 - Add commissioner functionality (in DB and pages)
 - game page
 - personal home page (list of games this month, in order of date)

@@ -3,21 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<link href = "/css/forms.css" rel = "stylesheet"/>
-	<title> Create Team </title>
+	<title> Edit Team </title>
 </head>
 <body>
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
 	
-	<h1>Create Team</h1>
+	<h1>Edit Team</h1>
 	
-	<form action="#" th:action="@{/createTeam}"
+	<form action="#" th:action="@{/editTeam}"
 	th:object="${team}" method="post">
 	
-	<p>Name: <input type="text" th:field="*{name}" required/></p>
+	<input type="hidden" th:field="*{id}" th:value="${team.id}"/>
+	
+	<p>Name: <input type="text" th:value="${team.name}" 
+	th:field="*{name}" required/></p>
 	
 	<p>Sport: </p>
-	<select name="sport" th:field="*{sport}" required>
+	<select name="sport" th:value="${team.sport}" th:field="*{sport}" required>
 	  <option th:value="0">Tennis</option>
 	  <option th:value="1">Baseball</option>
 	  <option th:value="2">Basketball</option>
@@ -27,9 +30,11 @@
 	  <option th:value="6">Other</option>
 	</select>
 	
-	<p>Minimum age: <input type="number" th:field="*{minAge}" min="0" max="50" required/></p>
+	<p>Minimum age: <input type="number" th:field="*{minAge}"
+	th:value="${team.minAge}" min="0" max="50" required/></p>
 	
-	<p>Maximum age: <input type="number" th:field="*{maxAge}" min="0" max="150" required/></p>
+	<p>Maximum age: <input type="number" th:field="*{maxAge}"
+	th:value="${team.maxAge}" min="0" max="150" required/></p>
 	
 	<br>	
 	<br>
