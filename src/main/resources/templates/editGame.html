@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href = "/css/forms.css" rel = "stylesheet"/>
+	<title> Edit Game </title>
+</head>
+<body>
+	
+	<div th:replace="header :: myheader"></div>
+	<div th:replace="navbar :: mynavbar"></div>
+	
+	<h1> Set Score for Game </h1>
+	
+	<br>
+	
+	<form th:action="@{/editGame}"
+	th:object="${game}" method="post">
+	
+	<h2 th:text="${game.gameTime}"/>
+	<h1 th:text="${awayTeam.name} + ' vs ' + ${homeTeam.name}"/>
+	
+	<br>
+	
+	<input type="hidden" th:field="*{id}" th:value="${game.id}"/>
+	<input type="hidden" th:field="*{eventId}" th:value="${game.eventId}"/>
+	<input type="hidden" th:field="*{parent}" th:value="${game.parent}"/>
+	<input type="hidden" th:field="*{gameTime}" th:value="${game.gameTime}"/>
+	<input type="hidden" th:field="*{awayTeam}" th:value="${game.awayTeam}"/>
+	<input type="hidden" th:field="*{homeTeam}" th:value="${game.homeTeam}"/>
+	<input type="hidden" th:field="*{finished}" th:value="${game.finished}"/>
+	<input type="hidden" th:field="*{winner}" th:value="${game.winner}"/>
+	
+	<p th:text="'Score for ' + ${awayTeam.name} + ': '"/>
+	<input type="number" min="0" max="1000" th:field="*{awayScore}"
+	th:value="${game.awayScore}" required/>
+	
+	<br>
+	
+	<p th:text="'Score for ' + ${homeTeam.name} + ': '"/>
+	<input type="number" min="0" max="1000" th:field="*{homeScore}"
+	th:value="${game.homeScore}" required/>
+	
+	<br>
+	
+	<p style="color:red;">Only click submit once the score accurately reflects
+	the true final score.</p>
+	
+	<br>
+	
+	<p><input type="submit" value="Submit" /></p>
+	</form>
+			
+  <div th:replace="footer :: myfooter"></div>
+</body>
+</html>

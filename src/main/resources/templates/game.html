@@ -64,6 +64,10 @@
 		function playerClicked(value) {
 			location.href = "/players/" + value;
 		}
+		
+		function editClicked(value) {
+			location.href = "/editGame/" + value;
+		}
 	</script>
 	
 	<div th:replace="header :: myheader"></div>
@@ -74,6 +78,11 @@
 	<h1 th:text="${team1.name} + ' vs ' + ${team2.name}"/>
 	
 	<!-- get event, manager for both teams, then list of players -->
+	
+	<a th:onClick="'javascript:editClicked(\'' + ${game.id} + '\');'">
+		<button style="border:1px black;
+		font-size:32px">✏️ Edit This Game</button>
+	</a>
 	
 	<h2 th:switch="${game.finished}">
 		<span th:case="True" th:text="${game.awayScore} + '	- ' + ${game.homeScore}">

@@ -210,6 +210,7 @@ public class WebController {
 			   HttpSession session, Model model) {
 		   model.addAttribute("player", 
 				   ps.findById((int)session.getAttribute("USER_ID")));
+		   
 		   return "editAccount";
 	   }
 	   
@@ -256,19 +257,25 @@ public class WebController {
 			   return login(session, model, "");
 		   }
 		   
+		   Team t = ts.findById(id);
 		   
-		   model.addAttribute("team", ts.findById(id));
+		   if ((int)session.getAttribute("USER_ID") != t.getManagerId()) {
+			   model.addAttribute("message", "You are not able to edit this game.");
+			   return "error";
+		   }
+		   
+		   model.addAttribute("team", t);
 		   return "editTeam";
 	   }
 	   
-	   @PostMapping(value = "/editTeam/")
+	   @PostMapping(value = "/editTeam")
 	   public String editTeamSubmit
 	   (HttpSession session, @ModelAttribute Team team, 
 			   Model model) {
 		   if (session.getAttribute("USER_ID") == null) {
 			   return login(session, model, "");
 		   }
-
+		   
 		   team.setManagerId((int)session.getAttribute("USER_ID"));
 		   ts.save(team);
 		   return browseEvents(session, model);
@@ -403,6 +410,57 @@ public class WebController {
 		   model.addAttribute("p2", p2);
 		   
 		   return "game";
+	   }
+	   
+	   @GetMapping(value = "/editGame/{id}")
+	   public String editGame
+	   (HttpSession session,
+			   @PathVariable("id") int id,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   Game g = gs.findById(id);
+		   Event e = es.findById(g.getEventId());
+		   
+		   if ((int)session.getAttribute("USER_ID") != e.getCommissioner()) {
+			   model.addAttribute("message", "You are not able to edit this game.");
+			   return "error";
+		   }
+		   
+		   Team awayTeam = ts.findById(g.getAwayTeam());
+		   Team homeTeam = ts.findById(g.getHomeTeam());
+		   
+		   model.addAttribute("game", g);
+		   model.addAttribute("awayTeam", awayTeam);
+		   model.addAttribute("homeTeam", homeTeam);
+		   
+		   return "editGame";
+	   }
+	   
+	   @PostMapping(value = "/editGame")
+	   public String editGameSubmit
+	   (HttpSession session,
+			   @ModelAttribute Game game,
+			   Model model) {
+		   
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   game.setFinished(true);
+		   
+		   if (game.getAwayScore() > game.getHomeScore()) {
+			   game.setWinner(game.getAwayTeam());
+		   } else if (game.getHomeScore() > game.getAwayScore()) {
+			   game.setWinner(game.getHomeTeam());
+		   }
+		   
+		   gs.save(game);
+		   
+		   
+		   return individualGames(session, game.getId(), model);
 	   }
 	  
 	   

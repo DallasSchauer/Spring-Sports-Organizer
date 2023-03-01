@@ -3,8 +3,7 @@ TO DO
 
 Near future:
 
-- Edit event, account, and game page
-- Commissioner functionality to edit games
+- Make standings (tie to seed)
 - Commissioner make tournament event after
 - Tournament creating pseudocode:
 	- have list of teams ordered by seed
@@ -27,6 +26,8 @@ Near future:
 
 Done:
 
+- Edit event, account, and game page
+- Commissioner functionality to edit games
 - Commissioner make schedule button, 
 - Add commissioner functionality (in DB and pages)
 - game page
