@@ -1,6 +1,5 @@
-# | Spring Boot Sports Organizer Project |
-# |      Created by Dallas Schauer       |
-# ========================================
+# Spring Boot Sports Organizer Project
+## Created by Dallas Schauer
 
 This project acts as a full-stack web site acting as a sports organization tool, meaning
 a web site that emulates the real life applications used by many recreational centers to
@@ -9,12 +8,11 @@ different sporting events divided into leagues and tournaments, and create and j
 The program takes care of scheduling, maintaining rules, and providing a convenient
 user interface.
 
-Frontend: HTML/CSS/JS
-Backend: Java Spring Boot
-DB: H2/MySQL
+- Frontend: HTML/CSS/JS
+- Backend: Java Spring Boot
+- DB: H2/MySQL
 
-## How to Run
-## ==========
+### How to Run
 
 1. Install an IDE that can run Spring Boot applications. There are many IDEs that can do this,
 but the one I recommend is Spring Tool Suite.
