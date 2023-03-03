@@ -1,60 +1,24 @@
-TO DO
-============
+# | Spring Boot Sports Organizer Project |
+# |      Created by Dallas Schauer       |
+# ========================================
 
-Near future:
+This project acts as a full-stack web site acting as a sports organization tool, meaning
+a web site that emulates the real life applications used by many recreational centers to
+organize local sporting events. This app lets users create accounts, organize and join 
+different sporting events divided into leagues and tournaments, and create and join teams.
+The program takes care of scheduling, maintaining rules, and providing a convenient
+user interface.
 
-- Make standings (tie to seed)
-- Commissioner make tournament event after
-- Tournament creating pseudocode:
-	- have list of teams ordered by seed
-	- visit each leaf node
-	- assign highest vs 2^rounds - numGames assigned so far,
-	if not enough teams, assign bye
-	- repeat
-- Tournament refreshing pseudocode:
-	- go to highest round with teams in it
-	- put all teams in list, order by seed
-	- pair highest seed with lowest seed, repeat
-- Put edit/delete buttons where applicable
-- Make more games, some finished, some not.
-- Make more events, teams, and managers
-- Figure out necessary pages for whole app
-- Create schedule / tournament schedule button
-- Schedule on home pages
+Frontend: HTML/CSS/JS
+Backend: Java Spring Boot
+DB: H2/MySQL
 
+## How to Run
+## ==========
 
-
-Done:
-
-- Edit event, account, and game page
-- Commissioner functionality to edit games
-- Commissioner make schedule button, 
-- Add commissioner functionality (in DB and pages)
-- game page
-- personal home page (list of games this month, in order of date)
-- data validation for adding team to event
-- change error page to accept error message
-- add team to event page
-- model for all pages
-- event click page
-- Error page
-- Team page
-- Player profile
-- Add new logo and link on footer
-- Copy DB changes from work laptop
-- Merge accounts and players
-- Make some players for multiple sports
-- create team form page
-- create event form page
-- Form CSS
-- Add functionality for 'other' sport
-- Create event
-- Create league
-- Make CSS files for two types of pages: lists and forms
-- Add log out button and signed-in text
-- Login page
-- sign up for team page
-- Make navbar functional
-
-
-Desktop path : pictures/studywork/springbootcourse/tournament-organizer
+1. Install an IDE that can run Spring Boot applications. There are many IDEs that can do this,
+but the one I recommend is Spring Tool Suite.
+2. Download the project.
+3. In Spring Tool Suite (or whichever IDE you choose), select File -> Open Projects from File System
+4. Run the project as a Spring Boot App.
+5. Open a web browser and navigate to localhost:8080
