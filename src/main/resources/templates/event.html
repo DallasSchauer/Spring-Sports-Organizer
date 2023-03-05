@@ -30,6 +30,14 @@
 		function editClicked(value) {
 			location.href = "/editGame/" + value;
 		}
+		
+		function createTournament(value) {
+			location.href = "/createTournament/" + value;
+		}
+		
+		function generateTournamentClicked(value) {
+			location.href = "/generateTournamentFromLeague/" + value;
+		}
 	</script>
 	
 	<style>
@@ -47,6 +55,7 @@
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
 	
+	
 	<span th:if="${event.commissioner} == ${session.USER_ID}">
 		<h2 style="color:darkcyan;">You are the commissioner of this event.</h2>
 	</span>
@@ -61,32 +70,22 @@
 		</div>
 	</span>
 	
+	
+
 	<span th:if="${teams.size} > 0">
-		<h2> Participating Teams: </h2>
+		<h2> Standings: </h2>
 		<table>
 			<tr>
-				<th>Sport</th>
 				<th>Team Id</th>
-				<th>Manager Id</th>
 				<th>Name</th>
-				<th>Maximum Age</th>
+				<th>Wins</th>
 			</tr>
 			<tr th:each="team:${teams}"
 			 style="cursor: pointer; background-color:lightcoral;"
 			 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
-				<td th:switch="${team.sport}">
-					<span th:case="0"><p>🎾</p></span>
-					<span th:case="1"><p>⚾</p></span>
-					<span th:case="2"><p>🏀</p></span>
-					<span th:case="3"><p>🏈</p></span>
-					<span th:case="4"><p>🏒</p></span>
-					<span th:case="5"><p>⚽</p></span>
-					<span th:case="6"><p>Other<p></span>
-				</td>
 				<td th:text="${team.id}">Id</td>
-				<td th:text="${team.managerId}">Manager Id</td>
 				<td th:text="${team.name}">Name</td>
-				<td th:text="${team.maxAge}">Maximum Age</td>
+				<td th:text="${team.wins}">Wins</td>
 			</tr>
 		</table>
 	</span>	
@@ -126,15 +125,24 @@
 	</span>
 	
 	<span th:if="${event.type} == 0">
-		<span th:if="${numGames} > 0">
-			<span th:if="${unfinished} == 0">
-				<button class="signup-button">
-				Create Season Tournament</button>
+		<span th:if="${session.USER_ID} == ${event.commissioner}">
+			<span th:if="${numGames} > 0">
+				<span th:if="${unfinished} == 0">
+					<button class="signup-button"
+					th:onClick="'javascript:generateTournament(\'' + ${event.id} + '\');'">
+					Create Season Tournament</button>
+				</span>
 			</span>
 		</span>
 	</span>
 	
-			
+	<span th:if="${event.type} == 1">
+		<span th:if="${session.USER_ID} == ${event.commissioner}">
+			<button class="signup-button" style="background-color:red;"
+			th:onClick="'javascript:createTournament(\'' + ${event.id} + '\');'">
+			Create Bracket</button>
+		</span>
+	</span>		
   <div th:replace="footer :: myfooter"></div>
 </body>
 </html>

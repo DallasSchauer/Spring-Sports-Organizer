@@ -53,7 +53,7 @@ insert into player_participates (team_id, player_id) values (6, 6);
 insert into player_participates (team_id, player_id) values (6, 7);
 
 insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values 
-('2019 Tennis Cup', 0, 6, 0, 1, .25);
+('2019 Tennis Cup', 4, 6, 0, 1, .25);
 insert into tournament_details (event_id, start_date, end_date, tournament_type)
 values (1, '2020-06-13', '2020-06-23', 1);
 

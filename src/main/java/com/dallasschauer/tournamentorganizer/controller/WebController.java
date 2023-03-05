@@ -1,12 +1,16 @@
 package com.dallasschauer.tournamentorganizer.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Tuple;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,8 @@ import com.dallasschauer.tournamentorganizer.entity.PlayerParticipates;
 import com.dallasschauer.tournamentorganizer.entity.Team;
 import com.dallasschauer.tournamentorganizer.entity.TeamParticipates;
 import com.dallasschauer.tournamentorganizer.entity.TournamentDetails;
+import com.dallasschauer.tournamentorganizer.model.Seed;
+import com.dallasschauer.tournamentorganizer.model.Standing;
 import com.dallasschauer.tournamentorganizer.model.TotalEventDetails;
 import com.dallasschauer.tournamentorganizer.service.EventService;
 import com.dallasschauer.tournamentorganizer.service.GameService;
@@ -350,12 +356,40 @@ public class WebController {
 		   }
 		   
 		   model.addAttribute("event", es.findById(id));
-		   model.addAttribute("teams", ts.findAllTeamsByEventId(id));
+		   // model.addAttribute("teams", ts.findAllTeamsByEventId(id));
 		   List<Game> games = gs.findGamesByEvent(id);
 		   model.addAttribute("numGames", games.size());
 		   model.addAttribute("games", games);
 		   model.addAttribute("unfinished", 
 				   gs.findNumUnfinishedGamesFromEvent(id));
+		   
+		   List<Tuple> teams = gs.getTeamsWithWins(id);
+		   teams.addAll(gs.getTeamsWithNoWins(id));
+		   
+		   List<Standing> standings = new ArrayList<Standing>();
+		   for (Tuple t: teams) {
+			   Team res = ts.findById((Integer)t.get(0));
+			   Standing s = new Standing();
+			   s.setId((Integer)t.get(0));
+			   s.setName(res.getName());
+			   s.setWins(((Number)t.get(1)).intValue());
+			   standings.add(s);
+		   }
+		   
+		   if (es.findById(id).getType() == 0) {
+			   int count = 1;
+			   List<Seed> seeds = new ArrayList<Seed>();
+			   for (Standing st : standings) {
+				   Seed newSeed = new Seed();
+				   newSeed.setId(st.getId());
+				   newSeed.setSeed(count);
+				   count++;
+				   seeds.add(newSeed);
+			   }
+			   model.addAttribute("seeds", seeds);
+		   }
+			   
+		   model.addAttribute("teams", standings);
 		   
 		   return "event";
 	   }
@@ -373,14 +407,92 @@ public class WebController {
 		   return individualEvents(session, id, model);
 	   }
 	   
-//	   @GetMapping(value = "/events/{id}/generateTournament")
-//	   public String generateTournamentFromLeague
-//	   (HttpSession session,
-//			   @PathVariable("id") int id, Model model) {
-//		   if (session.getAttribute("USER_ID") == null) {
-//			   return login(session, model, "");
-//		   }
-//	   }
+	   @GetMapping(value = "/events/{id}/generateTournament")
+	   public String generateTournamentFromLeague
+	   (HttpSession session,
+			   @PathVariable("id") int id,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   Event league = es.findById(id);
+		   
+		   Event e = new Event();
+		   
+		   e.setName(league.getName() + " TOURNAMENT");
+		   e.setMaxAge(league.getMaxAge());
+		   e.setMaxTeams(league.getMaxTeams());
+		   e.setSport(league.getSport());
+		   e.setType(1);
+		   e.setAvgHours(league.getAvgHours());
+		   
+		   Event tournament = es.save(e);
+		   
+		   List<Tuple> teams = gs.getTeamsWithWins(id);
+		   teams.addAll(gs.getTeamsWithNoWins(id));
+		   
+		   List<Standing> standings = new ArrayList<Standing>();
+		   for (Tuple t: teams) {
+			   Team res = ts.findById((Integer)t.get(0));
+			   Standing s = new Standing();
+			   s.setId((Integer)t.get(0));
+			   s.setName(res.getName());
+			   s.setWins(((Number)t.get(1)).intValue());
+			   standings.add(s);
+		   }
+		   
+		   int count = 1;
+		   List<Seed> seeds = new ArrayList<Seed>();
+		   for (Standing st : standings) {
+			   Seed newSeed = new Seed();
+			   newSeed.setId(st.getId());
+			   newSeed.setSeed(count);
+			   count++;
+			   seeds.add(newSeed);
+		   }
+			   
+		   Game championship = gs.createTournament(tournament.getId(), seeds);
+		   
+		   return individualEvents(session, tournament.getId(), model);
+	   }
+	   
+	   @GetMapping(value = "/createTournament/{id}")
+	   public String createTournament
+	   (HttpSession session,
+			   @PathVariable("id") int id,
+			   Model model) {
+		   if (session.getAttribute("USER_ID") == null) {
+			   return login(session, model, "");
+		   }
+		   
+		   System.out.println("GOT HERE 1");
+		   
+		   Event tournament = es.findById(id);
+		   
+		   List<Tuple> teams = gs.getTeamsWithWins(id);
+		   teams.addAll(gs.getTeamsWithNoWins(id));
+		   
+		   //Collections.shuffle(teams);
+		   
+		   System.out.println("GOT HERE 2");
+		   
+		   int count = 1;
+		   List<Seed> seeds = new ArrayList<Seed>();
+		   for (Tuple t : teams) {
+			   Seed newSeed = new Seed();
+			   newSeed.setId((int)t.get(0));
+			   newSeed.setSeed(count);
+			   count++;
+			   seeds.add(newSeed);
+		   }
+			 
+		   System.out.println("GOT HERE 3");
+		   Game championship = gs.createTournament(tournament.getId(), seeds);
+		   System.out.println("GOT HERE 4");
+		   
+		   return individualEvents(session, tournament.getId(), model);
+	   }
 	   
 	   @GetMapping(value = "/games/{id}")
 	   public String individualGames

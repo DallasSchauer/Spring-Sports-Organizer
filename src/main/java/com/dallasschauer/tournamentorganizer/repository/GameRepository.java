@@ -2,10 +2,13 @@ package com.dallasschauer.tournamentorganizer.repository;
 
 import java.util.List;
 
+import javax.persistence.Tuple;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.util.Pair;
 
 import com.dallasschauer.tournamentorganizer.entity.Game;
 
@@ -47,4 +50,13 @@ public interface GameRepository extends JpaRepository<Game, Integer>{
 	@Modifying
 	@Query(value="delete from game where event_id=?", nativeQuery=true)
 	public void deleteEventGames(int id);
+	
+	@Query(value="select winner_id, count(id) from game where event_id=? and finished=true"
+			+ " group by winner_id order by count(id) desc", nativeQuery=true)
+	public List<Tuple> getTeamsWithWins(int id);
+	
+	@Query(value="select id, 0 from team where id in (select team_id from team_participates"
+			+ " where event_id=:id) and id not in (select winner_id from game where event_id=:id)",
+			nativeQuery=true)
+	public List<Tuple> getTeamsWithNoWins(int id);
 }

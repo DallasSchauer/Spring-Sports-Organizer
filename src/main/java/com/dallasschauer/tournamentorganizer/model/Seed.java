@@ -1,26 +1,39 @@
 package com.dallasschauer.tournamentorganizer.model;
 
+import com.dallasschauer.tournamentorganizer.entity.Team;
+
 public class Seed {
-	private int teamId;
+	private int id;
+	private String name;
 	private int seed;
 	
-	public Seed(int teamId, int seed) {
-		super();
-		this.teamId = teamId;
+	public Seed(int id, String name, int seed) {
+		this.id = id;
+		this.name = name;
 		this.seed = seed;
 	}
 	
 	public Seed() {
-		super();
+		this.id = 0;
+		this.name = "";
+		this.seed = 0;
 	}
 	
 	
-	public int getTeamId() {
-		return teamId;
+	public int getId() {
+		return id;
 	}
 	
-	public void setTeamId(int teamId) {
-		this.teamId = teamId;
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public int getSeed() {

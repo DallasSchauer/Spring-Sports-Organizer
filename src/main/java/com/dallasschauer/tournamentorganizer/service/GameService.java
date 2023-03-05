@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import javax.persistence.Tuple;
+
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +66,19 @@ public class GameService {
 	}
 	
 	
+	public Game createTournament (int eventId, List<Seed> teams) {
+		
+		for (Seed s: teams) {
+			System.out.println("name " + s.getName());
+			System.out.println("seed " + s.getSeed());
+		}
+		
+		Game championship = createTournamentBracket(eventId, teams.size());
+		populateTournament(championship, teams, teams.size());
+		
+		return championship;
+	}
+	
 	public Game createTournamentBracket (int eventId, int numTeams) {
 		Game championship = new Game();
 		championship.setEventId(eventId);
@@ -85,12 +101,14 @@ public class GameService {
 		gr.save(head);
 		
 		Game left = new Game();
+		left.setEventId(head.getEventId());
 		left.setParent(head);
 		left.setParentId(head.getId());
 		left.setEventId(head.getEventId());
 		head.setLeft(left);
 		
 		Game right = new Game();
+		right.setEventId(head.getEventId());
 		right.setParent(head);
 		right.setParentId(head.getId());
 		right.setEventId(head.getEventId());
@@ -100,9 +118,40 @@ public class GameService {
 		populateTournamentStructure(right, round + 1, max);
 	}
 	
-	public void populateTournament (Game championship, List<Seed> teams) {
+	public void populateTournament (Game head, List<Seed> seeds, int maxTeams) {
+		if (head.getLeft() == null && head.getRight() == null) {
+			if (seeds.size() == 0) {
+				return;
+			}
+			
+			int count = 0;
+			while (true) {
+				if (maxTeams / (int)Math.pow(2, count) > 0) {
+					break;
+				}
+				count++;
+			}
+			
+			int powerOfTwo = (int)Math.pow(2, count);
+			
+			int highestSeed = seeds.remove(0).getId();
+			head.setHomeTeam(highestSeed);
+			
+			if (seeds.get(seeds.size()-1).getSeed() <= powerOfTwo) {
+				head.setAwayTeam(seeds.remove(seeds.size()-1).getId());
+			} else {
+				if (maxTeams > 2) {
+					head.getParent().setHomeTeam(highestSeed);
+				}
+			}
+			
+			return;
+		}
 		
+		populateTournament(head.getLeft(), seeds, maxTeams);
+		populateTournament(head.getRight(), seeds, maxTeams);
 	}
+	
 	
 	public int countGameNum (Game head) {
 		if (head == null) {
@@ -277,5 +326,13 @@ public class GameService {
 	
 	public void deleteGamesByEvent (int id) {
 		gr.deleteEventGames(id);
+	}
+	
+	public List<Tuple> getTeamsWithWins(int eventId) {
+		return gr.getTeamsWithWins(eventId);
+	}
+	
+	public List<Tuple> getTeamsWithNoWins(int eventId) {
+		return gr.getTeamsWithNoWins(eventId);
 	}
 }
