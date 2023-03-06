@@ -466,16 +466,13 @@ public class WebController {
 			   return login(session, model, "");
 		   }
 		   
-		   System.out.println("GOT HERE 1");
 		   
 		   Event tournament = es.findById(id);
 		   
 		   List<Tuple> teams = gs.getTeamsWithWins(id);
 		   teams.addAll(gs.getTeamsWithNoWins(id));
 		   
-		   //Collections.shuffle(teams);
-		   
-		   System.out.println("GOT HERE 2");
+		   // Collections.shuffle(teams);
 		   
 		   int count = 1;
 		   List<Seed> seeds = new ArrayList<Seed>();
@@ -486,10 +483,8 @@ public class WebController {
 			   count++;
 			   seeds.add(newSeed);
 		   }
-			 
-		   System.out.println("GOT HERE 3");
+		   
 		   Game championship = gs.createTournament(tournament.getId(), seeds);
-		   System.out.println("GOT HERE 4");
 		   
 		   return individualEvents(session, tournament.getId(), model);
 	   }
@@ -561,15 +556,32 @@ public class WebController {
 			   return login(session, model, "");
 		   }
 		   
-		   game.setFinished(true);
+		   Game g = gs.findById(game.getId());
+		   Event e = es.findById(game.getEventId());
 		   
-		   if (game.getAwayScore() > game.getHomeScore()) {
-			   game.setWinner(game.getAwayTeam());
-		   } else if (game.getHomeScore() > game.getAwayScore()) {
-			   game.setWinner(game.getHomeTeam());
+		   g.setAwayScore(game.getAwayScore());
+		   g.setHomeScore(game.getHomeScore());
+		   g.setFinished(true);
+		   
+		   if (g.getAwayScore() > g.getHomeScore()) {
+			   g.setWinner(g.getAwayTeam());
+		   } else if (g.getHomeScore() > g.getAwayScore()) {
+			   g.setWinner(g.getHomeTeam());
 		   }
 		   
-		   gs.save(game);
+		   if (e.getType() == 1) {
+			   if (g.getParentId() != null) {
+				   Game parent = gs.findById(g.getParentId());
+				   if (parent.getHomeTeam() == 0) {
+					   parent.setHomeTeam(g.getWinner());
+				   } else if (parent.getAwayTeam() == 0) {
+					   parent.setAwayTeam(g.getWinner());
+				   }
+				   gs.save(parent);
+			   }
+		   }
+		   
+		   gs.save(g);
 		   
 		   
 		   return individualGames(session, game.getId(), model);

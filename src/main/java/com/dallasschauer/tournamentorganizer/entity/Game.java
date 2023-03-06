@@ -25,8 +25,14 @@ public class Game {
 	@Column(name="away_team_id")
 	private int awayTeam;
 	
+	@Transient
+	private int awaySeed;
+	
 	@Column(name="home_team_id")
 	private int homeTeam;
+	
+	@Transient
+	private int homeSeed;
 	
 	@Column(name="away_score")
 	private int awayScore;
@@ -69,9 +75,10 @@ public class Game {
 		this.left = left;
 		this.right = right;
 	}
-
+	
 	public Game() {
 		super();
+		this.gameTime = null;
 	}
 
 	public int getId() {
@@ -176,5 +183,36 @@ public class Game {
 
 	public void setRight(Game right) {
 		this.right = right;
+	}
+
+	public int getAwaySeed() {
+		return awaySeed;
+	}
+
+	public void setAwaySeed(int awaySeed) {
+		this.awaySeed = awaySeed;
+	}
+
+	public int getHomeSeed() {
+		return homeSeed;
+	}
+
+	public void setHomeSeed(int homeSeed) {
+		this.homeSeed = homeSeed;
+	}
+
+	@Override
+	public String toString() {
+		return "Game [id=" + id + ", eventId=" + eventId + ", gameTime=" + gameTime + ", awayTeam=" + awayTeam
+				+ ", awaySeed=" + awaySeed + ", homeTeam=" + homeTeam + ", homeSeed=" + homeSeed + ", awayScore="
+				+ awayScore + ", homeScore=" + homeScore + ", finished=" + finished + ", winner=" + winner
+				+ ", parentId=" + parentId + ", parent=" + parent + ", left=" + left + ", right=" + right + ", getId()="
+				+ getId() + ", getEventId()=" + getEventId() + ", getGameTime()=" + getGameTime() + ", getAwayTeam()="
+				+ getAwayTeam() + ", getHomeTeam()=" + getHomeTeam() + ", getAwayScore()=" + getAwayScore()
+				+ ", getHomeScore()=" + getHomeScore() + ", isFinished()=" + isFinished() + ", getWinner()="
+				+ getWinner() + ", getParentId()=" + getParentId() + ", getParent()=" + getParent() + ", getLeft()="
+				+ getLeft() + ", getRight()=" + getRight() + ", getAwaySeed()=" + getAwaySeed() + ", getHomeSeed()="
+				+ getHomeSeed() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 }
