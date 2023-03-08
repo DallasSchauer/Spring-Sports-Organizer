@@ -67,241 +67,118 @@ public class GameService {
 	
 	
 	public Game createTournament (int eventId, List<Seed> teams) {		
-		Game championship = createTournamentBracket(eventId, teams.size());
+		Game championship = createTournamentBracket(eventId, teams);
 		
 		int i = 0;
 		while ((int)Math.pow(2, i) / teams.size() <= 0) {
 			i += 1;
 		}
 		
-		populateTournament(championship, teams, i);	
+		// populateTournament(championship, teams, i);	
 		
 		
 		return championship;
 	}
 	
-	public Game createTournamentBracket (int eventId, int numTeams) {
+	public Game createTournamentBracket (int eventId, List<Seed> teams) {
 		Game championship = new Game();
 		championship.setEventId(eventId);
 		
+		championship.setHomeTeam(teams.get(0).getId());
+		championship.setHomeSeed(teams.get(0).getSeed());
+		championship.setAwayTeam(teams.get(1).getId());
+		championship.setAwaySeed(teams.get(1).getSeed());
+		
 		int i = 0;
-		while ((int)Math.pow(2, i) / numTeams <= 0) {
+		while ((int)Math.pow(2, i) / teams.size() <= 0) {
 			i += 1;
 		}
 		
-		populateTournamentStructure(championship, 0, i-1);
-		// clearAllAdvancements(championship);
+		Game c = gr.save(championship);
 		
-		//List<Integer> nums = seeding(i-1);
-		//System.out.println("LIST OF NUMBERS : \n" + nums.toString());
+		populateTournamentStructure(c, 1, i, teams);
 		
+		championship.setHomeTeam(0);
+		championship.setHomeSeed(0);
+		championship.setAwayTeam(0);
+		championship.setAwaySeed(0);
+		
+		gr.save(c);
 		
 		return championship;
 	}
 	
-	public void populateTournamentStructure (Game head, int round, int max) {
+	public void populateTournamentStructure (Game head, int round, 
+			int max, List<Seed> teams) {
 		if (round == max) {
+			if (head.getAwayTeam() == 0) {
+				Optional<Game> p = gr.findById(head.getParentId());
+				Game parent = p.get();
+				parent.setHomeTeam(head.getHomeTeam());
+				parent.setHomeSeed(head.getHomeSeed());
+				
+				gr.save(parent);
+			}
+			
+			
+			gr.save(head);
 			return;
 		}
 		
-		gr.save(head);
 		
 		Game left = new Game();
 		left.setEventId(head.getEventId());
 		left.setParent(head);
 		left.setParentId(head.getId());
-		left.setEventId(head.getEventId());
+		
+		int leftOpponent = head.getHomeSeed();
+		left.setHomeTeam(head.getHomeTeam());
+		left.setHomeSeed(head.getHomeSeed());
+		int leftTarget = (int)Math.pow(2,  round+1) - (leftOpponent - 1) -1;
+		
+		if (leftTarget >= teams.size()) {
+			left.setAwayTeam(0);
+		} else {
+			left.setAwayTeam(teams.get(leftTarget).getId());
+			left.setAwaySeed(teams.get(leftTarget).getSeed());
+		}
+		
 		head.setLeft(left);
 		
 		Game right = new Game();
 		right.setEventId(head.getEventId());
 		right.setParent(head);
 		right.setParentId(head.getId());
-		right.setEventId(head.getEventId());
+		
+		int rightOpponent = head.getAwaySeed();
+		right.setHomeTeam(head.getAwayTeam());
+		right.setHomeSeed(head.getAwaySeed());
+		int rightTarget = (int)Math.pow(2,  round+1) - (rightOpponent - 1) -1;
+		
+		if (rightTarget >= teams.size()) {
+			right.setAwayTeam(0);
+		} else {
+			right.setAwayTeam(teams.get(rightTarget).getId());
+			right.setAwaySeed(teams.get(rightTarget).getSeed());
+		}
+		
 		head.setRight(right);
 		
-		populateTournamentStructure(left, round + 1, max);
-		populateTournamentStructure(right, round + 1, max);
-	}
-	
-	
-	
-	// THIS ALGORITHM AND ITS HELPER FUNCTION WERE CREATED BY STACK OVERFLOW
-	// USER PHIL HOLDEN:
-	// https://stackoverflow.com/questions/8355264/tournament-bracket-placement-algorithm
-//	public List<Integer> seeding(int rounds) {
-//		List<Integer> nums = new ArrayList<Integer>();
-//		nums.add(1);
-//		nums.add(2);
-//		
-//		System.out.println(nums.toString());
-//		
-//		for (int i = 0; i < rounds; i++) {
-//			nums = nextRound(nums);
-//			System.out.println(nums.toString());
-//		}
-//		return nums;
-//	}
-//	
-//	public List<Integer> nextRound(List<Integer> nums) {
-//		List<Integer> ret = new ArrayList<Integer>();
-//		int len = nums.size()*2 + 1;
-//		
-//		for (int n: nums) {
-//			ret.add(n);
-//			ret.add(len-n);
-//		}
-//		
-//		return ret;
-//	}
-	
-	public void populateTournament(Game head, List<Seed> seeds, int round) {
-		if (head == null) {
-			return;
-		}
-		
-		head.setHomeTeam(seeds.get(0).getId());
-		head.setHomeSeed(seeds.get(0).getSeed());
-		head.setAwayTeam(seeds.get(1).getId());
-		head.setAwaySeed(seeds.get(1).getSeed());
-	
-		helper(head.getLeft(), seeds, 1);
-		helper(head.getRight(), seeds, 1);
-		
-		head.setHomeTeam(0);
-		head.setHomeSeed(0);
-		head.setAwayTeam(0);
-		head.setAwaySeed(0);
-	}
-	
-	public void helper(Game head, List<Seed> seeds, int round) {
-		if (head == null) {
-			return;
-		}
-		
-		int opponent = 0;
-		
-		if (head.getParent().getLeft() == head) {
-			head.setHomeTeam(head.getParent().getHomeTeam());
-			head.setHomeSeed(head.getParent().getHomeSeed());
-			opponent = head.getParent().getHomeSeed();
-		}
-		if (head.getParent().getRight() == head) {
-			head.setHomeTeam(head.getParent().getAwayTeam());
-			head.setHomeSeed(head.getParent().getAwaySeed());
-			opponent = head.getParent().getAwaySeed();
-		}
-		
-		int target = (int)Math.pow(2, round+1) - (opponent - 1) - 1;
-		
-		if (target >= seeds.size()) {
-			head.setAwayTeam(0);
-		} else {
-			head.setAwayTeam(seeds.get(target).getId());
-			head.setAwaySeed(seeds.get(target).getSeed());
-		}
-		
-		
-		
-		helper(head.getLeft(), seeds, round+1);
-		helper(head.getRight(), seeds, round+1);
+		left = gr.save(left);
+		right = gr.save(right);
 		
 		if ((head.getLeft() != null) || (head.getRight() != null)) {
-			System.out.println(head.getId() + " IS NOT A LEAF.");
 			head.setHomeTeam(0);
 			head.setHomeSeed(0);
 			head.setAwayTeam(0);
 			head.setAwaySeed(0);
 		}
 		
+		populateTournamentStructure(left, round + 1, max, teams);
+		populateTournamentStructure(right, round + 1, max, teams);
+		
 		gr.save(head);
 	}
-	
-	public void clearAllAdvancements (Game head) {
-		if (head == null) {
-			return;
-		}
-		
-		
-		
-		if (head.getLeft() == null && head.getRight() == null) {
-			System.out.println(head.getId() + " IS A LEAF.");
-			if (head.getHomeTeam() != 0 && head.getAwayTeam() == 0) {
-				if (head.getParentId() != 0) {
-					(head.getParent()).setHomeTeam(head.getHomeTeam());
-					(head.getParent()).setHomeSeed(head.getHomeSeed());
-					//gr.save(head.getParent());
-				}
-			}
-			//gr.save(head);
-			
-			return;
-		}
-		
-		System.out.println(head.getId() + " IS NOT A LEAF.");
-		
-		System.out.println("WE ARE AT " + head.getId());
-		System.out.println("LEFT IS " + head.getLeft().getId());
-		System.out.println("RIGHT IS " + head.getRight().getId());
-		
-//		head.setHomeTeam(0);
-//		head.setHomeSeed(0);
-//		head.setAwayTeam(0);
-//		head.setAwaySeed(0);
-		
-		// gr.save(head);
-		clearAllAdvancements(head.getLeft());
-		clearAllAdvancements(head.getRight());
-	}
-	
-	// OLD METHOD: Did not seed correctly, had to replace.
-	
-//	public void populateTournament (Game head, List<Seed> seeds, int maxTeams) {
-//		if (head.getLeft() == null && head.getRight() == null) {
-//			if (seeds.size() == 0) {
-//				return;
-//			}
-//			
-//			int count = 0;
-//			while (true) {
-//				if ((int)Math.pow(2, count+1) / maxTeams > 0) {
-//					break;
-//				}
-//				count++;
-//			}
-//			
-//			int powerOfTwo = (int)Math.pow(2, count);
-//			
-//			Seed highestSeed = seeds.remove(0);
-//			head.setHomeTeam(highestSeed.getId());
-//			head.setHomeSeed(highestSeed.getSeed());
-//			
-//			
-//			if (seeds.size() < powerOfTwo) {
-//				Seed awayTeam = seeds.remove(seeds.size()-1);
-//				head.setAwayTeam(awayTeam.getId());
-//				head.setAwaySeed(awayTeam.getSeed());
-//			} else {
-//				Game parent = gr.getById(head.getParentId());
-//				if (parent.getId() != 0) {
-//					if (parent.getHomeTeam() == 0) {
-//						parent.setHomeTeam(highestSeed.getId());
-//						parent.setHomeSeed(highestSeed.getSeed());
-//					} else if (parent.getAwayTeam() == 0){
-//						parent.setAwayTeam(highestSeed.getId());
-//						parent.setAwaySeed(highestSeed.getSeed());
-//					}
-//				}
-//			}
-//			
-//			gr.save(head);
-//			return;
-//		}
-//		
-//		populateTournament(head.getLeft(), seeds, maxTeams);
-//		populateTournament(head.getRight(), seeds, maxTeams);
-//	}
-	
 	
 	public int countGameNum (Game head) {
 		if (head == null) {

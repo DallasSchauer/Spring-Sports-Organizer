@@ -1,5 +1,6 @@
 package com.dallasschauer.tournamentorganizer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.dallasschauer.tournamentorganizer.entity.Game;
+import com.dallasschauer.tournamentorganizer.model.Seed;
 import com.dallasschauer.tournamentorganizer.service.GameService;
 
 @RestController
@@ -65,17 +67,6 @@ public class GameController {
 	public ResponseEntity<?> deleteByid (@PathVariable("id") int id) {
 		try {
 			Game ret = gs.deleteById(id);
-			return new ResponseEntity<Game>(ret, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
-		}
-	}
-	
-	@PostMapping("/events/{eventId}/createTournament")
-	public ResponseEntity<?> createTournament (@PathVariable("eventId") int eventId) {
-		try {
-			List<Integer> ints = gs.findTeamsByEventId(eventId);
-			Game ret = gs.createTournamentBracket(eventId, ints.size());
 			return new ResponseEntity<Game>(ret, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
