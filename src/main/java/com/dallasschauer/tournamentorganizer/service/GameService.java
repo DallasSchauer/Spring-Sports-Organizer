@@ -90,7 +90,7 @@ public class GameService {
 		}
 		
 		populateTournamentStructure(championship, 0, i-1);
-		clearAllAdvancements(championship);
+		// clearAllAdvancements(championship);
 		
 		//List<Integer> nums = seeding(i-1);
 		//System.out.println("LIST OF NUMBERS : \n" + nums.toString());
@@ -167,6 +167,11 @@ public class GameService {
 	
 		helper(head.getLeft(), seeds, 1);
 		helper(head.getRight(), seeds, 1);
+		
+		head.setHomeTeam(0);
+		head.setHomeSeed(0);
+		head.setAwayTeam(0);
+		head.setAwaySeed(0);
 	}
 	
 	public void helper(Game head, List<Seed> seeds, int round) {
@@ -196,41 +201,55 @@ public class GameService {
 			head.setAwaySeed(seeds.get(target).getSeed());
 		}
 		
-		gr.save(head);
+		
 		
 		helper(head.getLeft(), seeds, round+1);
 		helper(head.getRight(), seeds, round+1);
 		
+		if ((head.getLeft() != null) || (head.getRight() != null)) {
+			System.out.println(head.getId() + " IS NOT A LEAF.");
+			head.setHomeTeam(0);
+			head.setHomeSeed(0);
+			head.setAwayTeam(0);
+			head.setAwaySeed(0);
+		}
+		
+		gr.save(head);
 	}
 	
 	public void clearAllAdvancements (Game head) {
 		if (head == null) {
-			System.out.println(head.getId() + " IS NULL.");
 			return;
 		}
+		
+		
 		
 		if (head.getLeft() == null && head.getRight() == null) {
 			System.out.println(head.getId() + " IS A LEAF.");
 			if (head.getHomeTeam() != 0 && head.getAwayTeam() == 0) {
 				if (head.getParentId() != 0) {
-					head.getParent().setHomeTeam(head.getHomeTeam());
-					head.getParent().setHomeSeed(head.getHomeSeed());
-					gr.save(head.getParent());
+					(head.getParent()).setHomeTeam(head.getHomeTeam());
+					(head.getParent()).setHomeSeed(head.getHomeSeed());
+					//gr.save(head.getParent());
 				}
 			}
-			gr.save(head);
+			//gr.save(head);
 			
 			return;
 		}
 		
 		System.out.println(head.getId() + " IS NOT A LEAF.");
 		
-		head.setHomeTeam(0);
-		head.setHomeSeed(0);
-		head.setAwayTeam(0);
-		head.setAwaySeed(0);
+		System.out.println("WE ARE AT " + head.getId());
+		System.out.println("LEFT IS " + head.getLeft().getId());
+		System.out.println("RIGHT IS " + head.getRight().getId());
 		
-		gr.save(head);
+//		head.setHomeTeam(0);
+//		head.setHomeSeed(0);
+//		head.setAwayTeam(0);
+//		head.setAwaySeed(0);
+		
+		// gr.save(head);
 		clearAllAdvancements(head.getLeft());
 		clearAllAdvancements(head.getRight());
 	}

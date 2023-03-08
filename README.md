@@ -24,17 +24,5 @@ but the one I recommend is Spring Tool Suite.
 
 ### TO DO
 
-- Make standings (tie to seed)
-- Commissioner make tournament event after
-- Tournament creating pseudocode:
-	- have list of teams ordered by seed
-	- visit each leaf node
-	- assign highest vs 2^rounds - numGames assigned so far,
-	if not enough teams, assign bye
-	- repeat
-- Tournament refreshing pseudocode:
-	- go to highest round with teams in it
-	- put all teams in list, order by seed
-	- pair highest seed with lowest seed, repeat
 - Make more games, some finished, some not.
 - Make more events, teams, and managers
