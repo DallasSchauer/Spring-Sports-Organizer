@@ -24,5 +24,7 @@ but the one I recommend is Spring Tool Suite.
 
 ### TO DO
 
+- Add player to team
+- HTML Tourney page
 - Make more games, some finished, some not.
 - Make more events, teams, and managers
