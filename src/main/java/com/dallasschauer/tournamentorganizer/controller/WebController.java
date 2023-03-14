@@ -387,6 +387,21 @@ public class WebController {
 				   seeds.add(newSeed);
 			   }
 			   model.addAttribute("seeds", seeds);
+		   } else if (es.findById(id).getType() == 1) {
+			   List<Game> tourneyGames = gs.findTournamentGames(id);
+			   int numRounds = gs.findMaxRound(id);
+			   
+			   List<List<Game>> rounds = new ArrayList<List<Game>>();
+			   
+			   for (int i = 0; i < numRounds; i++) {
+				   rounds.add(new ArrayList<Game>());
+			   }
+			   
+			   for (Game g:tourneyGames) {
+				   (rounds.get(g.getRound()-1)).add(g);
+			   }
+			   
+			   model.addAttribute("rounds", rounds);
 		   }
 			   
 		   model.addAttribute("teams", standings);

@@ -59,4 +59,10 @@ public interface GameRepository extends JpaRepository<Game, Integer>{
 			+ " where event_id=:id) and id not in (select winner_id from game where event_id=:id)",
 			nativeQuery=true)
 	public List<Tuple> getTeamsWithNoWins(int id);
+	
+	@Query(value="select * from game where event_id=? order by round ascending, home_seed ascending", nativeQuery=true)
+	public List<Game> findTournamentGames(int id);
+	
+	@Query(value="select max(round) from game where event_id=?", nativeQuery=true)
+	public int findMaxRound(int id);
 }

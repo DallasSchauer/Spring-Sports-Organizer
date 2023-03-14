@@ -49,6 +49,9 @@ public class Game {
 	@Column(name="parent")
 	private Integer parentId;
 	
+	@Column(name="round")
+	private int round;
+	
 	@Transient
 	private Game parent;
 
@@ -59,7 +62,7 @@ public class Game {
 	private Game right;
 
 	public Game(int id, int eventId, Timestamp gameTime, int awayTeam, int homeTeam, int awayScore, int homeScore,
-			boolean finished, int winner, Integer parentId, Game parent, Game left, Game right) {
+			boolean finished, int winner, Integer parentId, Game parent, Game left, Game right, int round) {
 		super();
 		this.id = id;
 		this.eventId = eventId;
@@ -74,6 +77,7 @@ public class Game {
 		this.parent = parent;
 		this.left = left;
 		this.right = right;
+		this.round = round;
 	}
 	
 	public Game() {
@@ -199,6 +203,14 @@ public class Game {
 
 	public void setHomeSeed(int homeSeed) {
 		this.homeSeed = homeSeed;
+	}
+	
+	public int getRound() {
+		return round;
+	}
+	
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	@Override

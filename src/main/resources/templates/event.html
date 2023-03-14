@@ -62,7 +62,7 @@
 	
 	<h1 th:text="${event.name}" />
 	
-	<span th:if="${numGames} > 0">
+	<span th:if="${numGames} == 0">
 		<div class="signup-container">
 				<button class="signup-button" style="position:relative; float:right;"
 				th:onClick="'javascript:signupClicked();'"> 
@@ -70,56 +70,64 @@
 		</div>
 	</span>
 	
-	
-
-	<span th:if="${teams.size} > 0">
-		<h2> Standings: </h2>
-		<table>
-			<tr>
-				<th>Team Id</th>
-				<th>Name</th>
-				<th>Wins</th>
-			</tr>
-			<tr th:each="team:${teams}"
-			 style="cursor: pointer; background-color:lightcoral;"
-			 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
-				<td th:text="${team.id}">Id</td>
-				<td th:text="${team.name}">Name</td>
-				<td th:text="${team.wins}">Wins</td>
-			</tr>
-		</table>
-	</span>	
-	
-	<span th:if="${event.type} == 0">
-		<span th:if="${session.USER_ID} == ${event.commissioner}">
-			<button class="signup-button" 
-			th:onClick="'javascript:generateScheduleClicked(\'' + ${event.id} + '\');'">
-			Create Schedule</button>
+		<span th:if="${teams.size} > 0">
+			<h2> Standings: </h2>
+			<table>
+				<tr>
+					<th>Team Id</th>
+					<th>Name</th>
+					<th>Wins</th>
+				</tr>
+				<tr th:each="team:${teams}"
+				 style="cursor: pointer; background-color:lightcoral;"
+				 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
+					<td th:text="${team.id}">Id</td>
+					<td th:text="${team.name}">Name</td>
+					<td th:text="${team.wins}">Wins</td>
+				</tr>
+			</table>
+		</span>	
+		
+		<span th:if="${event.type} == 0">
+			<span th:if="${session.USER_ID} == ${event.commissioner}">
+				<button class="signup-button" 
+				th:onClick="'javascript:generateScheduleClicked(\'' + ${event.id} + '\');'">
+				Create Schedule</button>
+			</span>
+			
+		<span th:if="${numGames} > 0">	
+		
+		<h2> Games </h2>
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Game time</th>
+					<th>Away team</th>
+					<th>Home team</th>
+					<th>Away score</th>
+					<th>Home score</th>
+				</tr>
+				<tr th:each="game:${games}" 
+						th:class="${game.eventId}"
+						style="cursor:pointer; background-color:lightblue;"
+						th:onClick="'javascript:gameClicked(\'' + ${game.id} + '\');'">
+					<td th:text="${game.id}">Id</td>
+					<td th:text="${game.gameTime}">Game time</td>
+					<td th:text="${game.awayTeam}">Away team</td>
+					<td th:text="${game.homeTeam}">Home team</td>
+					<td th:text="${game.awayScore}">Away score</td>
+					<td th:text="${game.homeScore}">Home score</td>
+				</tr>
+			</table>
 		</span>
 	</span>
-		
-	<span th:if="${numGames} > 0">	
 	
-	<h2> Games </h2>
-		<table>
-			<tr>
-				<th>Id</th>
-				<th>Game time</th>
-				<th>Away team</th>
-				<th>Home team</th>
-				<th>Away score</th>
-				<th>Home score</th>
-			</tr>
-			<tr th:each="game:${games}" 
-					th:class="${game.eventId}"
-					style="cursor:pointer; background-color:lightblue;"
-					th:onClick="'javascript:gameClicked(\'' + ${game.id} + '\');'">
-				<td th:text="${game.id}">Id</td>
-				<td th:text="${game.gameTime}">Game time</td>
-				<td th:text="${game.awayTeam}">Away team</td>
-				<td th:text="${game.homeTeam}">Home team</td>
-				<td th:text="${game.awayScore}">Away score</td>
-				<td th:text="${game.homeScore}">Home score</td>
+	<!--- TO DO HERE !-->
+	
+	<span th:if="${event.type} == 1">
+		<table th:each="round:${rounds}">
+			<tr th:each="game:round">
+				<td th:text="${game.awaySeed"
 			</tr>
 		</table>
 	</span>

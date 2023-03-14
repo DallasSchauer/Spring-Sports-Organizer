@@ -65,23 +65,26 @@ public class GameService {
 		return gr.findFutureGames(playerId);
 	}
 	
+	public List<Game> findTournamentGames (int eventId) {
+		return gr.findTournamentGames(eventId);
+	}
+	
+	public int findMaxRound (int eventId) {
+		return gr.findMaxRound(eventId);
+	}
+	
 	
 	public Game createTournament (int eventId, List<Seed> teams) {		
-		Game championship = createTournamentBracket(eventId, teams);
-		
-		int i = 0;
-		while ((int)Math.pow(2, i) / teams.size() <= 0) {
-			i += 1;
-		}
+		Game tournament = createTournamentBracket(eventId, teams);
 		
 		// populateTournament(championship, teams, i);	
 		
-		
-		return championship;
+		return tournament;
 	}
 	
 	public Game createTournamentBracket (int eventId, List<Seed> teams) {
 		Game championship = new Game();
+		
 		championship.setEventId(eventId);
 		
 		championship.setHomeTeam(teams.get(0).getId());
@@ -110,6 +113,9 @@ public class GameService {
 	
 	public void populateTournamentStructure (Game head, int round, 
 			int max, List<Seed> teams) {
+
+		head.setRound(max-round+1);
+		
 		if (round == max) {
 			if (head.getAwayTeam() == 0) {
 				Optional<Game> p = gr.findById(head.getParentId());
@@ -119,7 +125,6 @@ public class GameService {
 				
 				gr.save(parent);
 			}
-			
 			
 			gr.save(head);
 			return;
