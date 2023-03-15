@@ -69,7 +69,7 @@ public class GameService {
 		return gr.findTournamentGames(eventId);
 	}
 	
-	public int findMaxRound (int eventId) {
+	public Integer findMaxRound (int eventId) {
 		return gr.findMaxRound(eventId);
 	}
 	

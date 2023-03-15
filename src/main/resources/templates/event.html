@@ -50,6 +50,24 @@
 			padding: 10px;
 			margin: 10px;
 		}
+		
+		.tourney {
+			display: flex;
+		}
+		
+		.tourney > div {
+			margin: 10px;
+			padding: 20px;
+			width: auto;
+			justify-content: center;
+		}
+		
+		.tourney > div > table {
+			width: auto;
+			align-items:center;
+			padding: 50px;
+			margin: 50px;
+		}
 	</style>
 	
 	<div th:replace="header :: myheader"></div>
@@ -123,13 +141,25 @@
 	</span>
 	
 	<!--- TO DO HERE !-->
-	
-	<span th:if="${event.type} == 1">
-		<table th:each="round:${rounds}">
-			<tr th:each="game:round">
-				<td th:text="${game.awaySeed"
-			</tr>
-		</table>
+
+	<span th:if="${event.type} == 1" class="tourney">
+		<div th:each="round:${rounds}">
+			<table th:each="game:${round}"
+				th:onClick="'javascript:gameClicked(\'' + ${game.id} + '\');'">
+				<tr>
+					<!-- <span th:if="${game.awaySeed} != 0"> !-->
+						<td th:text="${game.awaySeed}"/>
+						<td th:text="${(seeds.get(game.awaySeed)).getName()}">
+					<!-- </span> !-->
+				</tr>
+				<tr>
+					<!-- <span th:if="${game.homeSeed} != 0"> !-->
+						<td th:text="${game.homeSeed}"/>
+						<td th:text="${(seeds.get(game.homeSeed)).getName()}">
+					<!-- </span> !-->
+				</tr>
+			</table>
+		</div>
 	</span>
 	
 	<span th:if="${event.type} == 0">
@@ -145,10 +175,12 @@
 	</span>
 	
 	<span th:if="${event.type} == 1">
-		<span th:if="${session.USER_ID} == ${event.commissioner}">
-			<button class="signup-button" style="background-color:red;"
-			th:onClick="'javascript:createTournament(\'' + ${event.id} + '\');'">
-			Create Bracket</button>
+		<span th:if="${numGames} == 0">
+			<span th:if="${session.USER_ID} == ${event.commissioner}">
+				<button class="signup-button" style="background-color:red;"
+				th:onClick="'javascript:createTournament(\'' + ${event.id} + '\');'">
+				Create Bracket</button>
+			</span>
 		</span>
 	</span>		
   <div th:replace="footer :: myfooter"></div>

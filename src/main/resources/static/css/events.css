@@ -23,7 +23,7 @@ h2 {
 
 table {
 	border: 5px solid black;
-	width: 90vw;
+	width: auto;
 	margin:auto;
 	padding: 4px 4px;
 	border-collapse:collapse;
@@ -46,7 +46,6 @@ tr:hover {
 
 td {
 	display: "block";
-	width: 25vw;
 	text-align:center;
 	font-family:'Lucida Sans', 'Lucida Sans Regular',
 	 'Lucida Grande', 'Lucida Sans Unicode', Geneva,

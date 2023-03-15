@@ -355,8 +355,9 @@ public class WebController {
 			   return login(session, model, "");
 		   }
 		   
+		   System.out.println("GOT HERE 1 " + id);
+		   
 		   model.addAttribute("event", es.findById(id));
-		   // model.addAttribute("teams", ts.findAllTeamsByEventId(id));
 		   List<Game> games = gs.findGamesByEvent(id);
 		   model.addAttribute("numGames", games.size());
 		   model.addAttribute("games", games);
@@ -365,6 +366,7 @@ public class WebController {
 		   
 		   List<Tuple> teams = gs.getTeamsWithWins(id);
 		   teams.addAll(gs.getTeamsWithNoWins(id));
+		   
 		   
 		   List<Standing> standings = new ArrayList<Standing>();
 		   for (Tuple t: teams) {
@@ -376,18 +378,24 @@ public class WebController {
 			   standings.add(s);
 		   }
 		   
-		   if (es.findById(id).getType() == 0) {
-			   int count = 1;
-			   List<Seed> seeds = new ArrayList<Seed>();
-			   for (Standing st : standings) {
-				   Seed newSeed = new Seed();
-				   newSeed.setId(st.getId());
-				   newSeed.setSeed(count);
-				   count++;
-				   seeds.add(newSeed);
-			   }
-			   model.addAttribute("seeds", seeds);
-		   } else if (es.findById(id).getType() == 1) {
+		   int count = 1;
+		   List<Seed> seeds = new ArrayList<Seed>();
+		   seeds.add(new Seed(0, "BYE", 0));
+		   
+		   
+		   for (Standing st : standings) {
+			   Seed newSeed = new Seed();
+			   newSeed.setId(st.getId());
+			   newSeed.setName(st.getName());
+			   newSeed.setSeed(count);
+			   count++;
+			   seeds.add(newSeed);
+		   }
+		   model.addAttribute("seeds", seeds);
+		   
+		   if (es.findById(id).getType() == 1 && games.size() > 0) {
+			   System.out.println("GOT HERE 2 " + id);
+			   
 			   List<Game> tourneyGames = gs.findTournamentGames(id);
 			   int numRounds = gs.findMaxRound(id);
 			   
