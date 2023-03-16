@@ -48,4 +48,12 @@ public class TeamParticipatesService {
 		}
 		return Utils.findAge(dob);
 	}
+	
+	public List<TeamParticipates> findByEventAndTeam (int eventId, int teamId) {
+		return tpr.findIdByEventAndTeam(eventId, teamId);
+	}
+	
+	public Integer findSeedByEventAndTeam (int eventId, int teamId) {
+		return tpr.findTeamFromEventAndSeed(eventId, teamId);
+	}
 }

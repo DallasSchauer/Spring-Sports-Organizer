@@ -89,21 +89,40 @@
 	</span>
 	
 		<span th:if="${teams.size} > 0">
-			<h2> Standings: </h2>
-			<table>
-				<tr>
-					<th>Team Id</th>
-					<th>Name</th>
-					<th>Wins</th>
-				</tr>
-				<tr th:each="team:${teams}"
-				 style="cursor: pointer; background-color:lightcoral;"
-				 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
-					<td th:text="${team.id}">Id</td>
-					<td th:text="${team.name}">Name</td>
-					<td th:text="${team.wins}">Wins</td>
-				</tr>
-			</table>
+			<span th:if="${event.type} == 0">
+				<h2> Standings: </h2>
+				<table>
+					<tr>
+						<th>Team Id</th>
+						<th>Name</th>
+						<th>Wins</th>
+					</tr>
+					<tr th:each="team:${teams}"
+					 style="cursor: pointer; background-color:lightcoral;"
+					 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
+						<td th:text="${team.id}">Id</td>
+						<td th:text="${team.name}">Name</td>
+						<td th:text="${team.wins}">Wins</td>
+					</tr>
+				</table>
+			</span>
+			<span th:if="${event.type} == 1">
+				<h2> Teams: </h2>
+				<table>
+					<tr>
+						<th>Team Id</th>
+						<th>Name</th>
+						<th>Wins</th>
+					</tr>
+					<tr th:each="team:${teams}"
+					 style="cursor: pointer; background-color:lightcoral;"
+					 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
+						<td th:text="${team.id}">Id</td>
+						<td th:text="${team.name}">Name</td>
+						<td th:text="${team.wins}">Wins</td>
+					</tr>
+				</table>
+			</span>
 		</span>	
 		
 		<span th:if="${event.type} == 0">
@@ -147,16 +166,18 @@
 			<table th:each="game:${round}"
 				th:onClick="'javascript:gameClicked(\'' + ${game.id} + '\');'">
 				<tr>
-					<!-- <span th:if="${game.awaySeed} != 0"> !-->
+					<span th:if="${game.awaySeed} != 0">
 						<td th:text="${game.awaySeed}"/>
 						<td th:text="${(seeds.get(game.awaySeed)).getName()}">
-					<!-- </span> !-->
+						<td th:text="${game.awayScore}"/>
+					</span>
 				</tr>
 				<tr>
-					<!-- <span th:if="${game.homeSeed} != 0"> !-->
+					<span th:if="${game.homeSeed} != 0">
 						<td th:text="${game.homeSeed}"/>
 						<td th:text="${(seeds.get(game.homeSeed)).getName()}">
-					<!-- </span> !-->
+						<td th:text="${game.homeScore}"/>
+					</span>
 				</tr>
 			</table>
 		</div>

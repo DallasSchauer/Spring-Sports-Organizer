@@ -65,4 +65,5 @@ public interface GameRepository extends JpaRepository<Game, Integer>{
 	
 	@Query(value="select max(round) from game where event_id=?", nativeQuery=true)
 	public Integer findMaxRound(int id);
+	
 }

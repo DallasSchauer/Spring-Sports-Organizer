@@ -25,13 +25,13 @@ public class Game {
 	@Column(name="away_team_id")
 	private int awayTeam;
 	
-	@Transient
+	@Column(name="away_seed")
 	private int awaySeed;
 	
 	@Column(name="home_team_id")
 	private int homeTeam;
 	
-	@Transient
+	@Column(name="home_seed")
 	private int homeSeed;
 	
 	@Column(name="away_score")

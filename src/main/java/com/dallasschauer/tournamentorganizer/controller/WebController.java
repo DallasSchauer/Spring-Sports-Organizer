@@ -382,22 +382,39 @@ public class WebController {
 		   List<Seed> seeds = new ArrayList<Seed>();
 		   seeds.add(new Seed(0, "BYE", 0));
 		   
-		   
-		   for (Standing st : standings) {
-			   Seed newSeed = new Seed();
-			   newSeed.setId(st.getId());
-			   newSeed.setName(st.getName());
-			   newSeed.setSeed(count);
-			   count++;
-			   seeds.add(newSeed);
+		   if (es.findById(id).getType() == 0) {
+			   for (Standing st : standings) {
+				   Seed newSeed = new Seed();
+				   newSeed.setId(st.getId());
+				   newSeed.setName(st.getName());
+				   newSeed.setSeed(count);
+				   count++;
+				   System.out.println("SEED/COUNT " + count);
+				   seeds.add(newSeed);
+			   }
+			   model.addAttribute("seeds", seeds);
+		   } else if (games.size() > 0) {
+			   for (int i = 1; i <= standings.size(); i++) {
+				   Team t = ts.findById(tps.findSeedByEventAndTeam(id, i));
+				   Seed newSeed = new Seed();
+				   
+				   newSeed.setId(t.getId());
+				   newSeed.setName(t.getName());
+				   newSeed.setSeed(count);
+				   seeds.add(newSeed);
+			   }
+			   model.addAttribute("seeds", seeds);
 		   }
-		   model.addAttribute("seeds", seeds);
+			   
 		   
 		   if (es.findById(id).getType() == 1 && games.size() > 0) {
 			   System.out.println("GOT HERE 2 " + id);
 			   
 			   List<Game> tourneyGames = gs.findTournamentGames(id);
 			   int numRounds = gs.findMaxRound(id);
+			   
+			   System.out.println("TOURNEY GAMES " + tourneyGames.size());
+			   System.out.println("NUM ROUNDS " + numRounds);
 			   
 			   List<List<Game>> rounds = new ArrayList<List<Game>>();
 			   
@@ -406,6 +423,9 @@ public class WebController {
 			   }
 			   
 			   for (Game g:tourneyGames) {
+				   System.out.println("GAME " + g.getId() + " HOME " +
+						   g.getHomeSeed() + " " + g.getHomeTeam() +
+						   " AWAY " + g.getAwaySeed() + " " + g.getAwayTeam());
 				   (rounds.get(g.getRound()-1)).add(g);
 			   }
 			   
@@ -503,8 +523,15 @@ public class WebController {
 			   Seed newSeed = new Seed();
 			   newSeed.setId((int)t.get(0));
 			   newSeed.setSeed(count);
+			   
+			   List<TeamParticipates> tp = tps.findByEventAndTeam(id, (int)t.get(0));
+			   (tp.get(0)).setSeed(count);
+			   tps.save(tp.get(0));
+			   
 			   count++;
 			   seeds.add(newSeed);
+			   
+			   
 		   }
 		   
 		   Game championship = gs.createTournament(tournament.getId(), seeds);
@@ -586,10 +613,14 @@ public class WebController {
 		   g.setHomeScore(game.getHomeScore());
 		   g.setFinished(true);
 		   
+		   int winnerSeed = 0;
+		   
 		   if (g.getAwayScore() > g.getHomeScore()) {
 			   g.setWinner(g.getAwayTeam());
+			   winnerSeed = g.getAwaySeed();
 		   } else if (g.getHomeScore() > g.getAwayScore()) {
 			   g.setWinner(g.getHomeTeam());
+			   winnerSeed = g.getHomeSeed();
 		   }
 		   
 		   if (e.getType() == 1) {
@@ -597,8 +628,10 @@ public class WebController {
 				   Game parent = gs.findById(g.getParentId());
 				   if (parent.getHomeTeam() == 0) {
 					   parent.setHomeTeam(g.getWinner());
+					   parent.setHomeSeed(winnerSeed);
 				   } else if (parent.getAwayTeam() == 0) {
 					   parent.setAwayTeam(g.getWinner());
+					   parent.setAwaySeed(winnerSeed);
 				   }
 				   gs.save(parent);
 			   }

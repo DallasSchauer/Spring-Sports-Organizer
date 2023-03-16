@@ -15,16 +15,20 @@ public class TeamParticipates {
 	
 	@Column(name="team_id")
 	private int teamId;
+	
+	@Column(name="seed")
+	private int seed;
 
 	public TeamParticipates() {
 		super();
 	}
 
-	public TeamParticipates(int id, int eventId, int teamId) {
+	public TeamParticipates(int id, int eventId, int teamId, int seed) {
 		super();
 		this.id = id;
 		this.eventId = eventId;
 		this.teamId = teamId;
+		this.seed = seed;
 	}
 	
 	public int getId() {
@@ -49,5 +53,13 @@ public class TeamParticipates {
 
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
+	}
+	
+	public int getSeed() {
+		return seed;
+	}
+	
+	public void setSeed(int seed) {
+		this.seed = seed;
 	}
 }

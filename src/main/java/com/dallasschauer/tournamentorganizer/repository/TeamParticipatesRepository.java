@@ -18,9 +18,14 @@ public interface TeamParticipatesRepository extends JpaRepository<TeamParticipat
 	
 	@Query(value="select * from team_participates where event_id=? and team_id=?",
 			nativeQuery=true)
-	int findIdByEventAndTeam (int eventId, int teamId);
+	List<TeamParticipates> findIdByEventAndTeam (int eventId, int teamId);
 	
 	@Query(value="select min(dob) from player where id in (select player_id from"
 			+ " player_participates where team_id=?)", nativeQuery=true)
 	java.sql.Date findOldestPlayer (int teamId);
+	
+	@Query(value="select team_id from team_participates where event_id=? and seed=?",
+			nativeQuery=true)
+	Integer findTeamFromEventAndSeed(int eventId, int seed);
+	
 }

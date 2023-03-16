@@ -77,7 +77,7 @@ create table team_participates(
 	id int auto_increment primary key,
 	event_id int references event(id) on delete cascade,
 	team_id int references team(id) on delete cascade,
-	seed int
+	seed int default 0
 );
 
 DROP TABLE if EXISTS game;
@@ -90,6 +90,8 @@ create table game(
 	home_team_id int default 0,
 	away_score int default 0,
 	home_score int default 0,
+	away_seed int default 0,
+	home_seed int default 0,
 	finished boolean default false,
 	winner_id int default 0,
 	round int default 0
