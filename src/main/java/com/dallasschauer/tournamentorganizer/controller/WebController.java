@@ -355,8 +355,6 @@ public class WebController {
 			   return login(session, model, "");
 		   }
 		   
-		   System.out.println("GOT HERE 1 " + id);
-		   
 		   model.addAttribute("event", es.findById(id));
 		   List<Game> games = gs.findGamesByEvent(id);
 		   model.addAttribute("numGames", games.size());
@@ -366,7 +364,6 @@ public class WebController {
 		   
 		   List<Tuple> teams = gs.getTeamsWithWins(id);
 		   teams.addAll(gs.getTeamsWithNoWins(id));
-		   
 		   
 		   List<Standing> standings = new ArrayList<Standing>();
 		   for (Tuple t: teams) {
@@ -389,11 +386,15 @@ public class WebController {
 				   newSeed.setName(st.getName());
 				   newSeed.setSeed(count);
 				   count++;
-				   System.out.println("SEED/COUNT " + count);
 				   seeds.add(newSeed);
 			   }
 			   model.addAttribute("seeds", seeds);
 		   } else if (games.size() > 0) {
+			   Game championship = gs.findChampionship(id);
+			   Team champion = ts.findById(championship.getWinner());
+			   model.addAttribute("championship", championship);
+			   model.addAttribute("champion", champion);
+			   
 			   for (int i = 1; i <= standings.size(); i++) {
 				   Team t = ts.findById(tps.findSeedByEventAndTeam(id, i));
 				   Seed newSeed = new Seed();
@@ -408,13 +409,10 @@ public class WebController {
 			   
 		   
 		   if (es.findById(id).getType() == 1 && games.size() > 0) {
-			   System.out.println("GOT HERE 2 " + id);
 			   
 			   List<Game> tourneyGames = gs.findTournamentGames(id);
 			   int numRounds = gs.findMaxRound(id);
 			   
-			   System.out.println("TOURNEY GAMES " + tourneyGames.size());
-			   System.out.println("NUM ROUNDS " + numRounds);
 			   
 			   List<List<Game>> rounds = new ArrayList<List<Game>>();
 			   
@@ -423,9 +421,6 @@ public class WebController {
 			   }
 			   
 			   for (Game g:tourneyGames) {
-				   System.out.println("GAME " + g.getId() + " HOME " +
-						   g.getHomeSeed() + " " + g.getHomeTeam() +
-						   " AWAY " + g.getAwaySeed() + " " + g.getAwayTeam());
 				   (rounds.get(g.getRound()-1)).add(g);
 			   }
 			   
@@ -614,25 +609,74 @@ public class WebController {
 		   g.setFinished(true);
 		   
 		   int winnerSeed = 0;
+		   int loserTeam = 0;
+		   int loserSeed = 0;
 		   
 		   if (g.getAwayScore() > g.getHomeScore()) {
 			   g.setWinner(g.getAwayTeam());
 			   winnerSeed = g.getAwaySeed();
+			   loserTeam = g.getHomeTeam();
+			   loserSeed = g.getHomeSeed();
 		   } else if (g.getHomeScore() > g.getAwayScore()) {
 			   g.setWinner(g.getHomeTeam());
 			   winnerSeed = g.getHomeSeed();
+			   loserTeam = g.getAwayTeam();
+			   loserSeed = g.getAwaySeed();
 		   }
+		   
 		   
 		   if (e.getType() == 1) {
 			   if (g.getParentId() != null) {
 				   Game parent = gs.findById(g.getParentId());
-				   if (parent.getHomeTeam() == 0) {
+				   
+				   if (parent.getHomeTeam() == 0 && parent.getAwayTeam() == 0) {
 					   parent.setHomeTeam(g.getWinner());
 					   parent.setHomeSeed(winnerSeed);
-				   } else if (parent.getAwayTeam() == 0) {
+				   } else if (parent.getHomeTeam() == g.getWinner()
+						   || parent.getAwayTeam() == g.getWinner()) {
+				   } else if (parent.getHomeTeam() == loserTeam
+						   && parent.getAwayTeam() == 0) {
+					   parent.setHomeTeam(g.getWinner());
+					   parent.setHomeSeed(winnerSeed);
+				   } else if (parent.getAwayTeam() == 0 
+						   && parent.getHomeSeed() < winnerSeed) {
 					   parent.setAwayTeam(g.getWinner());
 					   parent.setAwaySeed(winnerSeed);
+				   } else if (parent.getAwayTeam() == 0
+						   && parent.getHomeSeed() > winnerSeed) {
+					   parent.setAwayTeam(parent.getHomeTeam());
+					   parent.setAwaySeed(parent.getHomeSeed());
+					   parent.setHomeTeam(g.getWinner());
+					   parent.setHomeSeed(winnerSeed);
+				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
+						   && (parent.getAwaySeed() < winnerSeed)
+						   && (parent.getHomeTeam() == loserTeam)) {
+					   parent.setHomeTeam(parent.getAwayTeam());
+					   parent.setHomeSeed(parent.getAwaySeed());
+					   parent.setAwayTeam(g.getWinner());
+					   parent.setAwaySeed(winnerSeed);
+				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
+						   && (parent.getAwaySeed() > winnerSeed)
+						   && (parent.getHomeTeam() == loserTeam)) {
+					   parent.setHomeTeam(g.getWinner());
+					   parent.setHomeSeed(winnerSeed);
+				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
+						   && (parent.getHomeSeed() < winnerSeed)
+						   && (parent.getAwayTeam() == loserTeam)) {
+					   parent.setAwayTeam(g.getWinner());
+					   parent.setAwaySeed(winnerSeed);
+				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
+						   && (parent.getHomeSeed() > winnerSeed)
+						   && (parent.getAwayTeam() == loserTeam)) {
+					   parent.setAwayTeam(parent.getHomeTeam());
+					   parent.setAwaySeed(parent.getHomeSeed());
+					   parent.setHomeTeam(g.getWinner());
+					   parent.setHomeSeed(winnerSeed);
+				   } else {
+					   model.addAttribute("message", "Code coverage not 100%");
+					   return "error";
 				   }
+				   
 				   gs.save(parent);
 			   }
 		   }

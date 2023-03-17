@@ -61,6 +61,22 @@ public class GameService {
 		return ret;
 	}
 	
+	public Game findChampionship (int eventId) {
+		List<Game> games = gr.findGamesByEventId(eventId);
+		
+		if (games.size() == 0) {
+			throw new EntryNotFoundException();
+		}
+		
+		Game ret = games.get(0);
+		
+		while (ret.getParentId() != null) {
+			ret = gr.getById(ret.getParentId());
+		}
+		
+		return ret;
+	}
+	
 	public List<Game> findFutureGames (int playerId) {
 		return gr.findFutureGames(playerId);
 	}

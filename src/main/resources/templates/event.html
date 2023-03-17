@@ -196,6 +196,14 @@
 	</span>
 	
 	<span th:if="${event.type} == 1">
+		<span th:if="${numGames} > 0">
+			<span th:if="${champion.id} != 0">
+				<h1 th:text="'👑 CHAMPION : ' + ${champion.name} + '👑'"/>
+			</span>
+		</span>
+	</span>
+	
+	<span th:if="${event.type} == 1">
 		<span th:if="${numGames} == 0">
 			<span th:if="${session.USER_ID} == ${event.commissioner}">
 				<button class="signup-button" style="background-color:red;"

@@ -24,17 +24,7 @@ but the one I recommend is Spring Tool Suite.
 
 ### TO DO
 
-- HTML Tourney page
-- Fix advancement logic:
-	- If no teams -> set winner as home team
-	- If winner == home or away -> no change
-	- If only home team and hometeam = current loser -> replace home with winner 
-	- If only home team and winner > home -> set home as away, set winner as home
-	- If only home team and winner < home -> set winner as away
-	- If both teams and current loser == home AND away > winner -> set away as home, set winner as away
-	- If both teams and current loser == home AND away < winner -> set winner as home
-	- If both teams and current loser == away AND home < winner -> set home as away, set winner as home
-	- If both teams and current loser == away AND home > winner -> set winner as away
-	- THROW ERROR, CASE NOT COVERED
+- HTML Tourney page (just CSS fixes)
+- Parent erasure algorithm
 - Make more games, some finished, some not.
 - Make more events, teams, and managers
