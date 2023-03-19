@@ -54,6 +54,9 @@ public class TeamParticipatesService {
 	}
 	
 	public Integer findSeedByEventAndTeam (int eventId, int teamId) {
+		if (tpr.findTeamFromEventAndSeed(eventId, teamId) == null) {
+			return null;
+		}
 		return tpr.findTeamFromEventAndSeed(eventId, teamId);
 	}
 }

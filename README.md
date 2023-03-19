@@ -24,6 +24,7 @@ but the one I recommend is Spring Tool Suite.
 
 ### TO DO
 
+- Create team button
 - Test league -> tournament conversion
 - Parent erasure algorithm
 - Make more games, some finished, some not.

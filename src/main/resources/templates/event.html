@@ -66,7 +66,7 @@
 			padding: 50px;
 			margin: 50px;
 			width: 100%;
-			background-color:lightblue;
+			background-color:silver;
 		}
 		
 		.tourney > div > table:hover {
@@ -179,19 +179,20 @@
 		<div th:each="round, iRound:${rounds}" border="1">
 			<h2 th:text="'Round ' + ${iRound.index + 1}"/>
 			<table th:each="game:${round}" border="0"
+				th:style="${iRound.last}? 'background-color:palegoldenrod'"
 				th:onClick="'javascript:gameClicked(\'' + ${game.id} + '\');'">
-				<tr>
-					<span th:if="${game.awaySeed} != 0">
-						<td th:text="${game.awaySeed}"/>
-						<td th:text="${(seeds.get(game.awaySeed)).getName()}">
-						<td th:text="${game.awayScore}"/>
-					</span>
-				</tr>
 				<tr>
 					<span th:if="${game.homeSeed} != 0">
 						<td th:text="${game.homeSeed}"/>
 						<td th:text="${(seeds.get(game.homeSeed)).getName()}">
 						<td th:text="${game.homeScore}"/>
+					</span>
+				</tr>
+				<tr>
+					<span th:if="${game.awaySeed} != 0">
+						<td th:text="${game.awaySeed}"/>
+						<td th:text="${(seeds.get(game.awaySeed)).getName()}">
+						<td th:text="${game.awayScore}"/>
 					</span>
 				</tr>
 			</table>

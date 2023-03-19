@@ -89,6 +89,57 @@ public class GameService {
 		return gr.findMaxRound(eventId);
 	}
 	
+	public void eraseParents (int parentId, int replaced) {
+		Optional<Game> res = gr.findById(parentId);
+		
+		if (res.isEmpty()) {
+			return;
+		}
+		
+		Game g = res.get();
+		
+		while (g != null) {
+			System.out.println("WE ARE ON GAME : " + g.getId());
+			if (g.getHomeTeam() == replaced) {
+				System.out.println("CASE 1");
+				g.setHomeScore(0);
+				g.setAwayScore(0);
+				g.setAwayTeam(0);
+				g.setAwaySeed(0);
+				g.setWinner(0);
+				g.setFinished(false);
+				
+			} else if (g.getAwayTeam() == replaced) {
+				System.out.println("CASE 2");
+				g.setHomeScore(0);
+				g.setAwayScore(0);
+				g.setAwayTeam(0);
+				g.setAwaySeed(0);
+				g.setWinner(0);
+				g.setFinished(false);
+			} else {
+				System.out.println("CASE 3");
+				return;
+			}
+		
+			gr.save(g);
+			System.out.println("SAVED");
+			
+			if (g.getParentId() == null) {
+				return;
+			}
+			
+			System.out.println("PARENT ID NOT NULL: " + g.getParentId());
+		
+			res = gr.findById(g.getParentId());
+			if (res.isEmpty()) {
+				return;
+			}
+			g = res.get();
+			
+			System.out.println("SETTING TO GAME : " + g.getId());
+		}
+	}
 	
 	public Game createTournament (int eventId, List<Seed> teams) {		
 		Game tournament = createTournamentBracket(eventId, teams);
@@ -138,6 +189,7 @@ public class GameService {
 				Game parent = p.get();
 				parent.setHomeTeam(head.getHomeTeam());
 				parent.setHomeSeed(head.getHomeSeed());
+				head.setFinished(true);
 				
 				gr.save(parent);
 			}

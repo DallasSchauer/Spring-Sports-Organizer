@@ -395,7 +395,8 @@ public class WebController {
 			   model.addAttribute("championship", championship);
 			   model.addAttribute("champion", champion);
 			   
-			   for (int i = 1; i <= standings.size(); i++) {
+			   for (int i = 1; i < standings.size(); i++) {
+				   System.out.println(i);
 				   Team t = ts.findById(tps.findSeedByEventAndTeam(id, i));
 				   Seed newSeed = new Seed();
 				   
@@ -482,6 +483,7 @@ public class WebController {
 		   
 		   int count = 1;
 		   List<Seed> seeds = new ArrayList<Seed>();
+		   seeds.add(new Seed(0, "BYE", 0));
 		   for (Standing st : standings) {
 			   Seed newSeed = new Seed();
 			   newSeed.setId(st.getId());
@@ -641,6 +643,7 @@ public class WebController {
 						   || parent.getAwayTeam() == g.getWinner()) {
 				   } else if (parent.getHomeTeam() == loserTeam
 						   && parent.getAwayTeam() == 0) {
+					   gs.eraseParents(parent.getId(), loserTeam);
 					   parent.setHomeTeam(g.getWinner());
 					   parent.setHomeSeed(winnerSeed);
 				   } else if (parent.getAwayTeam() == 0 
@@ -656,6 +659,7 @@ public class WebController {
 				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
 						   && (parent.getAwaySeed() < winnerSeed)
 						   && (parent.getHomeTeam() == loserTeam)) {
+					   gs.eraseParents(parent.getId(), loserTeam);
 					   parent.setHomeTeam(parent.getAwayTeam());
 					   parent.setHomeSeed(parent.getAwaySeed());
 					   parent.setAwayTeam(g.getWinner());
@@ -663,16 +667,19 @@ public class WebController {
 				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
 						   && (parent.getAwaySeed() > winnerSeed)
 						   && (parent.getHomeTeam() == loserTeam)) {
+					   gs.eraseParents(parent.getId(), loserTeam);
 					   parent.setHomeTeam(g.getWinner());
 					   parent.setHomeSeed(winnerSeed);
 				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
 						   && (parent.getHomeSeed() < winnerSeed)
 						   && (parent.getAwayTeam() == loserTeam)) {
+					   gs.eraseParents(parent.getId(), loserTeam);
 					   parent.setAwayTeam(g.getWinner());
 					   parent.setAwaySeed(winnerSeed);
 				   } else if ((parent.getHomeTeam() != 0 && parent.getAwayTeam() != 0)
 						   && (parent.getHomeSeed() > winnerSeed)
 						   && (parent.getAwayTeam() == loserTeam)) {
+					   gs.eraseParents(parent.getId(), loserTeam);
 					   parent.setAwayTeam(parent.getHomeTeam());
 					   parent.setAwaySeed(parent.getHomeSeed());
 					   parent.setHomeTeam(g.getWinner());
