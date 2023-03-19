@@ -489,6 +489,8 @@ public class WebController {
 			   count++;
 			   seeds.add(newSeed);
 		   }
+		   
+		   model.addAttribute("fromLeague", true);
 			   
 		   Game championship = gs.createTournament(tournament.getId(), seeds);
 		   
@@ -510,7 +512,10 @@ public class WebController {
 		   List<Tuple> teams = gs.getTeamsWithWins(id);
 		   teams.addAll(gs.getTeamsWithNoWins(id));
 		   
-		   // Collections.shuffle(teams);
+		   if (model.getAttribute("fromLeague") == null) {
+			   Collections.shuffle(teams);
+		   }
+		   
 		   
 		   int count = 1;
 		   List<Seed> seeds = new ArrayList<Seed>();

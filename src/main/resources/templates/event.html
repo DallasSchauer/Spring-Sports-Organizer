@@ -58,16 +58,23 @@
 		.tourney > div {
 			margin: 10px;
 			padding: 20px;
-			width: auto;
 			justify-content: center;
 		}
 		
 		.tourney > div > table {
-			width: auto;
 			align-items:center;
 			padding: 50px;
 			margin: 50px;
+			width: 100%;
+			background-color:lightblue;
 		}
+		
+		.tourney > div > table:hover {
+			background-color:darkgrey;
+			cursor:pointer;
+		}
+		
+		
 	</style>
 	
 	<div th:replace="header :: myheader"></div>
@@ -159,11 +166,19 @@
 		</span>
 	</span>
 	
-	<!--- TO DO HERE !-->
+	<span th:if="${event.type} == 1">
+		<span th:if="${numGames} > 0">
+			<span th:if="${champion.id} != 0">
+				<h1 style="border: 2px solid black; background-color:palegoldenrod;"
+				th:text="'👑 CHAMPION : ' + ${champion.name} + '👑'"/>
+			</span>
+		</span>
+	</span>
 
 	<span th:if="${event.type} == 1" class="tourney">
-		<div th:each="round:${rounds}">
-			<table th:each="game:${round}"
+		<div th:each="round, iRound:${rounds}" border="1">
+			<h2 th:text="'Round ' + ${iRound.index + 1}"/>
+			<table th:each="game:${round}" border="0"
 				th:onClick="'javascript:gameClicked(\'' + ${game.id} + '\');'">
 				<tr>
 					<span th:if="${game.awaySeed} != 0">
@@ -195,13 +210,7 @@
 		</span>
 	</span>
 	
-	<span th:if="${event.type} == 1">
-		<span th:if="${numGames} > 0">
-			<span th:if="${champion.id} != 0">
-				<h1 th:text="'👑 CHAMPION : ' + ${champion.name} + '👑'"/>
-			</span>
-		</span>
-	</span>
+	
 	
 	<span th:if="${event.type} == 1">
 		<span th:if="${numGames} == 0">

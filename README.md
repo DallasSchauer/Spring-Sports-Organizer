@@ -24,7 +24,7 @@ but the one I recommend is Spring Tool Suite.
 
 ### TO DO
 
-- HTML Tourney page (just CSS fixes)
+- Test league -> tournament conversion
 - Parent erasure algorithm
 - Make more games, some finished, some not.
 - Make more events, teams, and managers
