@@ -99,9 +99,7 @@ public class GameService {
 		Game g = res.get();
 		
 		while (g != null) {
-			System.out.println("WE ARE ON GAME : " + g.getId());
 			if (g.getHomeTeam() == replaced) {
-				System.out.println("CASE 1");
 				g.setHomeScore(0);
 				g.setAwayScore(0);
 				g.setAwayTeam(0);
@@ -110,7 +108,6 @@ public class GameService {
 				g.setFinished(false);
 				
 			} else if (g.getAwayTeam() == replaced) {
-				System.out.println("CASE 2");
 				g.setHomeScore(0);
 				g.setAwayScore(0);
 				g.setAwayTeam(0);
@@ -118,18 +115,15 @@ public class GameService {
 				g.setWinner(0);
 				g.setFinished(false);
 			} else {
-				System.out.println("CASE 3");
 				return;
 			}
 		
 			gr.save(g);
-			System.out.println("SAVED");
 			
 			if (g.getParentId() == null) {
 				return;
 			}
 			
-			System.out.println("PARENT ID NOT NULL: " + g.getParentId());
 		
 			res = gr.findById(g.getParentId());
 			if (res.isEmpty()) {
@@ -137,7 +131,6 @@ public class GameService {
 			}
 			g = res.get();
 			
-			System.out.println("SETTING TO GAME : " + g.getId());
 		}
 	}
 	

@@ -375,12 +375,6 @@ public class WebController {
 			   standings.add(s);
 		   }
 		   
-		   if (standings.size() <= 2) {
-			   standings.add(0, new Standing());
-		   }
-		   
-		   System.out.println("STANDINGS SIZE " + standings.size());
-		   
 		   int count = 1;
 		   List<Seed> seeds = new ArrayList<Seed>();
 		   seeds.add(new Seed(0, "BYE", 0));
@@ -401,11 +395,14 @@ public class WebController {
 			   model.addAttribute("championship", championship);
 			   model.addAttribute("champion", champion);
 			   
-			   for (int i = 1; i < standings.size(); i++) {
+			   int countTo = standings.size();
+			   if (standings.size() <= 2) {
+				   countTo++;
+			   }
+			   
+			   for (int i = 1; i < countTo; i++) {
 				   Team t = ts.findById(tps.findSeedByEventAndTeam(id, i));
 				   Seed newSeed = new Seed();
-				   
-				   System.out.println("SEED COUNT " + i);
 				   
 				   newSeed.setId(t.getId());
 				   newSeed.setName(t.getName());
@@ -503,8 +500,6 @@ public class WebController {
 			   newSeed.setSeed(count);
 			   count++;
 			   seeds.add(newSeed);
-			   System.out.println("NEW SEED " + newSeed.getId() + " " + 
-					   newSeed.getName() + " " + newSeed.getSeed());
 			   TeamParticipates tp = new TeamParticipates();
 			   tp.setEventId(tournament.getId());
 			   tp.setTeamId(st.getId());

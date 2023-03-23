@@ -20,8 +20,3 @@ but the one I recommend is Spring Tool Suite.
 3. In Spring Tool Suite (or whichever IDE you choose), select File -> Open Projects from File System
 4. Run the project as a Spring Boot App.
 5. Open a web browser and navigate to localhost:8080
-
-
-### TO DO
-
-- Test league -> tournament conversion
