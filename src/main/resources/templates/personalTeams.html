@@ -11,6 +11,26 @@
         	location.href = "/teams/" + value;
     	}
 	</script>
+	
+	<style>
+	.button {
+	  background-color: #4CAF50;
+	  font-family:Georgia, 'Times New Roman', Times, serif;
+	  border:aliceblue;
+	  color: white;
+	  padding: 5px 5px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 36px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	}
+	
+	.button:hover{
+		color:black;
+	}
+	</style>
 
 	<div th:replace="header :: myheader"></div>
 	<div th:replace="navbar :: mynavbar"></div>
@@ -70,6 +90,12 @@
 			<td th:text="${team.maxAge}">Maximum Age</td>
 		</tr>
 	</table>
+	
+	<br><br><br>
+	
+	<a class="button" style="position:relative;"
+		th:href="@{/createTeam}">Create a Team</a>
+	
 	<div th:replace="footer :: myfooter"></div>
 </body>
 </html>

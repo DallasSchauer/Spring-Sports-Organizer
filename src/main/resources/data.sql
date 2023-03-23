@@ -31,7 +31,7 @@ insert into player (username, password, name, dob, favorite_sport) values
 insert into player (username, password, name, dob) values 
  ('Froggery', 'User1!', 'Zack', '2000-05-19');
 
-insert into team (id, manager_id, name) values (0, 1, 'BYE');
+insert into team (id, manager_id, name) values (0, 0, 'BYE');
 insert into team (manager_id, name, sport) values (2, 'Freddies Freakers', 0);
 insert into team (manager_id, name, sport) values (12, 'Hip Cats', 0);
 insert into team (manager_id, name, sport) values (3, 'El Philippinos', 0);
@@ -226,11 +226,44 @@ away_score, home_score, finished, winner_id) values
 (7, '2022-06-09', 30, 31, 21, 14, TRUE, 30);
 insert into game (event_id, game_time, away_team_id, home_team_id, 
 away_score, home_score, finished, winner_id) values 
-(7, '2022-06-23', 31, 30, 16, 21, TRUE, 30);
+(7, '2022-06-23', 31, 30, 21, 20, TRUE, 30);
 insert into game (event_id, game_time, away_team_id, home_team_id, 
 away_score, home_score, finished, winner_id) values 
 (7, '2022-07-07', 30, 31, 20, 21, TRUE, 31);
 insert into game (event_id, game_time, away_team_id, home_team_id, 
 away_score, home_score, finished, winner_id) values 
 (7, '2022-07-21', 31, 30, 21, 10, TRUE, 31);
+
+insert into player (username, password, name, dob) values 
+ ('Commish', 'User1!', 'Roger Goodell', '1962-07-21');
+
+insert into team (manager_id, name, sport) values (18, 'North', 3);
+insert into team (manager_id, name, sport) values (18, 'East', 3);
+insert into team (manager_id, name, sport) values (18, 'West', 3);
+insert into team (manager_id, name, sport) values (18, 'South', 3);
+
+insert into event (name, commissioner, max_teams, sport, event_type, avg_hours) values 
+('2023 Football League', 4, 4, 3, 0, 1);
+
+insert into team_participates (event_id, team_id) values (8, 32);
+insert into team_participates (event_id, team_id) values (8, 33);
+insert into team_participates (event_id, team_id) values (8, 34);
+insert into team_participates (event_id, team_id) values (8, 35);
+
+insert into player_participates (team_id, player_id) values (32, 4);
+
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (8, '2023-08-04 18:00:00', 32, 34); 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (8, '2023-08-20 18:00:00', 33, 35);
+  
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (8, '2023-06-19 18:00:00', 34, 33); 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (8, '2023-06-22 18:00:00', 35, 32);
+ 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (8, '2023-07-10 18:00:00', 35, 34); 
+insert into game (event_id, game_time, away_team_id, home_team_id)
+values (8, '2023-07-20 18:00:00', 32, 33);
 

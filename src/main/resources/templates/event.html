@@ -36,7 +36,7 @@
 		}
 		
 		function generateTournamentClicked(value) {
-			location.href = "/generateTournamentFromLeague/" + value;
+			location.href = "/events/" + value + "/generateTournament";
 		}
 	</script>
 	
@@ -204,7 +204,7 @@
 			<span th:if="${numGames} > 0">
 				<span th:if="${unfinished} == 0">
 					<button class="signup-button"
-					th:onClick="'javascript:generateTournament(\'' + ${event.id} + '\');'">
+					th:onClick="'javascript:generateTournamentClicked(\'' + ${event.id} + '\');'">
 					Create Season Tournament</button>
 				</span>
 			</span>

@@ -168,11 +168,13 @@ public class GameService {
 		
 		populateTournamentStructure(c, 1, i, teams);
 		
-		championship.setHomeTeam(0);
-		championship.setHomeSeed(0);
-		championship.setAwayTeam(0);
-		championship.setAwaySeed(0);
-		
+		if (teams.size() > 2) {
+			championship.setHomeTeam(0);
+			championship.setHomeSeed(0);
+			championship.setAwayTeam(0);
+			championship.setAwaySeed(0);
+		}
+			
 		gr.save(c);
 		
 		return championship;

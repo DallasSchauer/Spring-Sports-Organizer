@@ -24,8 +24,4 @@ but the one I recommend is Spring Tool Suite.
 
 ### TO DO
 
-- Create team button 
-- Add create team button to personal teams page and add tema to event page
 - Test league -> tournament conversion
-- Make more games, some finished, some not.
-- Make more events, teams, and managers
