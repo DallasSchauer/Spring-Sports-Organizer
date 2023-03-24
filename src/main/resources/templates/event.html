@@ -105,6 +105,7 @@
 						<th>Wins</th>
 					</tr>
 					<tr th:each="team:${teams}"
+					th:if="${team.id} != 0"
 					 style="cursor: pointer; background-color:lightcoral;"
 					 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
 						<td th:text="${team.id}">Id</td>
@@ -122,6 +123,7 @@
 						<th>Wins</th>
 					</tr>
 					<tr th:each="team:${teams}"
+					th:if="${team.id} != 0"
 					 style="cursor: pointer; background-color:lightcoral;"
 					 th:onClick="'javascript:teamClicked(\'' + ${team.id} + '\');'">
 						<td th:text="${team.id}">Id</td>
