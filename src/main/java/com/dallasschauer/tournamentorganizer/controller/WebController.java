@@ -396,7 +396,7 @@ public class WebController {
 			   model.addAttribute("champion", champion);
 			   
 			   int countTo = standings.size();
-			   if (standings.size() <= 2) {
+			   if (standings.size() % 2 == 0) {
 				   countTo++;
 			   }
 			   

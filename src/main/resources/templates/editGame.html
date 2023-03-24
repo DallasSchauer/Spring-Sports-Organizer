@@ -22,10 +22,12 @@
 	
 	<br>
 	
+	<input type="datetime-local" label="Set gametime"/>
+	
+	<br>
 	<input type="hidden" th:field="*{id}" th:value="${game.id}"/>
 	<input type="hidden" th:field="*{eventId}" th:value="${game.eventId}"/>
 	<input type="hidden" th:field="*{parent}" th:value="${game.parent}"/>
-	<!-- <input type="hidden" th:field="*{gameTime}" th:value="${game.gameTime}"/> -->
 	<input type="hidden" th:field="*{awayTeam}" th:value="${game.awayTeam}"/>
 	<input type="hidden" th:field="*{homeTeam}" th:value="${game.homeTeam}"/>
 	<input type="hidden" th:field="*{finished}" th:value="${game.finished}"/>
